@@ -1,16 +1,23 @@
 package dao;
 
-public abstract class Dao {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
-    public abstract class DAO {
-        protected final String login;
-        protected final String password;
-        protected final String database;
-        protected Connection connection;
-        PreparedStatement statement;
+public abstract class Dao {
+    protected final String login;
+    protected final String password;
+    protected final String database;
+    protected Connection connection;
+    PreparedStatement statement;
+
+    protected Dao(String login, String password, String database) {
+        this.login = login;
+        this.password = password;
+        this.database = database;
     }
 
-    private void connect() {
+    public void connect() {
         try {
             Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-75-246-118.eu-west-1.compute.amazonaws.com/" +
