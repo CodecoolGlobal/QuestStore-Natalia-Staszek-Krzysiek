@@ -1,4 +1,12 @@
 package dao;
 
-public interface Dao {
+public abstract class Dao {
+
+    public abstract class DAO {
+        protected final String login;
+        protected final String password;
+        protected final String database;
+        protected Connection connection;
+        PreparedStatement statement;
+    }
 }
