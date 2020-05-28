@@ -1,4 +1,4 @@
-package view;
+package menu;
 
 import controller.MentorController;
 import dao.MentorDao;
@@ -36,14 +36,16 @@ public class MentorMenu {
                 case "7":
                     mentorController.editArtifact();
                     break;
-                    mentorController.addArtifactToCategory();
                 case "8":
-                    mentorController.markArtifact();
+                    mentorController.addArtifactToCategory();
                     break;
                 case "9":
-                    mentorController.showCodecollerWallet();
+                    mentorController.markArtifact();
                     break;
                 case "10":
+                    mentorController.showCodecollerWallet();
+                    break;
+                case "11":
                     isRunning = false;
                     break;
                 default:

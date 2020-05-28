@@ -1,12 +1,11 @@
-package view;
+package menu;
 
+import controller.CreepController;
 
-import controller.CodecoolerController;
+public class CreepMenu {
+    private CreepController creepController;
 
-public class CodecoolerMenu {
-    private CodecoolerController codecoolerController;
-
-    public void MenuMentor() throws Exception {
+    public void Menu() throws Exception {
         boolean isRunning = true;
         while (isRunning) {
             view.clearScreen();
@@ -15,18 +14,24 @@ public class CodecoolerMenu {
             String input = scanner.nextLine();
             switch (input) {
                 case "1":
-                    codecoolerController.showWallet();
+                    creepController.showAllMentors();
                     break;
                 case "2":
-                    codecoolerController.buyArtifact();
+                    creepController.createTeam();
                     break;
                 case "3":
-                    codecoolerController.buyArtifactAsTeam();
+                    creepController.editMentor();
                     break;
                 case "4":
-                    codecoolerController.showLevelOfExperience();
+                    creepController.createMentor();
                     break;
                 case "5":
+                    creepController.showMentor();
+                    break;
+                case "6":
+                    creepController.createLevelOfExperience();
+                    break;
+                case "7":
                     isRunning = false;
                     break;
                 default:
