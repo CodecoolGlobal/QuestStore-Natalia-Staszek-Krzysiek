@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MentorDao extends Dao implements UserDao{
+public class MentorDao extends Dao implements UserDao {
     ArrayList<User> mentors = new ArrayList<>();
 
     public MentorDao(String login, String password, String database) {
