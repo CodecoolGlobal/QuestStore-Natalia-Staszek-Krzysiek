@@ -1,9 +1,6 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public abstract class Dao {
     protected final String login;
@@ -46,6 +43,16 @@ public abstract class Dao {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+    }
+
+    public ResultSet resultSet(String query) throws SQLException {
+        connect();
+        Statement statement = connection.createStatement();
+        return statement.executeQuery(query);
+    }
+
+    public String queryBuilder(String table, String column, int id) {
+        return "select * from" + table + " where " + column + " like '%" + id + "%';";
     }
 
 }
