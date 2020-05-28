@@ -1,4 +1,5 @@
-package view;
+package menu;
 
 public class Menu {
+    
 }
