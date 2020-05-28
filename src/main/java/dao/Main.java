@@ -1,8 +1,6 @@
 package dao;
 
-import model.Codecooler;
 import model.Creep;
-import model.Mentor;
 
 import java.sql.SQLException;
 
@@ -21,16 +19,6 @@ public class Main {
 //        dao.disconnect();
 
         Creep creeper = new Creep("Jarek", "jarek3","jarek@onet.pl", "135456","335/882/852", 2 );
-
-
-
-<<<<<<< HEAD
-        dao.connect();
-        dao.userExtractor(dao.resultSet(dao.queryBuilder("users")));
-        dao.disconnect();
-=======
-        creepDao.injector(creeper);
->>>>>>> d280d076577dbd96326d13cbb450827ee2c2c4b3
 
     }
 
