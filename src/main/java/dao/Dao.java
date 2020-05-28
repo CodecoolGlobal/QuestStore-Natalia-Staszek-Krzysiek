@@ -55,4 +55,8 @@ public abstract class Dao {
         return "select * from" + table + " where " + column + " like '%" + id + "%';";
     }
 
+    public String queryBuilder(String table) {
+        return "select * from public." + table + ";";
+    }
+
 }

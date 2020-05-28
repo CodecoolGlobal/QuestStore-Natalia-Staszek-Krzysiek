@@ -12,17 +12,17 @@ public class UserDao extends Dao{
         super(login, password, database);
     }
 
-    public ArrayList<Creep> creepExtractor(ResultSet resultSet) throws SQLException {
+    public ArrayList<Creep> userExtractor(ResultSet resultSet) throws SQLException {
         ArrayList<Creep> creeps = new ArrayList<>();
         while (resultSet.next()) {
             Creep creep = new Creep();
             creep.setId(resultSet.getInt("id"));
-            creep.setName(resultSet.getString("first_name"));
-            creep.setLogin(resultSet.getString("last_name"));
+            creep.setName(resultSet.getString("name"));
+            creep.setLogin(resultSet.getString("login"));
             creep.setEmail(resultSet.getString("email"));
             creep.setPassword(resultSet.getString("password"));
             creep.setPhoneNumber(resultSet.getString("phone_number"));
-            creep.setRole(resultSet.getString("role"));
+            creep.setRole(resultSet.getString("id_role"));
             creeps.add(creep);
         }
         disconnect();
