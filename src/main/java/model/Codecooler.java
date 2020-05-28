@@ -3,12 +3,6 @@ package model;
 import java.util.List;
 
 public class Codecooler extends User{
-
-
-    public Codecooler(int id, String name, String login, String email, String password, String phoneNumber, String role) {
-        super();
-    }
-
     private int experience;
     private int level;
     private int wallet;
@@ -16,6 +10,23 @@ public class Codecooler extends User{
     private List<Item> boughtItems;
     private List<Quest> completedQuests;
     private Team team;
+
+    public Codecooler(String name, String login, String email, String password, String phoneNumber,
+                      int role, int experience, int level, int wallet, String teamName,
+                      List<Item> boughtItems, List<Quest> completedQuests, Team team) {
+        super(name, login, email, password, phoneNumber, role);
+        this.experience = experience;
+        this.level = level;
+        this.wallet = wallet;
+        this.teamName = teamName;
+        this.boughtItems = boughtItems;
+        this.completedQuests = completedQuests;
+        this.team = team;
+    }
+
+    public Codecooler() {
+
+    }
 
     public int getExperience() {
         return experience;

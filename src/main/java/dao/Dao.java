@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.*;
 
+
 public abstract class Dao {
     protected final String login;
     protected final String password;
@@ -53,6 +54,10 @@ public abstract class Dao {
 
     public String queryBuilder(String table, String column, int id) {
         return "select * from" + table + " where " + column + " like '%" + id + "%';";
+    }
+
+    public String queryBuilder(String table) {
+        return "select * from public." + table + ";";
     }
 
 }
