@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-public abstract class User {
+public class User {
 
     private int id;
     private String name;
@@ -10,9 +10,19 @@ public abstract class User {
     private String email;
     private String password;
     private String phoneNumber;
-    private String role;
+    private int role;
+
+    public User(String name, String login, String email, String password, String phoneNumber, int role) {
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+    }
 
     public User() {
+
     }
 
     @Override
@@ -52,7 +62,7 @@ public abstract class User {
         return phoneNumber;
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
@@ -80,7 +90,7 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 

@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.*;
 
+
 public abstract class Dao {
     protected final String login;
     protected final String password;
