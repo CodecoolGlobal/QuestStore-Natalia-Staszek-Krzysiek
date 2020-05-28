@@ -1,15 +1,15 @@
 package controller;
 
+import dao.MentorDao;
+
 public class CreepController {
+    private MentorDao mentorDao;
 
 
 
-    public CreepController() {
-
-    }
 
     public void showAllMentors(){
-
+        mentorDao.getAll();
     }
 
     public void createTeam(){
