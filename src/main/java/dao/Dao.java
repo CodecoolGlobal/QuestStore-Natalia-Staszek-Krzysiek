@@ -62,8 +62,8 @@ public class Dao {
     public boolean isUserDataCorrect(String login, String password) {
         connect();
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT LOGIN, PASSWORD FROM LOGIN" +
-                    " WHERE LOGIN = '%s' AND PASSWORD = '%s';", login, password));
+            ResultSet rs = statement.executeQuery(String.format("SELECT LOGIN, PASSWORD FROM USERS" +
+                    " WHERE LOGIN='%s' AND PASSWORD='%s';", login, password));
             if (!rs.isClosed()) {
                 final boolean isCorrect = rs.getString("LOGIN").equals(login) && rs.getString("PASSWORD").equals(password);
                 disconnect();
@@ -98,12 +98,14 @@ public class Dao {
         }
         return null;
     }
+
     public int getIdByLogin(String login) {//TODO change to private when tested.
         connect();
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT USER_ID FROM LOGIN WHERE login = '%s'", login));
+            ResultSet rs = statement.executeQuery(String.format("SELECT ID FROM USERS WHERE LOGIN='%s'", login));
+
             if(!rs.isClosed()) {
-                int user_id = rs.getInt("USER_ID");
+                int user_id = rs.getInt("ID");
                 rs.close();
                 disconnect();
                 return user_id;

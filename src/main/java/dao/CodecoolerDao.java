@@ -1,7 +1,6 @@
 package dao;
 
 import model.Codecooler;
-import model.Creep;
 import model.User;
 
 import java.sql.ResultSet;
@@ -10,9 +9,13 @@ import java.util.ArrayList;
 
 public class CodecoolerDao extends Dao implements UserDao{
     ArrayList<User> codecoolers = new ArrayList<>();
+    private final ItemDao itemDao;
+    private final QuestDao questDao;
 
-    public CodecoolerDao(String login, String password, String database) {
+    public CodecoolerDao(String login, String password, String database, ItemDao itemDao, QuestDao questDao) {
         super(login, password, database);
+        this.itemDao = itemDao;
+        this.questDao = questDao;
     }
 
     public ArrayList<User> extractor(ResultSet resultSet) throws SQLException {
@@ -28,7 +31,9 @@ public class CodecoolerDao extends Dao implements UserDao{
             codecooler.setExperience(resultSet.getInt("experience"));
             codecooler.setLevel(resultSet.getInt("level"));
             codecooler.setWallet(resultSet.getInt("wallet"));
-//            codecooler.setBoughtItems();
+            codecooler.setBoughtItems(itemDao.);
+            codecooler.setCompletedQuests();
+//            codecooler.setTeam();
             codecoolers.add(codecooler);
         }
         disconnect();
