@@ -20,7 +20,7 @@ public class Main {
 //        codecoolerDao.extractor(codecoolerDao.resultSet(codecoolerDao.queryBuilder("users")));
 //        dao.disconnect();
 
-        Creep creeper = new Creep("Jarek", "jarek3","jarek@onet.pl", "135456","335/882/852", 2 );
+        Creep creeper = new Creep("Jozef", "jarek3","czarek@onet.pl", "135456","335/882/852", 2 );
 
 
 

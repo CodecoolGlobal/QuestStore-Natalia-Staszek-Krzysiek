@@ -25,6 +25,10 @@ public class CodecoolerDao extends Dao implements UserDao{
             codecooler.setPassword(resultSet.getString("password"));
             codecooler.setPhoneNumber(resultSet.getString("phone_number"));
             codecooler.setRole(resultSet.getInt("id_role"));
+            codecooler.setExperience(resultSet.getInt("experience"));
+            codecooler.setLevel(resultSet.getInt("level"));
+            codecooler.setWallet(resultSet.getInt("wallet"));
+//            codecooler.setBoughtItems();
             codecoolers.add(codecooler);
         }
         disconnect();

@@ -2,8 +2,7 @@ package dao;
 
 import java.sql.*;
 
-
-public abstract class Dao {
+public class Dao {
     protected final String login;
     protected final String password;
     protected final String database;
@@ -60,4 +59,61 @@ public abstract class Dao {
         return "select * from public." + table + ";";
     }
 
+    public boolean isUserDataCorrect(String login, String password) {
+        connect();
+        try {
+            ResultSet rs = statement.executeQuery(String.format("SELECT LOGIN, PASSWORD FROM LOGIN" +
+                    " WHERE LOGIN = '%s' AND PASSWORD = '%s';", login, password));
+            if (!rs.isClosed()) {
+                final boolean isCorrect = rs.getString("LOGIN").equals(login) && rs.getString("PASSWORD").equals(password);
+                disconnect();
+                return isCorrect;
+            }
+            disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            disconnect();
+        }
+        return false;
+    }
+
+    public String getUserType(String login) {
+        int Id = getIdByLogin(login);
+        connect();
+        try {
+            ResultSet rs = statement.executeQuery(String.format("SELECT USER.USER_ID,USER_TYPES.TYPE FROM USER" +
+                    " INNER JOIN USER_TYPES ON  USER_TYPES.TYPE_ID = USER.TYPE_ID " +
+                    "WHERE USER.USER_ID = %d;", Id));
+            if (!rs.isClosed()) {
+                String type = rs.getString("TYPE");
+                disconnect();
+                return type;
+            }
+            disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            disconnect();
+        }
+        return null;
+    }
+    public int getIdByLogin(String login) {//TODO change to private when tested.
+        connect();
+        try {
+            ResultSet rs = statement.executeQuery(String.format("SELECT USER_ID FROM LOGIN WHERE login = '%s'", login));
+            if(!rs.isClosed()) {
+                int user_id = rs.getInt("USER_ID");
+                rs.close();
+                disconnect();
+                return user_id;
+            }
+            disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            disconnect();
+        }
+        return 0;
+    }
 }
