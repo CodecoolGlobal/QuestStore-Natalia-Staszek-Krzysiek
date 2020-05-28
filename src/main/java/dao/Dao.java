@@ -62,9 +62,11 @@ public class Dao {
     public boolean isUserDataCorrect(String login, String password) {
         connect();
         try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT LOGIN, PASSWORD FROM USERS" +
-                    " WHERE LOGIN='%s' AND PASSWORD='%s';", login, password));
-            if (!rs.isClosed()) {
+            statement = connection.prepareStatement("SELECT LOGIN, PASSWORD FROM USERS WHERE LOGIN=? AND PASSWORD=?;");
+            statement.setString(1, login);
+            statement.setString(2, password);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
                 final boolean isCorrect = rs.getString("LOGIN").equals(login) && rs.getString("PASSWORD").equals(password);
                 disconnect();
                 return isCorrect;
