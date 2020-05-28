@@ -3,6 +3,8 @@ package menu;
 import controller.MentorController;
 import dao.MentorDao;
 
+import java.util.Scanner;
+
 public class MentorMenu {
     private MentorController mentorController;
 

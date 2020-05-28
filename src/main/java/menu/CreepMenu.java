@@ -2,6 +2,8 @@ package menu;
 
 import controller.CreepController;
 
+import java.util.Scanner;
+
 public class CreepMenu {
     private CreepController creepController;
 

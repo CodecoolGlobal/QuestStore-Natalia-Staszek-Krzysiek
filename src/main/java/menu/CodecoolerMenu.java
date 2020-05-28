@@ -3,6 +3,8 @@ package menu;
 
 import controller.CodecoolerController;
 
+import java.util.Scanner;
+
 public class CodecoolerMenu {
     private CodecoolerController codecoolerController;
 
