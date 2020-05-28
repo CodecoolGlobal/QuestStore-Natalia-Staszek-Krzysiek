@@ -31,8 +31,8 @@ public class CodecoolerDao extends Dao implements UserDao{
             codecooler.setExperience(resultSet.getInt("experience"));
             codecooler.setLevel(resultSet.getInt("level"));
             codecooler.setWallet(resultSet.getInt("wallet"));
-            codecooler.setBoughtItems(itemDao.);
-            codecooler.setCompletedQuests();
+//            codecooler.setBoughtItems(itemDao.);
+//            codecooler.setCompletedQuests();
 //            codecooler.setTeam();
             codecoolers.add(codecooler);
         }
