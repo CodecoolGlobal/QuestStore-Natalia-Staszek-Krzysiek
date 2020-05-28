@@ -5,10 +5,13 @@ import java.util.Objects;
 public class Item {
 
     private String name;
-    private Integer price;
+    private int price;
     private String description;
     private String category;
     private int id;
+
+    public Item() {
+    }
 
     public Item(String name, Integer price, String description, String category) {
         this.name = name;
@@ -33,7 +36,7 @@ public class Item {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Integer getPrice(int anInt) {
         return price;
     }
 

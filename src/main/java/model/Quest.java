@@ -10,6 +10,9 @@ public class Quest {
     private String description;
     private String category;
 
+    public Quest() {
+    }
+
     public Quest(String name, int points, String description, String category) {
         this.name = name;
         this.points = points;
