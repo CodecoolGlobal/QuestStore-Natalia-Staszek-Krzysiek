@@ -11,8 +11,8 @@ public class Codecooler extends User{
     private List<Quest> completedQuests;
     private Team team;
 
-    public Codecooler(String name, String login, String email, String password, String phoneNumber,
-                      int role, int experience, int level, int wallet, String teamName,
+    public Codecooler(String name, String login, String email, String password, String phoneNumber, int role,
+                      int experience, int level, int wallet, String teamName,
                       List<Item> boughtItems, List<Quest> completedQuests, Team team) {
         super(name, login, email, password, phoneNumber, role);
         this.experience = experience;
