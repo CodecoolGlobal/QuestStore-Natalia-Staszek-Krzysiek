@@ -2,7 +2,6 @@ package dao;
 
 import model.Codecooler;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,10 +9,6 @@ import java.util.List;
 
 public class StudentDao extends Dao implements JdbcDao<Codecooler> {
     ItemDao itemDao;
-
-    protected StudentDao(String login, String password, String database) {
-        super(login, password, database);
-    }
 
     @Override
     public Codecooler get(int id) {
@@ -49,7 +44,7 @@ public class StudentDao extends Dao implements JdbcDao<Codecooler> {
         codecooler.setExperience(resultSet.getInt("experience"));
         codecooler.setLevel(resultSet.getInt("level"));
         codecooler.setWallet(resultSet.getInt("wallet"));
-        codecooler.setBoughtItems(itemDao.getAllById(id));
+//        codecooler.setBoughtItems(itemDao.getAllById(id));
         return codecooler;
     }
 

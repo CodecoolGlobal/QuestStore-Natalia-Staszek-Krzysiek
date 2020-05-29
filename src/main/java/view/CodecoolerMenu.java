@@ -9,29 +9,30 @@ public class CodecoolerMenu {
     public void MenuMentor() throws Exception {
         boolean isRunning = true;
         while (isRunning) {
-            view.clearScreen();
-            view.displayMenu();
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
-            switch (input) {
-                case "1":
+//            View.clearScreen();
+            System.out.printf("YOU ARE A CODECOOLER");
+            String[] options = {"See my wallet.", "Buy an artifact.",
+                    "Buy an artifact together with your team.", "See my level of experience","LOGOUT"};
+            View.displayMenu(options);
+            int choice = View.getUserChoice(options.length);
+            switch (choice) {
+                case 1:
                     codecoolerController.showWallet();
                     break;
-                case "2":
+                case 2:
                     codecoolerController.buyArtifact();
                     break;
-                case "3":
+                case 3:
                     codecoolerController.buyArtifactAsTeam();
                     break;
-                case "4":
+                case 4:
                     codecoolerController.showLevelOfExperience();
                     break;
-                case "5":
+                case 5:
                     isRunning = false;
                     break;
                 default:
                     break;
-
             }
         }
     }

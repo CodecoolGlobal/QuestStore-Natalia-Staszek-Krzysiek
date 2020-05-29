@@ -7,6 +7,6 @@ public class Mentor extends User{
     }
 
     public Mentor() {
-
+        super();
     }
 }

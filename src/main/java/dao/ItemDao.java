@@ -11,9 +11,6 @@ public class ItemDao extends Dao{
 
     private ArrayList<Item> items = new ArrayList<>();
 
-    protected ItemDao(String login, String password, String database) {
-        super(login, password, database);
-    }
 
     public List<Item> extractor(ResultSet resultSet) throws SQLException {
 

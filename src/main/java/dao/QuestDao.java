@@ -11,9 +11,6 @@ public class QuestDao extends Dao{
 
     private ArrayList<Quest> quests = new ArrayList<>();
 
-    protected QuestDao(String login, String password, String database) {
-        super(login, password, database);
-    }
 
     public List<Quest> extractor(ResultSet resultSet) throws SQLException {
 

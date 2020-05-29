@@ -8,29 +8,32 @@ public class CreepMenu {
     public void Menu() throws Exception {
         boolean isRunning = true;
         while (isRunning) {
-            view.clearScreen();
-            view.displayMenu();
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
-            switch (input) {
-                case "1":
+//            view.clearScreen();
+            System.out.printf("YOU ARE A CREEP");
+            String[] options = {"Show all Mentors.", "Create a Team.", "Edit a Mentor.",
+                    "Create a Mentor","Show a Mentor","Create a Level Of Experience",
+                    "LOGOUT"};
+            View.displayMenu(options);
+            int choice = View.getUserChoice(options.length);
+            switch (choice) {
+                case 1:
                     creepController.showAllMentors();
                     break;
-                case "2":
+                case 2:
                     creepController.createTeam();
                     break;
-                case "3":
+                case 3:
                     creepController.editMentor();
                     break;
-                case "4":
+                case 4:
                     creepController.createMentor();
                     break;
-                case "5":
+                case 5:
                     creepController.showMentor();
                     break;
-                case "6":
+                case 6:
                     creepController.createLevelOfExperience();
-                case "7":
+                case 7:
                     isRunning = false;
                     break;
                 default:

@@ -2,33 +2,54 @@ package dao;
 
 import model.Mentor;
 import model.User;
+import view.View;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MentorDao extends Dao implements UserDao {
+    Statement st;
     ArrayList<User> mentors = new ArrayList<>();
 
-    public MentorDao(String login, String password, String database) {
-        super(login, password, database);
+    public static void main(String[] args) {
+        MentorDao mentorDao = new MentorDao();
+        View.showPersonList(mentorDao.extractor());
     }
 
-    public ArrayList<User> extractor(ResultSet resultSet) throws SQLException {
-        while (resultSet.next()) {
-            User mentor = new Mentor();
-            mentor.setId(resultSet.getInt("id"));
-            mentor.setName(resultSet.getString("name"));
-            mentor.setLogin(resultSet.getString("login"));
-            mentor.setEmail(resultSet.getString("email"));
-            mentor.setPassword(resultSet.getString("password"));
-            mentor.setPhoneNumber(resultSet.getString("phone_number"));
-            mentor.setRole(resultSet.getInt("id_role"));
-            mentors.add(mentor);
+//    public MentorDao(String login, String password, String database) {
+//        super(login, password, database);
+//    }
+
+    @Override
+    public ArrayList<User> extractor() {
+        try {
+            connect();
+            ResultSet rs = st.executeQuery("SELECT * FROM users WHERE id_role=2");
+            while (rs.next()) {
+                Mentor mentor = new Mentor();
+                mentor.setId(rs.getInt("id"));
+                mentor.setName(rs.getString("name"));
+                mentor.setLogin(rs.getString("login"));
+                mentor.setEmail(rs.getString("email"));
+                mentor.setPassword(rs.getString("password"));
+                mentor.setPhoneNumber(rs.getString("phone_number"));
+                mentor.setRole(rs.getInt("id_role"));
+                mentors.add(mentor);
+            }
+            rs.close();
+            disconnect();
+            return mentors;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            disconnect();
         }
-        disconnect();
-        return mentors;
+        return null;
     }
+
+
 
     @Override
     public void injector(User creep) {

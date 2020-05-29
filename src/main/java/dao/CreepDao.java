@@ -5,30 +5,42 @@ import model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CreepDao extends Dao implements UserDao {
 
-    protected CreepDao(String login, String password, String database) {
-        super(login, password, database);
+    ArrayList<User> creeps = new ArrayList<>();
+    Statement st;
+
+    @Override
+    public ArrayList<User> extractor() {
+
+        try {
+            connect();
+            ResultSet rs = st.executeQuery("select * from users where id_role=1");
+            while (rs.next()) {
+                Creep creep = new Creep();
+                creep.setId(rs.getInt("id"));
+                creep.setName(rs.getString("name"));
+                creep.setLogin(rs.getString("login"));
+                creep.setEmail(rs.getString("email"));
+                creep.setPassword(rs.getString("password"));
+                creep.setPhoneNumber(rs.getString("phone_number"));
+                creep.setRole(rs.getInt("id_role"));
+                creeps.add(creep);
+            }
+            rs.close();
+            disconnect();
+            return creeps;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            disconnect();
+        }
+        return null;
     }
 
-    public ArrayList<User> extractor(ResultSet resultSet) throws SQLException {
-        ArrayList<User> creeps = new ArrayList<>();
-        while (resultSet.next()) {
-            Creep creep = new Creep();
-            creep.setId(resultSet.getInt("id"));
-            creep.setName(resultSet.getString("name"));
-            creep.setLogin(resultSet.getString("login"));
-            creep.setEmail(resultSet.getString("email"));
-            creep.setPassword(resultSet.getString("password"));
-            creep.setPhoneNumber(resultSet.getString("phone_number"));
-            creep.setRole(resultSet.getInt("id_role"));
-            creeps.add(creep);
-        }
-        disconnect();
-        return creeps;
-    }
 
     @Override
     public void injector(User creep) {

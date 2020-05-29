@@ -1,38 +1,38 @@
 package dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class Dao {
+public abstract class Dao {
     protected final String login;
     protected final String password;
     protected final String database;
     protected Connection connection;
-    protected String databaseURL = "jdbc:postgresql://ec2-54-75-246-118.eu-west-1.compute.amazonaws.com/";
+    protected String databaseURL;
     PreparedStatement statement;
 
-    protected Dao(String login, String password, String database) {
-        this.login = login;
-        this.password = password;
-        this.database = database;
+    public Dao(){
+        this.login = "fbznochzdwosyl, ";
+        this.password = "95a8e2f8c07cf64b80500a788f87ec46f1d2eaf6b2b542034f25f4e0311b0e2f";
+        this.database = "d3nuc8s3988iho, ";
+        this.databaseURL = "jdbc:postgresql://ec2-54-75-246-118.eu-west-1.compute.amazonaws.com/";
     }
 
     public void connect() {
         try {
             Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection(databaseURL +
-                            database,
-                    login,
-                    password);
-
+                            database + login + password);
+            this.connection.setAutoCommit(true);
             if (connection != null) {
                 System.out.println("Connected");
             } else {
                 System.out.println("Connection Failed");
             }
-        } catch (
-                Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -43,81 +43,5 @@ public class Dao {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
-    }
-
-    public ResultSet resultSet(String query) throws SQLException {
-        connect();
-        Statement statement = connection.createStatement();
-        return statement.executeQuery(query);
-    }
-
-    public String queryBuilder(String table, String column, int id) {
-        return "select * from" + table + " where " + column + " like '%" + id + "%';";
-    }
-
-    public String queryBuilder(String table) {
-        return "select * from public." + table + ";";
-    }
-
-    public boolean isUserDataCorrect(String login, String password) {
-        connect();
-        try {
-            statement = connection.prepareStatement("SELECT LOGIN, PASSWORD FROM USERS WHERE LOGIN=? AND PASSWORD=?;");
-            statement.setString(1, login);
-            statement.setString(2, password);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                final boolean isCorrect = rs.getString("LOGIN").equals(login) && rs.getString("PASSWORD").equals(password);
-                disconnect();
-                return isCorrect;
-            }
-            disconnect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
-        }
-        return false;
-    }
-
-    public String getUserType(String login) {
-        int Id = getIdByLogin(login);
-        connect();
-        try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT USER.USER_ID,USER_TYPES.TYPE FROM USER" +
-                    " INNER JOIN USER_TYPES ON  USER_TYPES.TYPE_ID = USER.TYPE_ID " +
-                    "WHERE USER.USER_ID = %d;", Id));
-            if (!rs.isClosed()) {
-                String type = rs.getString("TYPE");
-                disconnect();
-                return type;
-            }
-            disconnect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
-        }
-        return null;
-    }
-
-    public int getIdByLogin(String login) {//TODO change to private when tested.
-        connect();
-        try {
-            ResultSet rs = statement.executeQuery(String.format("SELECT ID FROM USERS WHERE LOGIN='%s'", login));
-
-            if(!rs.isClosed()) {
-                int user_id = rs.getInt("ID");
-                rs.close();
-                disconnect();
-                return user_id;
-            }
-            disconnect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            disconnect();
-        }
-        return 0;
     }
 }

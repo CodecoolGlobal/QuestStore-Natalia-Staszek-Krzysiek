@@ -5,40 +5,47 @@ import model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CodecoolerDao extends Dao implements UserDao{
     ArrayList<User> codecoolers = new ArrayList<>();
+    Statement st;
     private final ItemDao itemDao;
     private final QuestDao questDao;
 
     public CodecoolerDao(String login, String password, String database, ItemDao itemDao, QuestDao questDao) {
-        super(login, password, database);
         this.itemDao = itemDao;
         this.questDao = questDao;
     }
 
-    public ArrayList<User> extractor(ResultSet resultSet) throws SQLException {
-        while (resultSet.next()) {
-            Codecooler codecooler = new Codecooler();
-            codecooler.setId(resultSet.getInt("id"));
-            codecooler.setName(resultSet.getString("name"));
-            codecooler.setLogin(resultSet.getString("login"));
-            codecooler.setEmail(resultSet.getString("email"));
-            codecooler.setPassword(resultSet.getString("password"));
-            codecooler.setPhoneNumber(resultSet.getString("phone_number"));
-            codecooler.setRole(resultSet.getInt("id_role"));
-            codecooler.setExperience(resultSet.getInt("experience"));
-            codecooler.setLevel(resultSet.getInt("level"));
-            codecooler.setWallet(resultSet.getInt("wallet"));
-//            codecooler.setBoughtItems(itemDao.);
-//            codecooler.setCompletedQuests();
-//            codecooler.setTeam();
-            codecoolers.add(codecooler);
+    public ArrayList<User> extractor() {
+
+        try {
+            connect();
+            ResultSet rs = st.executeQuery("select * from user where id_role=3");
+            while (rs.next()) {
+                Codecooler codecooler = new Codecooler();
+                codecooler.setId(rs.getInt("id"));
+                codecooler.setName(rs.getString("name"));
+                codecooler.setLogin(rs.getString("login"));
+                codecooler.setEmail(rs.getString("email"));
+                codecooler.setPassword(rs.getString("password"));
+                codecooler.setPhoneNumber(rs.getString("phone_number"));
+                codecooler.setRole(rs.getInt("id_role"));
+                codecoolers.add(codecooler);
+            }
+            rs.close();
+            disconnect();
+            return codecoolers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            disconnect();
         }
-        disconnect();
-        return this.codecoolers;
+        return null;
     }
+
 
     @Override
     public void injector(User creep) {
