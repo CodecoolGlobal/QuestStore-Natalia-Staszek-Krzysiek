@@ -26,4 +26,13 @@ public class RootView {
         System.out.println("WROND INPUT!");
     }
 
+    public String getUserLogin() {
+        System.out.print("Enter login: ");
+        return getStringInput();
+    }
+
+    public String getUserPassword() {
+        System.out.print("Enter password: ");
+        return getStringInput();
+    }
 }
