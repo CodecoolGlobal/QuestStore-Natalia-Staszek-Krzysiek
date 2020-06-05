@@ -35,4 +35,14 @@ public class RootView {
         System.out.print("Enter password: ");
         return getStringInput();
     }
+
+    public void userNotAssignedMessage() {
+        System.out.printf("\nUser has not been assigned yet!");
+        pressAnyKeyToContinueMessage();
+    }
+    public void pressAnyKeyToContinueMessage() {
+        System.out.print("\nPress any key to continue.");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
 }
