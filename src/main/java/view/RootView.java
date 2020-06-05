@@ -40,10 +40,20 @@ public class RootView {
         System.out.printf("\nUser has not been assigned yet!");
         pressAnyKeyToContinueMessage();
     }
+
     public void pressAnyKeyToContinueMessage() {
         System.out.print("\nPress any key to continue.");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
     }
 
+    public String createUserLogin() {
+        System.out.printf("Enter password (6-15 characters: ");
+        return getStringInput();
+    }
+
+    public String createUserPassword() {
+        System.out.print("Enter password (6-15 characters: ");
+        return getStringInput();
+    }
 }

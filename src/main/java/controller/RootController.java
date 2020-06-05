@@ -74,10 +74,35 @@ public class RootController {
         String login;
         String password;
 
-        while(!wasUserCreated) {
+        while (!wasUserCreated) {
             login = createUserLogin();
             password = createUserPassword();
+        }
+    }
+    private String createUserLogin() {
+        String login = null;
+        boolean isCorrectInput = false;
 
+        while (!isCorrectInput) {
+            login = rootView.createUserLogin();
+            if (login.length() >= 6 && login.length() <= 15) {
+                isCorrectInput = true;
+            }
+        }
+        return login;
+    }
+    private String createUserPassword() {
+        String password = null;
+        boolean isCorrectInput = false;
+
+        while (!isCorrectInput) {
+            password = rootView.createUserPassword();
+            if (password.length() >= 6 && password.length() < -15) {
+                isCorrectInput = true;
+            }
+        }
+        return password;
+    }
 }
 
 
