@@ -1,64 +1,99 @@
 package view;
 
-import model.User;
+import Utilities.Iterator;
 
+import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
-public class View {
+
+abstract class View {
 
     static Scanner scan = new Scanner(System.in);
 
-    public static String getInput(){
+    String getStringInput() {
         return scan.nextLine();
     }
 
-    public static void printErrorMessage(String message) {
-        System.out.println(message);
+    public void pressAnyKeyToContinue() {
+        System.out.print("\nPress any key to continue: ");
+        scan.nextLine();
     }
 
-    public static void printMessage(String message) {
-        System.out.println(message);
+    public void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
-    public static void displayMenu(String[] options) {
-        for (int i = 0; i < options.length; i++) {
-            System.out.println(String.format("(%d) %s",i+1,options[i]));
+    public <T> void displayEntries(List<T> entries) {
+        showAllEntries(entries);
+        pressAnyKeyToContinue();
+    }
+
+    public <T> void displayEntriesNoInput(List<T> entries) {
+        showAllEntries(entries);
+    }
+
+    private <T> void showAllEntries(List<T> entries) {
+        Iterator<T> iterator = new Iterator<>(entries);
+        System.out.println();
+
+        if (!entries.isEmpty()) {
+            int index = 1;
+
+            while (iterator.hasNext()) {
+                System.out.println(index + ". " + iterator.next())
+                index++;
+            }
+        } else {
+            System.out.println("List is empty!");
         }
     }
 
-    public static int getUserChoice(int optionsLength) {
-        boolean isCorrect;
-        String userChoice = "";
-        do {
-            Scanner scan = new Scanner(System.in);
-            userChoice = scan.nextLine();
-            isCorrect = validateUserChoice(userChoice, optionsLength);
-        }while(!isCorrect);
-        return Integer.parseInt(userChoice);
-    }
-
-    public static boolean validateUserChoice(String userChoice, int optionsLength) {
+    public int askForOption() {
+        int option = 0;
         try {
-            int parsedUserChoice = Integer.parseInt(userChoice);
-            return !(parsedUserChoice > optionsLength  || parsedUserChoice < 1);
-        }catch(Exception e){
-            printErrorMessage("Invalid input!");
-            return false;
+            System.out.print("\nEnter option: ");
+            option = scan.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("You typed the wrong sign!");
         }
+        return option;
     }
 
-    public static void showPersonList(List<User> people) {
-        for (int i  = 0; i < people.size(); i++) {
-            System.out.println((i + 1) + ". " + people.get(i));
-        }
+    public void errorChangingValue() {
+        System.out.println("Error while changing the value!");
+        pressAnyKeyToContinue();
     }
 
-    public static void displayGrades(Map<String,Integer> grades){
-        for (String assigment: grades.keySet()){
-            System.out.println(assigment+": "+grades.get(assigment));
-        }
+    public String askForNewValue() {
+        System.out.print("Enter a new value: ");
+        return getStringInput();
     }
+
+    public void errorWrongSign() {
+        System.out.printf("Invalid input!");
+        pressAnyKeyToContinue();
+    }
+
+    public void valueChanged() {
+        System.out.printf("The value has been changed");
+        pressAnyKeyToContinue();
+    }
+    public void userNotExist() {
+        System.out.printf("User does not exist!");
+        pressAnyKeyToContinue();
+    }
+    public void studentLoginNotExist() {
+        System.out.printf("There is no student with such login!");
+        pressAnyKeyToContinue();
+    }
+    public void operationSuccess(){
+        System.out.printf("Operation success!");
+    }
+    public void operationFailed(){
+        System.out.printf("Operation failed!");
+    }
+
 
 }

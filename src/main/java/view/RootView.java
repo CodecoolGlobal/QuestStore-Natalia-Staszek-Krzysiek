@@ -1,8 +1,6 @@
 package view;
 
-import java.util.Scanner;
-
-public class RootView {
+public class RootView extends View{
 
     public void displayMenu() {
         System.out.println("QUEST STORE" +
@@ -17,12 +15,7 @@ public class RootView {
         return getStringInput();
     }
 
-    private String getStringInput() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-    public void showWrongInputMessage() {
+    public void wrongInputMessage() {
         System.out.println("WROND INPUT!");
     }
 
@@ -36,24 +29,15 @@ public class RootView {
         return getStringInput();
     }
 
-    public void userNotAssignedMessage() {
-        System.out.printf("\nUser has not been assigned yet!");
-        showPressAnyKeyToContinueMessage();
-    }
-
-    public void showPressAnyKeyToContinueMessage() {
-        System.out.print("\nPress any key to continue.");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-    }
-
-    public String createUserLogin() {
-        System.out.printf("Enter password (6-15 characters: ");
+    public String getNewUserLogin() {
+        System.out.print("Enter login (min. 6 - max. 15)");
         return getStringInput();
     }
-
-    public String createUserPassword() {
-        System.out.print("Enter password (6-15 characters: ");
+    public String getNewUserPassword() {
+        System.out.print("Enter password (min. 6 - max. 15");
         return getStringInput();
+    }
+    public  String getNewUserName() {
+        return
     }
 }
