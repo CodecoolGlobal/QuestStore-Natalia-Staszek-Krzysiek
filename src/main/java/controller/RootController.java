@@ -13,4 +13,20 @@ public class RootController {
         this.rootView = new RootView();
     }
 
+    public void start() {
+        boolean exitApp = false;
+
+        while (!exitApp) {
+            rootView.displayMenu();
+            String userInput = rootView.getUserInput();
+            switch (userInput) {
+                case "0":
+                    exitApp = true;
+                    break;
+                default:
+                    rootView.displayWrongInput();
+            }
+        }
+    }
+
 }
