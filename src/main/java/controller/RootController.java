@@ -1,6 +1,10 @@
 package controller;
 
 import dao.Dao;
+import model.Codecooler;
+import model.Creep;
+import model.Mentor;
+import model.User;
 import view.RootView;
 
 public class RootController {
@@ -20,6 +24,11 @@ public class RootController {
             rootView.displayMenu();
             String userInput = rootView.getUserInput();
             switch (userInput) {
+                case "1":
+                    logIn();
+                    break;
+                case "2":
+                    signUp();
                 case "0":
                     exitApp = true;
                     break;
@@ -27,6 +36,58 @@ public class RootController {
                     rootView.displayWrongInput();
             }
         }
+    }
+
+    private void logIn() {
+        boolean isLoggedIn = false;
+        String login;
+        String password;
+        User user;
+
+        while (!isLoggedIn) {
+
+            login = rootView.getUserLogin();
+            password = rootView.getUserPassword();
+            user = Dao.getUserLoginPassword();
+
+            if (user != null) {
+                if (user instanceof User) {
+                    rootView.displayUserNotExist();
+                } else if (user instanceof Codecooler) {
+                    studentController.start();
+                } else if (user instanceof Mentor) {
+                    mentorController.start();
+                } else if (user instanceof Creep) {
+                    creepController.start();
+                }
+            } else {
+                rootView.displayUserNotExist();
+            }
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 }
