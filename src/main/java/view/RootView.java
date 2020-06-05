@@ -22,7 +22,7 @@ public class RootView {
         return scanner.nextLine();
     }
 
-    public void displayWrongInputMessage() {
+    public void showWrongInputMessage() {
         System.out.println("WROND INPUT!");
     }
 
@@ -38,10 +38,10 @@ public class RootView {
 
     public void userNotAssignedMessage() {
         System.out.printf("\nUser has not been assigned yet!");
-        pressAnyKeyToContinueMessage();
+        showPressAnyKeyToContinueMessage();
     }
 
-    public void pressAnyKeyToContinueMessage() {
+    public void showPressAnyKeyToContinueMessage() {
         System.out.print("\nPress any key to continue.");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();

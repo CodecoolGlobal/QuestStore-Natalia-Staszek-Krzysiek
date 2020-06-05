@@ -1,6 +1,5 @@
 package dao;
 
-import model.Creep;
 import model.User;
 
 import java.sql.ResultSet;
