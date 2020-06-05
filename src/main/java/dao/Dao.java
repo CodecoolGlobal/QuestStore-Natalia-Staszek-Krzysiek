@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public abstract class Dao {
+public class Dao {
     protected final String login;
     protected final String password;
     protected final String database;
