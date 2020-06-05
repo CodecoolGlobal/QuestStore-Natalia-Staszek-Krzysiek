@@ -42,7 +42,7 @@ abstract class View {
             int index = 1;
 
             while (iterator.hasNext()) {
-                System.out.println(index + ". " + iterator.next())
+                System.out.println(index + ". " + iterator.next());
                 index++;
             }
         } else {
