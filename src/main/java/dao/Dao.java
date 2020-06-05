@@ -23,6 +23,7 @@ public abstract class Dao {
     public void connect() {
         try {
             Class.forName("org.postgresql.Driver");
+
             this.connection = DriverManager.getConnection(databaseURL +
                             database + login + password);
             this.connection.setAutoCommit(true);
