@@ -48,11 +48,12 @@ public class RootController {
 
             login = rootView.getUserLogin();
             password = rootView.getUserPassword();
-            user = Dao.getUserLoginPassword();
+            user = Dao.getUserLoginPassword(login,password);
 
             if (user != null) {
+                isLoggedIn = true;
                 if (user instanceof User) {
-                    rootView.displayUserNotExist();
+                    rootView.userNotAssignedMessage();
                 } else if (user instanceof Codecooler) {
                     studentController.start();
                 } else if (user instanceof Mentor) {
@@ -66,6 +67,17 @@ public class RootController {
 
         }
     }
+
+    private void signUp() {
+
+        boolean wasUserCreated = false;
+        String login;
+        String password;
+
+        while(!wasUserCreated) {
+            login = createUserLogin();
+            password = createUserPassword();
+
 }
 
 

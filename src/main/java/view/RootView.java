@@ -45,4 +45,5 @@ public class RootView {
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
     }
+
 }
