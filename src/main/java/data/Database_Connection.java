@@ -44,11 +44,6 @@ public class Database_Connection {
         }
     }
 
-    protected PreparedStatement getPreparedStatement(String sqlStatement) throws SQLException {
-        connect();
-        return connection.prepareStatement(sqlStatement);
-    }
-
     protected ResultSet query(PreparedStatement statement) throws SQLException {
         return statement.executeQuery();
     }
@@ -65,6 +60,11 @@ public class Database_Connection {
             disconnect();
         }
         return false;
+    }
+
+    protected PreparedStatement getPreparedStatement(String sqlStatement) throws SQLException {
+        connect();
+        return connection.prepareStatement(sqlStatement);
     }
 
     public PreparedStatement getPreparedStatementBy(List args, String sqlStatement) {
