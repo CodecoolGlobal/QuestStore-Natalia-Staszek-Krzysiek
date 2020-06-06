@@ -3,7 +3,7 @@ package view;
 
 import controller.CodecoolerController;
 
-public class CodecoolerMenu {
+public class CodecoolerView {
     private CodecoolerController codecoolerController;
 
     public void MenuMentor() throws Exception {
