@@ -11,26 +11,26 @@ public class ItemStatement {
     }
 
     public String getItemById() {
-        return "SELECT * FROM items WHERE items.id = ?;";
+        return "SELECT * FROM items WHERE id = ?;";
     }
 
     public String getItemByName() {
-        return "SELECT * FROM items WHERE items.name=?;";
+        return "SELECT * FROM items WHERE name=?;";
     }
 
     public String getItemsByCategory() {
-        return "SELECT * FROM items WHERE items.category=?;";
+        return "SELECT * FROM items WHERE category=?;";
     }
 
     public String deleteItemStatement() {
-        return "DELETE FROM items WHERE items.id=?;";
+        return "DELETE FROM items WHERE id=?;";
     }
 
     public String addItemStatement() {
-        return "INSERT INTO (name,description,price,category) VALUES (?,?,?,?);";
+        return "INSERT INTO items (name,description,price,category) VALUES (?,?,?,?);";
     }
 
     public String updateQueryStatement() {
-        return "UPDATE items SET name=?,description=?,price=?,category=? WHERE items.id=?;";
+        return "UPDATE items SET name=?,description=?,price=?,category=? WHERE id=?;";
     }
 }

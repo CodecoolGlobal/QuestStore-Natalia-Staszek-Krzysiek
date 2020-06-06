@@ -10,7 +10,7 @@ public class UserStatements {
         return "SELECT * FROM users WHERE id = ?";
     }
 
-    public String inserUserStatement() {
+    public String insertUserStatement() {
         return "INSERT INTO users (name,login,email,password,phone_number,id_role) VALUES (?,?,?,?,?,?);";
     }
 
@@ -31,7 +31,7 @@ public class UserStatements {
     }
 
     public String selectUserByLogin() {
-        return "SELECT * FROM user WHERE login = ?;";
+        return "SELECT * FROM users WHERE login = ?;";
     }
 
     public String selectAllUsersByRole() {
@@ -47,6 +47,6 @@ public class UserStatements {
     }
 
     public String selectAllCodecoolersByGroupId() {
-        return "SELECT name,login,email,password,phone_number,id_role FROM users JOIN students_details ON users.id = students_details.id_user WHERE students_details.team_name=?;";
+        return "SELECT name,login,email,password,phone_number,id_role FROM users JOIN students_details ON users.id = students_details.id_user WHERE students_details.id_class=?;";
     }
 }
