@@ -3,7 +3,7 @@ package data.statements;
 public class TeamStatement {
 
     public String selectAllTeams() {
-        return "SELECT * FROM WHERE group_name != 'ANYTHING BUT THIS!';" ;
+        return "SELECT * FROM teams WHERE name != 'ANYTHING BUT THIS!'';" ;
     }
 
     public String selectTeamByName() {
