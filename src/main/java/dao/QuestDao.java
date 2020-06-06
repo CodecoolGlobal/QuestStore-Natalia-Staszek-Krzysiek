@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestDao extends Dao{
+public class QuestDao {
 
     private ArrayList<Quest> quests = new ArrayList<>();
 

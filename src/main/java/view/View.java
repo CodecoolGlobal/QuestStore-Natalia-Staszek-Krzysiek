@@ -1,6 +1,6 @@
 package view;
 
-import Utilities.Iterator;
+import utilities.Iterator;
 
 import java.util.InputMismatchException;
 import java.util.List;

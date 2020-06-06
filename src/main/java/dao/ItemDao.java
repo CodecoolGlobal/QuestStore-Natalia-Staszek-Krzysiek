@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDao extends Dao{
+public class ItemDao {
 
     private ArrayList<Item> items = new ArrayList<>();
 

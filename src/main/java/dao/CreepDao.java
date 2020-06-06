@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CreepDao extends Dao implements UserDao {
+public class CreepDao implements UserDao {
 
     ArrayList<User> creeps = new ArrayList<>();
     Statement st;

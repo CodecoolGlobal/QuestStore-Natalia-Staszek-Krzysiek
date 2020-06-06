@@ -1,6 +1,6 @@
 package view;
 
-import Utilities.ConsoleInputGetter;
+import utilities.ConsoleInputGetter;
 
 public class ExpLevelView extends View {
 

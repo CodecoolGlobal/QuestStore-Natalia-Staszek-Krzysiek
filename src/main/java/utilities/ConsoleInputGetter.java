@@ -1,8 +1,8 @@
-package Utilities;
+package utilities;
 
 import java.util.Scanner;
 
-import static Utilities.IntegerChecker.isInteger;
+import static utilities.IntegerChecker.isInteger;
 
 public class ConsoleInputGetter {
 

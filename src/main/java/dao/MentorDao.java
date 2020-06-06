@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class MentorDao extends Dao implements UserDao {
+public class MentorDao implements UserDao {
     Statement st;
     ArrayList<User> mentors = new ArrayList<>();
 
