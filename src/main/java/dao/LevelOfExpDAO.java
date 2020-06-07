@@ -4,7 +4,7 @@ import model.LevelOfExp;
 
 import java.util.List;
 
-public interface ExpLevelDAO {
+public interface LevelOfExpDAO {
 
     List<LevelOfExp> getAll();
     LevelOfExp getByName(String levelName);
