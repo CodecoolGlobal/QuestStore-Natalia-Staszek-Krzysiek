@@ -1,5 +1,6 @@
-package dao;
+package dao.SQL;
 
+import dao.UserDao;
 import model.Codecooler;
 import model.User;
 
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CodecoolerDao implements UserDao{
+public class CodecoolerDao implements UserDao {
     ArrayList<User> codecoolers = new ArrayList<>();
     Statement st;
     private final ItemDao itemDao;

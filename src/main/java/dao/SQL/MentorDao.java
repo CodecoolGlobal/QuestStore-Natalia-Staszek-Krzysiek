@@ -1,37 +1,47 @@
-package dao;
+package dao.SQL;
 
+import dao.UserDao;
+import model.Mentor;
 import model.User;
+import view.View;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CreepDao implements UserDao {
-
-    ArrayList<User> creeps = new ArrayList<>();
+public class MentorDao implements UserDao {
     Statement st;
+    ArrayList<User> mentors = new ArrayList<>();
+
+    public static void main(String[] args) {
+        MentorDao mentorDao = new MentorDao();
+        View.showPersonList(mentorDao.extractor());
+    }
+
+//    public MentorDao(String login, String password, String database) {
+//        super(login, password, database);
+//    }
 
     @Override
     public ArrayList<User> extractor() {
-
         try {
             connect();
-            ResultSet rs = st.executeQuery("select * from users where id_role=1");
+            ResultSet rs = st.executeQuery("SELECT * FROM users WHERE id_role=2");
             while (rs.next()) {
-                Creep creep = new Creep();
-                creep.setId(rs.getInt("id"));
-                creep.setName(rs.getString("name"));
-                creep.setLogin(rs.getString("login"));
-                creep.setEmail(rs.getString("email"));
-                creep.setPassword(rs.getString("password"));
-                creep.setPhoneNumber(rs.getString("phone_number"));
-                creep.setRole(rs.getInt("id_role"));
-                creeps.add(creep);
+                Mentor mentor = new Mentor();
+                mentor.setId(rs.getInt("id"));
+                mentor.setName(rs.getString("name"));
+                mentor.setLogin(rs.getString("login"));
+                mentor.setEmail(rs.getString("email"));
+                mentor.setPassword(rs.getString("password"));
+                mentor.setPhoneNumber(rs.getString("phone_number"));
+                mentor.setRole(rs.getInt("id_role"));
+                mentors.add(mentor);
             }
             rs.close();
             disconnect();
-            return creeps;
+            return mentors;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -39,6 +49,7 @@ public class CreepDao implements UserDao {
         }
         return null;
     }
+
 
 
     @Override
@@ -59,5 +70,5 @@ public class CreepDao implements UserDao {
             throwable.printStackTrace();
         }
     }
-}
 
+}
