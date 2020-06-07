@@ -1,7 +1,5 @@
 package dao.SQL;
 
-import dao.JdbcDao;
-import dao.SQL.ItemDao;
 import model.Codecooler;
 
 import java.sql.PreparedStatement;
