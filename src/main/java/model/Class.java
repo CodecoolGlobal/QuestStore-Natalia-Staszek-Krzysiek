@@ -2,16 +2,16 @@ package model;
 
 import java.util.Objects;
 
-public class Team {
+public class Class {
 
     private int id;
     private String teamName;
 
-    public Team(String name) {
+    public Class(String name) {
         this.teamName = name;
     }
 
-    public Team(int id, String name) {
+    public Class(int id, String name) {
         this(name);
         this.id=id;
     }
@@ -35,9 +35,9 @@ public class Team {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Team team = (Team) o;
-        return id == team.id &&
-                Objects.equals(teamName, team.teamName);
+        Class aClass = (Class) o;
+        return id == aClass.id &&
+                Objects.equals(teamName, aClass.teamName);
     }
 
     @Override

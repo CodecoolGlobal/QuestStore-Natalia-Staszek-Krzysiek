@@ -9,11 +9,11 @@ public class Codecooler extends User{
     private String teamName;
     private List<Item> boughtItems;
     private List<Quest> completedQuests;
-    private Team team;
+    private Class aClass;
 
     public Codecooler(String name, String login, String email, String password, String phoneNumber, int role,
                       int experience, int level, int wallet, String teamName,
-                      List<Item> boughtItems, List<Quest> completedQuests, Team team) {
+                      List<Item> boughtItems, List<Quest> completedQuests, Class aClass) {
         super(name, login, email, password, phoneNumber, role);
         this.experience = experience;
         this.level = level;
@@ -21,7 +21,7 @@ public class Codecooler extends User{
         this.teamName = teamName;
         this.boughtItems = boughtItems;
         this.completedQuests = completedQuests;
-        this.team = team;
+        this.aClass = aClass;
     }
 
     public Codecooler() {
@@ -76,12 +76,12 @@ public class Codecooler extends User{
         this.completedQuests = completedQuests;
     }
 
-    public Team getTeam() {
-        return team;
+    public Class getaClass() {
+        return aClass;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setaClass(Class aClass) {
+        this.aClass = aClass;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class Codecooler extends User{
                 ", teamName='" + teamName + '\'' +
                 ", boughtItems=" + boughtItems +
                 ", completedQuests=" + completedQuests +
-                ", team=" + team +
+                ", team=" + aClass +
                 '}';
     }
 }
