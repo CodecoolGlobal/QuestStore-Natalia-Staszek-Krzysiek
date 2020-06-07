@@ -4,28 +4,18 @@ import java.util.Objects;
 
 public class Item {
 
+    private int id;
     private String name;
     private int price;
     private String description;
     private String category;
-    private int id;
 
-    public Item() {
-    }
-
-    public Item(String name, Integer price, String description, String category) {
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.category = category;
-    }
-
-    public Item(String name, Integer price, String description, String category, int id) {
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.category = category;
+    public Item(int id, String name, int price, String description, String category) {
         this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.category = category;
     }
 
     public String getName() {
@@ -36,7 +26,7 @@ public class Item {
         this.name = name;
     }
 
-    public Integer getPrice(int anInt) {
+    public Integer getPrice() {
         return price;
     }
 

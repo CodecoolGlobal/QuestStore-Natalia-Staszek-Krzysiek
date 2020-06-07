@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SQLStudentDetails extends Database_Connection implements StudentDetailsDAO {
+public class SQLStudentDetailsDao extends Database_Connection implements StudentDetailsDAO {
 
     private StudentDetailsStatement studentDetailsStatement = new StudentDetailsStatement();
 
