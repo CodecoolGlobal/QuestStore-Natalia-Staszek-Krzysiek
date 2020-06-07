@@ -2,7 +2,7 @@ package data.statements;
 
 public class ClassStatement {
 
-    public String selectAllTeams() {
+    public String selectAllClasses() {
         return "SELECT * FROM classes WHERE name != 'ANYTHING BUT THIS!'';" ;
     }
 

@@ -1,6 +1,6 @@
 package data.statements;
 
-public class UserStatements {
+public class UserStatement {
 
     public String selectAllUsers() {
         return "SELECT * FROM users";
@@ -46,7 +46,7 @@ public class UserStatements {
         return "SELECT * FROM users WHERE phone_number = ?;";
     }
 
-    public String selectAllCodecoolersByGroupId() {
+    public String selectAllStudentsByGroupId() {
         return "SELECT name,login,email,password,phone_number,id_role FROM users JOIN students_details ON users.id = students_details.id_user WHERE students_details.id_class=?;";
     }
 }

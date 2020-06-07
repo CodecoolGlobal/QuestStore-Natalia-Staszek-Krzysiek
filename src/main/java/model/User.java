@@ -26,6 +26,10 @@ public class User {
         this.id = id;
     }
 
+    public User(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +

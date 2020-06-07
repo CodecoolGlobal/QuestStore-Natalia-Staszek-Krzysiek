@@ -2,18 +2,20 @@ package dao.SQL;
 
 import dao.UserDAO;
 import data.Database_Connection;
-import data.statements.UserStatements;
+import data.statements.UserStatement;
 import model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SQLUserDao extends Database_Connection implements UserDAO {
 
-    private UserStatements userStatements = new UserStatements();
+    private UserStatement userStatement = new UserStatement();
 
     private User getUser(PreparedStatement statement) {
         User user = null;
@@ -63,68 +65,87 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
 
     @Override
     public List<User> getAll() {
-        String sqlStatement = userStatements.selectAllUsers();
+        String sqlStatement = userStatement.selectAllUsers();
         PreparedStatement statement = getPreparedStatementBy(new ArrayList<>(), sqlStatement);
         return getUsers(statement);
     }
 
     @Override
     public List<User> getAllByRole(String role) {
-        return null;
+        String sqlStatement = userStatement.selectAllUsersByRole();
+        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(role), sqlStatement);
+        return getUsers(statement);
     }
 
     @Override
-    public List<User> getStudentsByGroupId(int id) {
-        return null;
+    public List<User> getStudentsByGroupId(int groupID) {
+        String sqlStatement = userStatement.selectAllStudentsByGroupId();
+        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(groupID), sqlStatement);
+        return getUsers(statement);
     }
 
     @Override
     public User getById(int id) {
-        return null;
+        String sqlStatement = userStatement.selectUserById();
+        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(id), sqlStatement);
+        return getUser(statement);
     }
 
     @Override
     public User getByLoginAndPassword(String login, String password) {
-        return null;
+        String sqlStatement = userStatement.selectUserByLoginAndPassword();
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(login, password), sqlStatement);
+        return getUser(statement);
     }
 
     @Override
     public User getByLoginAndRole(String login, String role) {
-        return null;
+        String sqlStatement = userStatement.selectUserByLoginAndRole();
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(login, role), sqlStatement);
+        return getUser(statement);
     }
 
     @Override
     public User getByLogin(String login) {
-        return null;
+        String sqlStatement = userStatement.selectUserByLogin();
+        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(login), sqlStatement);
+        return getUser(statement);
     }
 
     @Override
     public User getByEmail(String email) {
-        return null;
+        String sqlStatement = userStatement.selectUserByEmail();
+        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(email), sqlStatement);
+        return getUser(statement);
     }
 
     @Override
     public User getByPhoneNumber(String phoneNumber) {
-        return null;
+        String sqlStatement = userStatement.selectUserByPhoneNumber();
+        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(phoneNumber), sqlStatement);
+        return getUser(statement);
     }
 
     @Override
     public boolean add(User user) {
-        return false;
+        String sqlStatement = userStatement.insertUserStatement();
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getName(), user.getLogin(),
+                user.getEmail(), user.getPassword(), user.getPhoneNumber(), user.getRole()), sqlStatement);
+        return update(statement);
     }
 
     @Override
     public boolean update(User user) {
-        return false;
+        String sqlStatement = userStatement.updateUserStatement();
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getName(), user.getLogin(),
+                user.getEmail(), user.getPassword(), user.getPhoneNumber(), user.getRole(), user.getId()), sqlStatement);
+        return update(statement);
     }
 
     @Override
     public boolean delete(User user) {
-        return false;
-    }
-
-    @Override
-    public void setDatabasePath(String path) {
-
+        String sqlStatement = userStatement.deleteUserStatement();
+        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(user.getId()), sqlStatement);
+        return update(statement);
     }
 }

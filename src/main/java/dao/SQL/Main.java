@@ -23,6 +23,10 @@ public class Main {
 //        creepDao.injector(creeper);
 //        System.out.println(creepDao.isUserDataCorrect("Lepper", "123456"));
 
+        SQLUserDao sqlUserDao = new SQLUserDao();
+        System.out.println(sqlUserDao.getAll());
+
+
 
     }
 

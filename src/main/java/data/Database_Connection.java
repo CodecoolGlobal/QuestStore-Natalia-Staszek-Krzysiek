@@ -12,9 +12,9 @@ public class Database_Connection {
     protected String databaseURL;
 
     public Database_Connection(){
-        this.login = "fbznochzdwosyl, ";
+        this.login = "fbznochzdwosyl";
         this.password = "95a8e2f8c07cf64b80500a788f87ec46f1d2eaf6b2b542034f25f4e0311b0e2f";
-        this.database = "d3nuc8s3988iho, ";
+        this.database = "d3nuc8s3988iho";
         this.databaseURL = "jdbc:postgresql://ec2-54-75-246-118.eu-west-1.compute.amazonaws.com/";
     }
 
@@ -22,8 +22,7 @@ public class Database_Connection {
         try {
             Class.forName("org.postgresql.Driver");
 
-            connection = DriverManager.getConnection(databaseURL +
-                    database + login + password);
+            connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-75-246-118.eu-west-1.compute.amazonaws.com:5432/d3nuc8s3988iho","fbznochzdwosyl","95a8e2f8c07cf64b80500a788f87ec46f1d2eaf6b2b542034f25f4e0311b0e2f");
             this.connection.setAutoCommit(true);
             if (connection != null) {
                 System.out.println("Connected");
