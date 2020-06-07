@@ -24,10 +24,6 @@ public class Codecooler extends User{
         this.aClass = aClass;
     }
 
-    public Codecooler() {
-
-    }
-
     public int getExperience() {
         return experience;
     }
