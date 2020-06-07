@@ -21,8 +21,9 @@ public class User {
         this.role = role;
     }
 
-    public User() {
-
+    public User(int id, String name, String login, String email, String password, String phoneNumber, int role) {
+        this(name, login, email, password, phoneNumber, role);
+        this.id = id;
     }
 
     @Override
