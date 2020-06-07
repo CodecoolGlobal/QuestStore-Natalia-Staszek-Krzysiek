@@ -4,7 +4,7 @@ import model.Codecooler;
 
 import java.util.List;
 
-public interface StudentDetailsDao {
+public interface StudentDetailsDAO {
 
     Codecooler getStudentDataByStudentId(int student_id);
     List<Codecooler> getAllStudentsData();

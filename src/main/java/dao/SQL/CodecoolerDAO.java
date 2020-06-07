@@ -1,6 +1,7 @@
 package dao.SQL;
 
-import dao.UserDao;
+import dao.UserDAO;
+import model.Codecooler;
 import model.User;
 
 import java.sql.ResultSet;
@@ -8,31 +9,36 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CreepDao implements UserDao {
-
-    ArrayList<User> creeps = new ArrayList<>();
+public class CodecoolerDAO implements UserDAO {
+    ArrayList<User> codecoolers = new ArrayList<>();
     Statement st;
+    private final ItemDao itemDao;
+    private final QuestDao questDao;
 
-    @Override
+    public CodecoolerDAO(String login, String password, String database, ItemDao itemDao, QuestDao questDao) {
+        this.itemDao = itemDao;
+        this.questDao = questDao;
+    }
+
     public ArrayList<User> extractor() {
 
         try {
             connect();
-            ResultSet rs = st.executeQuery("select * from users where id_role=1");
+            ResultSet rs = st.executeQuery("select * from user where id_role=3");
             while (rs.next()) {
-                Creep creep = new Creep();
-                creep.setId(rs.getInt("id"));
-                creep.setName(rs.getString("name"));
-                creep.setLogin(rs.getString("login"));
-                creep.setEmail(rs.getString("email"));
-                creep.setPassword(rs.getString("password"));
-                creep.setPhoneNumber(rs.getString("phone_number"));
-                creep.setRole(rs.getInt("id_role"));
-                creeps.add(creep);
+                Codecooler codecooler = new Codecooler();
+                codecooler.setId(rs.getInt("id"));
+                codecooler.setName(rs.getString("name"));
+                codecooler.setLogin(rs.getString("login"));
+                codecooler.setEmail(rs.getString("email"));
+                codecooler.setPassword(rs.getString("password"));
+                codecooler.setPhoneNumber(rs.getString("phone_number"));
+                codecooler.setRole(rs.getInt("id_role"));
+                codecoolers.add(codecooler);
             }
             rs.close();
             disconnect();
-            return creeps;
+            return codecoolers;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -61,4 +67,3 @@ public class CreepDao implements UserDao {
         }
     }
 }
-

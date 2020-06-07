@@ -1,44 +1,47 @@
 package dao.SQL;
 
-import dao.UserDao;
-import model.Codecooler;
+import dao.UserDAO;
+import model.Mentor;
 import model.User;
+import view.View;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CodecoolerDao implements UserDao {
-    ArrayList<User> codecoolers = new ArrayList<>();
+public class MentorDAO implements UserDAO {
     Statement st;
-    private final ItemDao itemDao;
-    private final QuestDao questDao;
+    ArrayList<User> mentors = new ArrayList<>();
 
-    public CodecoolerDao(String login, String password, String database, ItemDao itemDao, QuestDao questDao) {
-        this.itemDao = itemDao;
-        this.questDao = questDao;
+    public static void main(String[] args) {
+        MentorDAO mentorDao = new MentorDAO();
+        View.showPersonList(mentorDao.extractor());
     }
 
-    public ArrayList<User> extractor() {
+//    public MentorDao(String login, String password, String database) {
+//        super(login, password, database);
+//    }
 
+    @Override
+    public ArrayList<User> extractor() {
         try {
             connect();
-            ResultSet rs = st.executeQuery("select * from user where id_role=3");
+            ResultSet rs = st.executeQuery("SELECT * FROM users WHERE id_role=2");
             while (rs.next()) {
-                Codecooler codecooler = new Codecooler();
-                codecooler.setId(rs.getInt("id"));
-                codecooler.setName(rs.getString("name"));
-                codecooler.setLogin(rs.getString("login"));
-                codecooler.setEmail(rs.getString("email"));
-                codecooler.setPassword(rs.getString("password"));
-                codecooler.setPhoneNumber(rs.getString("phone_number"));
-                codecooler.setRole(rs.getInt("id_role"));
-                codecoolers.add(codecooler);
+                Mentor mentor = new Mentor();
+                mentor.setId(rs.getInt("id"));
+                mentor.setName(rs.getString("name"));
+                mentor.setLogin(rs.getString("login"));
+                mentor.setEmail(rs.getString("email"));
+                mentor.setPassword(rs.getString("password"));
+                mentor.setPhoneNumber(rs.getString("phone_number"));
+                mentor.setRole(rs.getInt("id_role"));
+                mentors.add(mentor);
             }
             rs.close();
             disconnect();
-            return codecoolers;
+            return mentors;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -46,6 +49,7 @@ public class CodecoolerDao implements UserDao {
         }
         return null;
     }
+
 
 
     @Override
@@ -66,4 +70,5 @@ public class CodecoolerDao implements UserDao {
             throwable.printStackTrace();
         }
     }
+
 }

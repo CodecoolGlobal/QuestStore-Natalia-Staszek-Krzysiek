@@ -3,13 +3,13 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
-public interface Class {
+public interface ClassDAO {
 
-    List<Class> getAll();
-    Class getByName(String name);
-    Class getById(int id);
-    boolean add(Class group);
-    boolean delete(Class group);
+    List<ClassDAO> getAll();
+    ClassDAO getByName(String name);
+    ClassDAO getById(int id);
+    boolean add(ClassDAO group);
+    boolean delete(ClassDAO group);
     List<String> getGroupsNamesByMentorId(int mentorID);
     Map<Integer, Integer> getMentorAssignedToGroups();
     void setDatabasePath(String path);

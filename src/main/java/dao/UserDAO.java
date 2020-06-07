@@ -4,7 +4,7 @@ import model.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserDAO {
 
     List<User> getAll();
     List<User> getAllByRole(String role);
