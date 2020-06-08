@@ -1,5 +1,6 @@
 package dao.SQL;
 
+import model.Mentor;
 import services.StatisticService;
 
 import java.sql.SQLException;
@@ -20,8 +21,8 @@ public class Main {
 //
 //        Creep creeper = new Creep("Jozef", "jarek3","czarek@onet.pl", "135456","335/882/852", 2 );
 //
-
-
+//
+//
 //        creepDao.injector(creeper);
 //        System.out.println(creepDao.isUserDataCorrect("Lepper", "123456"));
 
@@ -29,6 +30,7 @@ public class Main {
         System.out.println(sqlUserDao.getAll());
 
         System.out.println(new StatisticService().getAllQuests());
+        System.out.println(new StatisticService().getAllQuestsByMentor(1));
 
 
 

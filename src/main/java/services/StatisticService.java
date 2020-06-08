@@ -2,8 +2,10 @@ package services;
 
 import dao.SQL.SQLQuestDao;
 import model.Mentor;
+import model.Quest;
 import model.StudentDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StatisticService {
@@ -14,10 +16,17 @@ public class StatisticService {
         return questDAO.getAll().size();
     }
 
-    public int getAllQuestsByMentor(Mentor mentor) {
+    public int getAllQuestsByMentor(int mentorId) {
         //TODO: Quest created by mentor
         SQLQuestDao questDao = new SQLQuestDao();
-        return mentor.getMentorQuests(questDao.getAll()).size();
+        List<Quest> quests = questDao.getAll();
+        List<Quest> mentorQuest = new ArrayList<>();
+        for (Quest quest : quests) {
+            if (quest.getIdMentor() == mentorId) {
+                mentorQuest.add(quest);
+            }
+        }
+        return mentorQuest.size();
     }
 
     public int getQuestsByStudents(List<StudentDetails> students) {
