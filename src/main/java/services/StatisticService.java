@@ -33,6 +33,7 @@ public class StatisticService {
     public int getQuestsByStudents(int studentId) {
         //TODO: Quest done by student
         SQLStudentDetailsDao sqlStudentDetailsDao = new SQLStudentDetailsDao();
+        User student = sqlStudentDetailsDao.getStudentDataByStudentId(studentId);
         List<Quest> quests = sqlStudentDetailsDao.getStudentDataByStudentId(studentId).getCompletedQuests();
         List<Quest> studentQuest = new ArrayList<>();
         for (Quest quest : quests) {
@@ -45,7 +46,9 @@ public class StatisticService {
 
     public int getAllUsersByRole(int role) {
         //TODO: Get count of mentors
-        return 0;
+        SQLUserDao sqlUserDao = new SQLUserDao();
+        List<User> users = sqlUserDao.getAllByRole(role);
+        return users.size();
     }
 
 }
