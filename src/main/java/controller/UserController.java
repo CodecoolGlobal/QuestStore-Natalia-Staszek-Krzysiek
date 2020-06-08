@@ -15,10 +15,10 @@ public class UserController {
     private UserView userView;
     private StudentDetailsDAO studentDetailsDAO;
 
-    UserController(UserDAO userDAO, UserView userView, StudentDetailsDAO studentDataDAO) {
+    UserController(UserDAO userDAO, UserView userView, StudentDetailsDAO StudentDetailsDAO) {
         this.userDAO = userDAO;
         this.userView = userView;
-        this.studentDetailsDAO = studentDataDAO;
+        this.studentDetailsDAO = StudentDetailsDAO;
     }
 
     void promoteBlankUser() {
@@ -76,7 +76,7 @@ public class UserController {
         return userDAO;
     }
 
-    StudentDetailsDAO getStudentDataDAO() {
+    StudentDetailsDAO getStudentDetailsDAO() {
         return studentDetailsDAO;
     }
 }

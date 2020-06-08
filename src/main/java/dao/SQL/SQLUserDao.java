@@ -71,7 +71,7 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
     }
 
     @Override
-    public List<User> getAllByRole(String role) {
+    public List<User> getAllByRole(int role) {
         String sqlStatement = userStatement.selectAllUsersByRole();
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(role), sqlStatement);
         return getUsers(statement);
@@ -99,7 +99,7 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
     }
 
     @Override
-    public User getByLoginAndRole(String login, String role) {
+    public User getByLoginAndRole(String login, int role) {
         String sqlStatement = userStatement.selectUserByLoginAndRole();
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(login, role), sqlStatement);
         return getUser(statement);

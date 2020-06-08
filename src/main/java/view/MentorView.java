@@ -30,6 +30,16 @@ public class MentorView extends View{
         }
     }
 
+    public void displayErrorUpdatingGroup() {
+        System.out.println("Error updating group!");
+        pressAnyKeyToContinue();
+    }
+
+    public void displayThereIsNoGroupWithThisName() {
+        System.out.println("There is no group with this name!");
+        pressAnyKeyToContinue();
+    }
+
     public void handleMentorMenu() {
         prepareMentorMenu();
         clearConsole();
