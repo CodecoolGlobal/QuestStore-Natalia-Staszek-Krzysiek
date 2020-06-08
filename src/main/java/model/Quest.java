@@ -7,6 +7,7 @@ public class Quest {
     private int id;
     private String name;
     private int points;
+    private int idMentor;
     private String description;
     private String category;
 
@@ -26,6 +27,18 @@ public class Quest {
         this.points = points;
         this.description = description;
         this.category = category;
+    }
+
+    public Quest(int id, int id_mentor, String name, int points, String description, String category) {
+    }
+
+    public int getIdMentor() {
+        return idMentor;
+    }
+
+    public Quest setIdMentor(int idMentor) {
+        this.idMentor = idMentor;
+        return this;
     }
 
     public int getId() {

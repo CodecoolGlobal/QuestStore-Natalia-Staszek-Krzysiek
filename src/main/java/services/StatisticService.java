@@ -1,7 +1,7 @@
 package services;
 
-import dao.QuestDAO;
 import dao.SQL.SQLQuestDao;
+import dao.SQL.SQLStudentDetailsDao;
 import model.Mentor;
 import model.StudentDetails;
 
@@ -17,6 +17,10 @@ public class StatisticService {
 
     public int getAllQuestsByMentor(List<Mentor> mentors) {
         //TODO: Quest created by mentor
+        SQLStudentDetailsDao sqlStudentDetailsDao = new SQLStudentDetailsDao();
+        for (int i = 0; i < mentors.size(); i++) {
+            Mentor mentor = mentors.get(i);
+        }
         return 0;
     }
 

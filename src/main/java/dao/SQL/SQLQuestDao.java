@@ -38,6 +38,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
             while (resultSet.next())
                 tasks.add(new Quest(
                         resultSet.getInt("id"),
+                        resultSet.getInt("id_mentor"),
                         resultSet.getString("name"),
                         resultSet.getInt("points"),
                         resultSet.getString("description"),
