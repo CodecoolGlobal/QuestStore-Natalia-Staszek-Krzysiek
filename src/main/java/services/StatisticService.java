@@ -1,7 +1,6 @@
 package services;
 
 import dao.SQL.SQLQuestDao;
-import dao.SQL.SQLStudentDetailsDao;
 import model.Mentor;
 import model.StudentDetails;
 
@@ -10,28 +9,25 @@ import java.util.List;
 public class StatisticService {
 
     public int getAllQuests() {
-        //TODO: Quest sum
+        //TODO: Quest sum all of available quest
         SQLQuestDao questDAO = new SQLQuestDao();
         return questDAO.getAll().size();
     }
 
-    public int getAllQuestsByMentor(List<Mentor> mentors) {
+    public int getAllQuestsByMentor(Mentor mentor) {
         //TODO: Quest created by mentor
-        SQLStudentDetailsDao sqlStudentDetailsDao = new SQLStudentDetailsDao();
-        for (int i = 0; i < mentors.size(); i++) {
-            Mentor mentor = mentors.get(i);
-        }
-        return 0;
+        SQLQuestDao questDao = new SQLQuestDao();
+        return mentor.getMentorQuests(questDao.getAll()).size();
     }
 
     public int getQuestsByStudents(List<StudentDetails> students) {
         //TODO: Quest done by student
-        return 0;
+        return students.size();
     }
 
     public int getAllMentors(List<Mentor> mentors) {
         //TODO: Get count of mentors
-        return 0;
+        return mentors.size();
     }
 
     public int getAllStudents(List<StudentDetails> students) {
