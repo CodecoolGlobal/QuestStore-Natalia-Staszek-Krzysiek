@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 
-public class ArtifactView extends View {
+public class ItemView extends View {
 
     public void displayCreatingItem() {
         clearConsole();
@@ -27,7 +27,7 @@ public class ArtifactView extends View {
         return ConsoleInputGetter.getStringInputFromConsole("Enter new description: ");
     }
 
-    public void displayArtifactHasBeenAdded() {
+    public void displayItemHasBeenAdded() {
         System.out.println("Artifact has been added successfully!");
     }
 

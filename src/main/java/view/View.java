@@ -93,6 +93,12 @@ abstract class View {
         System.out.printf("There is no student with such login!");
         pressAnyKeyToContinue();
     }
+
+    public void displayThereIsNoStudentWithThisLogin() {
+        System.out.println("There is no student with this login!");
+        pressAnyKeyToContinue();
+    }
+
     public void operationSuccess(){
         System.out.printf("Operation success!");
     }

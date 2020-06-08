@@ -18,6 +18,13 @@ public class Item {
         this.category = category;
     }
 
+    public Item(String name, int price, String description, String category) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+    }
+
     public String getName() {
         return name;
     }
