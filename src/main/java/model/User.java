@@ -30,6 +30,9 @@ public class User {
         this.id = id;
     }
 
+    public User() {
+    }
+
     @Override
     public String toString() {
         return "User{" +

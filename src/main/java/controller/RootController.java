@@ -1,136 +1,189 @@
 //package controller;
 //
-//import dao.Dao;
-//import model.Codecooler;
-//import model.Creep;
-//import model.Mentor;
+//import dao.UserDAO;
 //import model.User;
 //import view.RootView;
 //
 //public class RootController {
 //
-//    private Dao dao;
+//    private UserDAO userDAO;
 //    private RootView rootView;
+//    private CreepMenuController adminMenuController;
+//    private StudentMenuController studentMenuController;
+//    private MentorMenuController mentorMenuController;
 //
-//    RootController() {
-//        this.dao = new Dao();
-//        this.rootView = new RootView();
+//    private final int MIN_LENGTH = 6;
+//    private final int MAX_LENGTH = 15;
+//
+//    public RootController(UserDAO userDAO, RootView rootView, AdminMenuController adminMenuController,
+//                          StudentMenuController studentMenuController, MentorMenuController mentorMenuController) {
+//        this.userDAO = userDAO;
+//        this.rootView = rootView;
+//        this.adminMenuController = adminMenuController;
+//        this.studentMenuController = studentMenuController;
+//        this.mentorMenuController = mentorMenuController;
 //    }
 //
 //    public void start() {
-//        boolean exitApp = false;
+//        boolean isAppRunning = true;
+//        checkDatabaseSetup();
 //
-//        while (!exitApp) {
+//        while (isAppRunning) {
 //            rootView.displayMenu();
 //            String userInput = rootView.getUserInput();
 //            switch (userInput) {
 //                case "1":
-//                    logIn();
+//                    signIn();
 //                    break;
 //                case "2":
 //                    signUp();
+//                    break;
 //                case "0":
-//                    exitApp = true;
+//                    isAppRunning = false;
 //                    break;
 //                default:
-//                    rootView.displayWrongInput();
+//                    rootView.displayWrongInputMessage();
 //            }
 //        }
 //    }
 //
-//    private void logIn() {
+//    private void checkDatabaseSetup() {
+//        DbHelper dbHelper = new DbHelper();
+//        if (!dbHelper.isDatabaseFileExists()) {
+//            dbHelper.setDatabasePath("queststore.db");
+//            dbHelper.createDatabase();
+//            dbHelper.runSqlScriptsFromFile("InsertFakeData.sql");
+//        }
+//    }
+//
+//    private void signIn() {
+//
+//        final String QUIT_OPTION = "q";
 //        boolean isLoggedIn = false;
 //        String login;
 //        String password;
 //        User user;
 //
-//        while (!isLoggedIn) {
+//        while(!isLoggedIn) {
 //
 //            login = rootView.getUserLogin();
+//            if (login.equals(QUIT_OPTION)) return;
 //            password = rootView.getUserPassword();
-//            user = Dao.getUserLoginPassword(login,password);
+//            if (password.equals(QUIT_OPTION)) return;
+//            user = userDAO.getByLoginAndPassword(login, password);
 //
-//            if (user != null) {
+//            if(user != null) {
 //                isLoggedIn = true;
-//                if (user instanceof User) {
-//                    rootView.userNotAssignedMessage();
-//                } else if (user instanceof Codecooler) {
-//                    studentController.start();
-//                } else if (user instanceof Mentor) {
-//                    mentorController.start();
-//                } else if (user instanceof Creep) {
-//                    creepController.start();
+//                switch (user.getRole()) {
+//                    case UserEntry.BLANK_USER_ROLE:
+//                        rootView.displayUserNotAssignedMessage();
+//                        break;
+//                    case UserEntry.STUDENT_ROLE:
+//                        studentMenuController.start(user.getId());
+//                        break;
+//                    case UserEntry.MENTOR_ROLE:
+//                        mentorMenuController.start();
+//                        break;
+//                    case UserEntry.ADMIN_ROLE:
+//                        adminMenuController.start();
+//                        break;
 //                }
 //            } else {
-//                rootView.displayUserNotExist();
+//                rootView.displayUserNotExistsMessage();
 //            }
-//
 //        }
 //    }
 //
 //    private void signUp() {
 //
-//        boolean wasUserCreated = false;
+//        boolean isUserCreated = false;
+//        String name;
 //        String login;
+//        String email;
 //        String password;
-//        String user;
+//        String phoneNumber;
 //
-//        while (!wasUserCreated) {
+//        while(!isUserCreated) {
 //            login = createUserLogin();
-////            password = createUserPassword();
-//            user = usersDAO.getUserByLogin(login);
-//            if(user != null) {
-//                rootView.thisLoginAlreadyExists();
-//            } else {
-//
+//            if (userDAO.getByLogin(login) != null) {
+//                rootView.displayUserWithThisNameAlreadyExists();
+//                return;
+//            }
+//            email = createUserEmail();
+//            if (userDAO.getByEmail(email) != null) {
+//                rootView.displayUserWithThisEmailAlreadyExists();
+//                return;
+//            }
+//            phoneNumber = createUserPhoneNumber();
+//            if (userDAO.getByPhoneNumber(phoneNumber) != null) {
+//                rootView.displayUserWithThisPhoneNumberAlreadyExists();
+//                return;
+//            }
+//            password = createUserPassword();
+//            name = createUserName();
+//            this.userDAO.add(new User(name, login, email, password, phoneNumber, UserEntry.BLANK_USER_ROLE));
+//            rootView.displayUserCreated(login, name, email, phoneNumber);
+//            isUserCreated = true;
 //        }
 //    }
+//
 //    private String createUserLogin() {
+//
 //        String login = null;
 //        boolean isCorrectInput = false;
 //
-//        while (!isCorrectInput) {
-//            login = rootView.createUserLogin();
-//            if (login.length() >= 6 && login.length() <= 15) {
+//        while(!isCorrectInput) {
+//            login = rootView.getNewUserLogin();
+//            if (login.length() >= MIN_LENGTH && login.length() <= MAX_LENGTH) {
 //                isCorrectInput = true;
 //            }
 //        }
 //        return login;
 //    }
+//
 //    private String createUserPassword() {
+//
 //        String password = null;
 //        boolean isCorrectInput = false;
 //
-//        while (!isCorrectInput) {
-//            password = rootView.createUserPassword();
-//            if (password.length() >= 6 && password.length() < -15) {
+//        while(!isCorrectInput) {
+//            password = rootView.getNewUserPassword();
+//            if (password.length() >= MIN_LENGTH && password.length() <= MAX_LENGTH) {
 //                isCorrectInput = true;
 //            }
 //        }
 //        return password;
 //    }
-//}
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+//    private String createUserName() {
+//        return rootView.getNewUserName();
 //    }
 //
+//    private String createUserEmail() {
+//
+//        String email = null;
+//        boolean isCorrectInput = false;
+//
+//        while(!isCorrectInput) {
+//            email = rootView.getNewUserEmail();
+//            if (new EmailValidator().validate(email)) {
+//                isCorrectInput = true;
+//            }
+//        }
+//        return email;
+//    }
+//
+//    private String createUserPhoneNumber() {
+//
+//        String phoneNumber = null;
+//        boolean isCorrectInput = false;
+//
+//        while(!isCorrectInput) {
+//            phoneNumber = rootView.getNewUserPhoneNumber();
+//            if (new PhoneValidator().validate(phoneNumber)) {
+//                isCorrectInput = true;
+//            }
+//        }
+//        return phoneNumber;
+//    }
 //}

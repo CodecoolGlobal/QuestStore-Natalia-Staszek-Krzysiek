@@ -76,6 +76,11 @@ abstract class View {
         pressAnyKeyToContinue();
     }
 
+    public void hasBeenPromotedMessage() {
+        System.out.println("User has been promoted!");
+        pressAnyKeyToContinue();
+    }
+
     public void valueChanged() {
         System.out.printf("The value has been changed");
         pressAnyKeyToContinue();

@@ -20,7 +20,7 @@ public class UserView extends View {
         return option;
     }
 
-    public Boolean getTypeOfUser() {
+    public Boolean getTypeOfPromotion() {
         String userChoice = "";
         String[] typesOfUser = {"m", "c"};
 

@@ -33,6 +33,10 @@ public class StudentDetails extends User{
         this.experience = experience;
     }
 
+
+    public StudentDetails(){
+    }
+
     public int getGroupId() {
         return groupId;
     }
