@@ -29,11 +29,12 @@ public class Main {
         SQLUserDao sqlUserDao = new SQLUserDao();
         System.out.println(sqlUserDao.getAll());
 
-        System.out.println(new StatisticService().getAllQuests());
-        System.out.println(new StatisticService().getAllQuestsByMentor(1));
-
-
+        System.out.println("Quests " + new StatisticService().getAllQuests());
+        System.out.println("Mentor Created " + new StatisticService().getAllQuestsByMentor(1));
+        System.out.println("Student Quests " + new StatisticService().getQuestsByStudents(1));
+        System.out.println("Creeps " + new StatisticService().getAllUsersByRole(1));
+        System.out.println("Mentors " + new StatisticService().getAllUsersByRole(2));
+        System.out.println("Codecoolers " + new StatisticService().getAllUsersByRole(3));
 
     }
-
 }

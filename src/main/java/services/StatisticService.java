@@ -1,9 +1,10 @@
 package services;
 
 import dao.SQL.SQLQuestDao;
-import model.Mentor;
+import dao.SQL.SQLStudentDetailsDao;
+import dao.SQL.SQLUserDao;
 import model.Quest;
-import model.StudentDetails;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +30,22 @@ public class StatisticService {
         return mentorQuest.size();
     }
 
-    public int getQuestsByStudents(List<StudentDetails> students) {
+    public int getQuestsByStudents(int studentId) {
         //TODO: Quest done by student
-        return students.size();
+        SQLStudentDetailsDao sqlStudentDetailsDao = new SQLStudentDetailsDao();
+        List<Quest> quests = sqlStudentDetailsDao.getStudentDataByStudentId(studentId).getCompletedQuests();
+        List<Quest> studentQuest = new ArrayList<>();
+        for (Quest quest : quests) {
+            if (quest.getIdMentor() == studentId) {
+                studentQuest.add(quest);
+            }
+        }
+        return studentQuest.size();
     }
 
-    public int getAllMentors(List<Mentor> mentors) {
+    public int getAllUsersByRole(int role) {
         //TODO: Get count of mentors
-        return mentors.size();
-    }
-
-    public int getAllStudents(List<StudentDetails> students) {
-        //TODO: Get count of students
         return 0;
     }
+
 }

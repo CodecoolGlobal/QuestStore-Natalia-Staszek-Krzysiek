@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDetails extends User{
@@ -10,7 +11,7 @@ public class StudentDetails extends User{
     private int experience;
     private Class aClass;
     private List<Item> boughtItems;
-    private List<Quest> completedQuests;
+    private List<Quest> completedQuests = new ArrayList<>();
 
     public StudentDetails(int id, String name, String login, String email, String password, String phoneNumber, int role, int groupId, String teamName, int level, int wallet, int experience, Class aClass, List<Item> boughtItems, List<Quest> completedQuests) {
         super(id, name, login, email, password, phoneNumber, role);
