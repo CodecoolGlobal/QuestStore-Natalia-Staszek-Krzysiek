@@ -31,9 +31,9 @@ public class StudentView extends View {
         displayCodecoolerMenu();
     }
 
-    public void displayInfoBar(int balance, String level) {
+    public void displayInfoBar(int balance, int experience) {
         clearConsole();
-        System.out.format("%-10s%-30d%-8s%-30s","Balance: ", balance , "Level: ", level);
+        System.out.format("%-10s%-30d%-8s%-30s","Balance: ", balance , "Experience: ", experience);
         System.out.println();
     }
 
