@@ -23,11 +23,11 @@ public class UserController {
 
     void promoteBlankUser() {
 
-        if (userDAO.getAllByRole("role").size() > 0) {
-            List<User> users = new ArrayList<>(userDAO.getAllByRole("role"));
+        if (userDAO.getAllByRole(4).size() > 0) {
+            List<User> users = new ArrayList<>(userDAO.getAllByRole(4));
             userView.displayEntriesNoInput(users);
             String login = userView.askForLogin();
-            User user = userDAO.getByLoginAndRole(login, "role");
+            User user = userDAO.getByLoginAndRole(login, 4);
 
             if (user != null) {
                 promote(user);
