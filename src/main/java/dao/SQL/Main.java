@@ -1,5 +1,7 @@
 package dao.SQL;
 
+import services.StatisticService;
+
 import java.sql.SQLException;
 
 public class Main {
@@ -25,6 +27,8 @@ public class Main {
 
         SQLUserDao sqlUserDao = new SQLUserDao();
         System.out.println(sqlUserDao.getAll());
+
+        System.out.println(new StatisticService().getAllQuests());
 
 
 
