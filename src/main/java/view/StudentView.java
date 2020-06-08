@@ -7,7 +7,7 @@ import model.Item;
 
 import java.util.*;
 
-public class CodecoolerView extends View {
+public class StudentView extends View {
 
     private Map<Integer, String> menu = new HashMap<>();
     private Scanner scan = new Scanner(System.in);

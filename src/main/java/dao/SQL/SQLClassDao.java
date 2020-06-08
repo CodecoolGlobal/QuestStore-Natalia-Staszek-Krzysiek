@@ -125,9 +125,4 @@ public class SQLClassDao extends Database_Connection implements ClassDAO {
         }
         return groupMentor;
     }
-
-    @Override
-    public void setDatabasePath(String path) {
-
-    }
 }

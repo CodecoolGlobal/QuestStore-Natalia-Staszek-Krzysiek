@@ -61,7 +61,7 @@ public class StudentDetails extends User{
         this.level = level;
     }
 
-    public int getWallet() {
+    public Integer getWallet() {
         return wallet;
     }
 

@@ -22,7 +22,7 @@ public class Database_Connection {
         try {
             Class.forName("org.postgresql.Driver");
 
-            connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-75-246-118.eu-west-1.compute.amazonaws.com:5432/d3nuc8s3988iho","fbznochzdwosyl","95a8e2f8c07cf64b80500a788f87ec46f1d2eaf6b2b542034f25f4e0311b0e2f");
+            connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-75-225-52.eu-west-1.compute.amazonaws.com:5432/dapdcgql52bu1b","oocsahevsxdcvi","69f61ddc12ee0f09faf874f3da714d72f73dc24361245701e74f662a87272146");
             this.connection.setAutoCommit(true);
             if (connection != null) {
                 System.out.println("Connected");
