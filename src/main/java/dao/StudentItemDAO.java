@@ -8,5 +8,4 @@ public interface StudentItemDAO {
     boolean add(int studentId, int itemId, int isUsed);
     boolean markItemAsUsed(int studentId, int itemId);
     boolean removeTeamItems();
-    void setDatabasePath(String path);
 }

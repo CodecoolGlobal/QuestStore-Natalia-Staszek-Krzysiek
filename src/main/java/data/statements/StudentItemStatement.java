@@ -1,6 +1,6 @@
 package data.statements;
 
-public class StudentItemsStatement {
+public class StudentItemStatement {
 
     public String addStudentItemConnection() {
         return "INSERT INTO students_items (id_item,id_student_details,is_used) VALUES (?,?,?);";

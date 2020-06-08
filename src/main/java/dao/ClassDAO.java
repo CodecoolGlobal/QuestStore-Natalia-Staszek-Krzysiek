@@ -14,6 +14,5 @@ public interface ClassDAO {
     boolean delete(Class group);
     List<String> getGroupsNamesByMentorId(int mentorID);
     Map<Integer, Integer> getMentorAssignedToGroups();
-    void setDatabasePath(String path);
 
 }

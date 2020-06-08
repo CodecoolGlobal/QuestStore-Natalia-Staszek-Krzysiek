@@ -13,5 +13,4 @@ public interface QuestDAO {
     boolean add(Quest task);
     boolean update(Quest task);
     boolean delete(Quest task);
-    void setDatabasePath(String path);
 }

@@ -10,5 +10,4 @@ public interface LevelOfExpDAO {
     LevelOfExp getByName(String levelName);
     boolean add(LevelOfExp expLevel);
     boolean delete(String levelName);
-    void setDatabasePath(String path);
 }
