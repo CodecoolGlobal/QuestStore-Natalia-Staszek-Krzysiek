@@ -54,7 +54,7 @@ public class CreepMenuController extends UserController {
                 case 8:
                     mentorController.showMentorProfileAndHisGroups();
                     break;
-                case 12:
+                case 9:
                     isAppRunning = false;
             }
         }

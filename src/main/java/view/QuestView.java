@@ -80,10 +80,6 @@ public class QuestView extends View {
         return ConsoleInputGetter.getStringInputFromConsole("Enter codecooler login to mark the quest: ");
     }
 
-//    public String getQuestNameInput() {
-//        return ConsoleInputGetter.getStringInputFromConsole("Enter quest name: ");
-//    }
-
     public void displayQuestConnectionAdded() {
         System.out.println("Quest codecooler connection added!");
     }

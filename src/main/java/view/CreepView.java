@@ -19,10 +19,10 @@ public class CreepView extends View{
         menu.put(6, "Delete mentor and all his associations");
         menu.put(7, "Edit Mentor's profile");
         menu.put(8, "View mentor's profile and his class");
-        menu.put(9, "Create a level of experience based on amount of coolcoins");
-        menu.put(10, "Remove level of experience");
-        menu.put(11, "Show all levels of experience");
-        menu.put(12, "Log out");
+//        menu.put(9, "Create a level of experience based on amount of coolcoins");
+//        menu.put(10, "Remove level of experience");
+//        menu.put(11, "Show all levels of experience");
+        menu.put(9, "Log out");
     }
     private void displayCreepMenu() {
         System.out.println("You are logged as Admin");

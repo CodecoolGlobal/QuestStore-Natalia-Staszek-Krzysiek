@@ -12,6 +12,7 @@ abstract class View {
     static Scanner scan = new Scanner(System.in);
 
     String getStringInput() {
+        Scanner scan = new Scanner(System.in);
         return scan.nextLine();
     }
 
