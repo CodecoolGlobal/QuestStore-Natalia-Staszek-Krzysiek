@@ -7,14 +7,14 @@ import view.UserView;
 
 public class CreepMenuController extends UserController {
 
-    private CreepView adminView;
+    private CreepView creepView;
     private ClassController classController;
     private MentorController mentorController;
 
-    public CreepMenuController(UserDAO userDAO, UserView userView, StudentDetailsDAO studentDetailsDAO, CreepView adminView,
+    public CreepMenuController(UserDAO userDAO, UserView userView, StudentDetailsDAO studentDetailsDAO, CreepView creepView,
                                ClassController classController, MentorController mentorController) {
         super(userDAO, userView, studentDetailsDAO);
-        this.adminView = adminView;
+        this.creepView = creepView;
         this.classController = classController;
         this.mentorController = mentorController;
     }
@@ -25,9 +25,9 @@ public class CreepMenuController extends UserController {
         boolean isAppRunning = true;
 
         while (isAppRunning) {
-            adminView.clearConsole();
-            adminView.handleCreepMenu();
-            option = adminView.askForOption();
+            creepView.clearConsole();
+            creepView.handleCreepMenu();
+            option = creepView.askForOption();
 
             switch (option) {
                 case 1:

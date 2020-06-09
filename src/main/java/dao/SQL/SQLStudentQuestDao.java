@@ -7,7 +7,7 @@ import data.statements.StudentQuestStatement;
 import java.sql.PreparedStatement;
 import java.util.Arrays;
 
-public class SQLStudentQuest extends Database_Connection implements StudentQuestDAO {
+public class SQLStudentQuestDao extends Database_Connection implements StudentQuestDAO {
 
     private StudentQuestStatement studentQuestStatement = new StudentQuestStatement();
 

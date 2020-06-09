@@ -6,7 +6,7 @@ public class RootView extends View{
 
     public void displayMenu() {
         System.out.println("QUEST STORE" +
-                "\nAVAILABLE OPTIONS:" +
+                "\nAVAILABLE OPTIONS:\n" +
                 "1. LOGIN IN\n" +
                 "2. SIGN UP\n" +
                 "0. EXIT QUEST STORE");

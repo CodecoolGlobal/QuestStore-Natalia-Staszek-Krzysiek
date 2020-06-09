@@ -15,16 +15,16 @@ import java.util.List;
 
 public class ClassController {
 
-    private ClassView classView;
+    private ClassView creepView;
     private MentorView mentorView;
     private ClassDAO classDAO;
     private UserDAO userDAO;
     private UserClassDAO userClassDAO;
     private dao.StudentDetailsDAO studentDetailsDAO;
 
-    public ClassController(ClassView classView, MentorView mentorView, dao.ClassDAO classDAO, UserDAO userDAO,
+    public ClassController(ClassView creepView, MentorView mentorView, dao.ClassDAO classDAO, UserDAO userDAO,
                            dao.UserClassDAO userClassDAO, StudentDetailsDAO studentDetailsDAO) {
-        this.classView = classView;
+        this.creepView = creepView;
         this.mentorView = mentorView;
         this.classDAO = classDAO;
         this.userDAO = userDAO;
@@ -34,20 +34,20 @@ public class ClassController {
 
     void createGroup() {
 
-        String name = classView.getTeamNameInput();
+        String name = creepView.getTeamNameInput();
         Class aClass = new Class(name);
         if (classDAO.add(aClass)) {
-            classView.displayGroupAdded();
+            creepView.displayGroupAdded();
         } else {
-            classView.displayGroupWithThisNameAlreadyExists();
+            creepView.displayGroupWithThisNameAlreadyExists();
         }
     }
 
     void assignMentorToGroup() {
         List<User> mentors = new ArrayList<>(userDAO.getAllByRole(2));
-        classView.displayEntriesNoInput(mentors);
+        creepView.displayEntriesNoInput(mentors);
         if (mentors.isEmpty()) {
-            classView.pressAnyKeyToContinue();
+            creepView.pressAnyKeyToContinue();
             return;
         }
         String mentorLogin = mentorView.getMentorLoginToAssignGroup();
@@ -60,31 +60,31 @@ public class ClassController {
 
     private void choseGroupAndAssignToMentor(String mentorLogin) {
         List<Class> groups = new ArrayList<>(classDAO.getAll());
-        classView.displayEntriesNoInput(groups);
+        creepView.displayEntriesNoInput(groups);
         if (groups.isEmpty()) {
-            classView.pressAnyKeyToContinue();
+            creepView.pressAnyKeyToContinue();
             return;
         }
-        String groupName = classView.getTeamNameInput();
+        String groupName = creepView.getTeamNameInput();
         if (classDAO.getByName(groupName) != null) {
             Class aClass = classDAO.getByName(groupName);
             User mentor = userDAO.getByLogin(mentorLogin);
             boolean isAdded = userClassDAO.add(aClass.getId(), mentor.getId());
             if (isAdded) {
-                classView.displayGroupConnectionAdded();
+                creepView.displayGroupConnectionAdded();
             } else {
-                classView.displayErrorAddingGroupConnection();
+                creepView.displayErrorAddingGroupConnection();
             }
         } else {
-            classView.displayThereIsNoGroupWithThisName();
+            creepView.displayThereIsNoGroupWithThisName();
         }
     }
 
     void revokeMentorFromGroup() {
         List<User> mentors = new ArrayList<>(userDAO.getAllByRole(2));
-        classView.displayEntriesNoInput(mentors);
+        creepView.displayEntriesNoInput(mentors);
         if (mentors.isEmpty()) {
-            classView.pressAnyKeyToContinue();
+            creepView.pressAnyKeyToContinue();
             return;
         }
         String mentorLogin = mentorView.getMentorLoginToRevokeFromGroup();
@@ -97,40 +97,40 @@ public class ClassController {
 
     private void choseGroupAndRevokeMentor(String mentorLogin) {
         List<Class> classes = new ArrayList<>(classDAO.getAll());
-        classView.displayEntriesNoInput(classes);
+        creepView.displayEntriesNoInput(classes);
         if (classes.isEmpty()) {
-            classView.pressAnyKeyToContinue();
+            creepView.pressAnyKeyToContinue();
             return;
         }
-        String groupName = classView.getTeamNameInput();
+        String groupName = creepView.getTeamNameInput();
         if (classDAO.getByName(groupName) != null) {
             Class aClass = classDAO.getByName(groupName);
             User mentor = userDAO.getByLogin(mentorLogin);
             boolean isRemoved = userClassDAO.delete(aClass.getId(), mentor.getId());
             if (isRemoved) {
-                classView.displayGroupConnectionRemoved();
+                creepView.displayGroupConnectionRemoved();
             } else {
-                classView.displayErrorRemovingGroupConnection();
+                creepView.displayErrorRemovingGroupConnection();
             }
         } else {
-            classView.displayThereIsNoGroupWithThisName();
+            creepView.displayThereIsNoGroupWithThisName();
         }
     }
 
     void deleteGroup() {
         List<Class> groups = new ArrayList<>(classDAO.getAll());
-        classView.displayEntriesNoInput(groups);
+        creepView.displayEntriesNoInput(groups);
         if (groups.isEmpty()) {
-            classView.pressAnyKeyToContinue();
+            creepView.pressAnyKeyToContinue();
             return;
         }
-        String groupName = classView.getTeamNameInput();
+        String groupName = creepView.getTeamNameInput();
         Class aClass = classDAO.getByName(groupName);
         if (aClass != null) {
             classDAO.delete(aClass);
-            classView.displayGroupDeleted();
+            creepView.displayGroupDeleted();
         } else {
-            classView.displayThereIsNoGroupWithThisName();
+            creepView.displayThereIsNoGroupWithThisName();
         }
     }
 
@@ -138,13 +138,13 @@ public class ClassController {
         List<String> groupsNames = new ArrayList<>(classDAO.getGroupsNamesByMentorId(mentorID));
         if (!groupsNames.isEmpty()) {
             for (String groupName : groupsNames) {
-                classView.displayGroupName(groupName);
+                creepView.displayGroupName(groupName);
                 Class aClass = classDAO.getByName(groupName);
                 if (!userDAO.getStudentsByGroupId(aClass.getId()).isEmpty()) {
                     List<User> students = new ArrayList<>(userDAO.getStudentsByGroupId(aClass.getId()));
-                    classView.displayEntriesNoInput(students);
+                    creepView.displayEntriesNoInput(students);
                 } else {
-                    classView.displayThisGroupHasNoStudentsAssigned();
+                    creepView.displayThisGroupHasNoStudentsAssigned();
                 }
             }
         } else {
