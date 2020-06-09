@@ -42,7 +42,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
                         resultSet.getString("name"),
                         resultSet.getInt("points"),
                         resultSet.getString("description"),
-                        resultSet.getString("category")));
+                        resultSet.getString("id_category")));
             resultSet.close();
             statement.close();
         } catch (SQLException e) {

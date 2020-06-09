@@ -26,15 +26,23 @@ public class Main {
 //        creepDao.injector(creeper);
 //        System.out.println(creepDao.isUserDataCorrect("Lepper", "123456"));
 
-        SQLUserDao sqlUserDao = new SQLUserDao();
-        System.out.println(sqlUserDao.getAll());
+//        SQLUserDao sqlUserDao = new SQLUserDao();
+//        System.out.println(sqlUserDao.getAll());
 
         System.out.println("Quests " + new StatisticService().getAllQuests());
-        System.out.println("Mentor Created " + new StatisticService().getAllQuestsByMentor(1));
-        System.out.println("Student Quests " + new StatisticService().getQuestsByStudents(1));
+        System.out.println();
+        System.out.println("Mentor Created " + new StatisticService().getAllQuestsByMentor(4));
+        System.out.println();
+        System.out.println("Student Quests " + new StatisticService().getQuestsByStudents(5));
+        System.out.println();
         System.out.println("Creeps " + new StatisticService().getAllUsersByRole(1));
+        System.out.println();
         System.out.println("Mentors " + new StatisticService().getAllUsersByRole(2));
+        System.out.println();
         System.out.println("Codecoolers " + new StatisticService().getAllUsersByRole(3));
+        System.out.println();
+        System.out.println("Blanks " + new StatisticService().getAllUsersByRole(4));
+        System.out.println();
 
     }
 }
