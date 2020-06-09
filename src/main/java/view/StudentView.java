@@ -1,8 +1,8 @@
 package view;
 
 
-import utilities.ConsoleInputGetter;
-import utilities.Iterator;
+import utils.ConsoleInputGetter;
+import utils.Iterator;
 import model.Item;
 
 import java.util.*;

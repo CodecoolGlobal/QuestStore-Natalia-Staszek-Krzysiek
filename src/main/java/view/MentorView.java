@@ -1,6 +1,6 @@
 package view;
 
-import utilities.ConsoleInputGetter;
+import utils.ConsoleInputGetter;
 import model.User;
 
 import java.util.HashMap;

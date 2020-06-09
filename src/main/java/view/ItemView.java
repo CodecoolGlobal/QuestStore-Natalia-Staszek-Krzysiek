@@ -1,6 +1,6 @@
 package view;
 
-import utilities.ConsoleInputGetter;
+import utils.ConsoleInputGetter;
 import model.Item;
 
 import java.util.ArrayList;

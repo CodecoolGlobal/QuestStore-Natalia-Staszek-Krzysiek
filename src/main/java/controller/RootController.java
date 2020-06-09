@@ -2,8 +2,8 @@ package controller;
 
 import dao.UserDAO;
 import model.User;
-import utilities.EmailValidator;
-import utilities.PhoneValidator;
+import utils.EmailValidator;
+import utils.PhoneValidator;
 import view.RootView;
 
 public class RootController {

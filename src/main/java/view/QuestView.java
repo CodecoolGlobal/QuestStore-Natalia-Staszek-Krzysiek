@@ -1,6 +1,6 @@
 package view;
 
-import utilities.ConsoleInputGetter;
+import utils.ConsoleInputGetter;
 import model.Quest;
 
 import java.util.Arrays;
