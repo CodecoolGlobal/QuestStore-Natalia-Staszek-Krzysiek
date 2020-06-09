@@ -8,14 +8,14 @@ import view.UserView;
 public class CreepMenuController extends UserController {
 
     private CreepView adminView;
-    private ClassController groupController;
+    private ClassController classController;
     private MentorController mentorController;
 
     public CreepMenuController(UserDAO userDAO, UserView userView, StudentDetailsDAO studentDetailsDAO, CreepView adminView,
-                               ClassController groupController, MentorController mentorController) {
+                               ClassController classController, MentorController mentorController) {
         super(userDAO, userView, studentDetailsDAO);
         this.adminView = adminView;
-        this.groupController = groupController;
+        this.classController = classController;
         this.mentorController = mentorController;
     }
 
@@ -34,16 +34,16 @@ public class CreepMenuController extends UserController {
                     promoteBlankUser();
                     break;
                 case 2:
-                    groupController.createGroup();
+                    classController.createGroup();
                     break;
                 case 3:
-                    groupController.assignMentorToGroup();
+                    classController.assignMentorToGroup();
                     break;
                 case 4:
-                    groupController.revokeMentorFromGroup();
+                    classController.revokeMentorFromGroup();
                     break;
                 case 5:
-                    groupController.deleteGroup();
+                    classController.deleteGroup();
                     break;
                 case 6:
                     mentorController.deleteMentor();
