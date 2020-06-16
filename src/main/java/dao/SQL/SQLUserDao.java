@@ -91,6 +91,8 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
         return getUser(statement);
     }
 
+
+
     @Override
     public User getByLoginAndPassword(String login, String password) {
         String sqlStatement = userStatement.selectUserByLoginAndPassword();
@@ -136,7 +138,7 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
 
     @Override
     public boolean update(User user) {
-        String sqlStatement = userStatement.updateUserStatement();
+        String sqlStatement = userStatement.updateUserStatement();//UPDATE users SET name=?,login=?,email=?,password=?,phone_number=?,id_role=?
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getName(), user.getLogin(),
                 user.getEmail(), user.getPassword(), user.getPhoneNumber(), user.getRole(), user.getId()), sqlStatement);
         return update(statement);

@@ -15,7 +15,7 @@ public class UserStatement {
     }
 
     public String updateUserStatement() {
-        return "UPDATE users SET name=?,login=?,email=?,password=?,phone_number=?,id_role=?;";
+        return "UPDATE users SET name=?,login=?,email=?,password=?,phone_number=?,id_role=? WHERE id=?;";
     }
 
     public String deleteUserStatement() {

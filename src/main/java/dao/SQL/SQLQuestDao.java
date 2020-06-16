@@ -37,7 +37,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
                 tasks.add(new Quest(
-                        resultSet.getInt("id"),
+                        resultSet.getInt("id_mentor"),
                         resultSet.getString("name"),
                         resultSet.getInt("points"),
                         resultSet.getString("description"),
@@ -72,7 +72,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
                 task = new Quest(
-                        resultSet.getInt("id"),
+                        resultSet.getInt("id_mentor"),
                         resultSet.getString("name"),
                         resultSet.getInt("points"),
                         resultSet.getString("description"),
@@ -87,10 +87,16 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
         return task;
     }
 
+    /*
+    * PRZYGTOWANE DANE - NIEKONIECZNIE WYSLANE, KWERENDA NIEUZUPELNIONA (CZESTY BLAD)
+    * WKLEJANIE KOMENTARZU KODU WSKAZANE
+    *
+    * */
+
     @Override
     public boolean add(Quest task) {
-        String sqlStatement = questStatement.insertTaskStatement();
-        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getName(), task.getPoints(),
+        String sqlStatement = questStatement.insertTaskStatement();//INSERT INTO quests (id_mentor,name,points,description,category) VALUES (?,?,?,?,?);
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getId_mentor(), task.getName(), task.getPoints(),
                 task.getDescription(), task.getCategory()), sqlStatement);
         return update(statement);
     }

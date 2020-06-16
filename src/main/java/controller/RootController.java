@@ -8,6 +8,10 @@ import view.RootView;
 
 public class RootController {
 
+    //KONTROLER POWINNY BYC RZPYGOTOWANE NA TO ZE DANE OD USERA NIE BEDA PLYNAC Z KONSOLI ALE Z FRONTU!
+    //NA TYM ETAPIE SPRAWDZI DZIALANIE JAVOWYCH HHTTP HANDLEROW
+    //JAKIE DANE SA OBSLUGIWANE PRZYJAC ZWROCIC
+
     private UserDAO userDAO;
     private RootView rootView;
     private CreepMenuController creepMenuController;
@@ -75,7 +79,7 @@ public class RootController {
                         studentMenuController.start(user.getId());
                         break;
                     case 2:
-                        mentorMenuController.start();
+                        mentorMenuController.start(user.getId());
                         break;
                     case 1:
                         creepMenuController.start();

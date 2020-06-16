@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class SQLUserClassDao extends Database_Connection implements UserClassDAO {
+public class SQLUserGroupDao extends Database_Connection implements UserClassDAO {
 
     private UserClassStatement userClassStatement = new UserClassStatement();
 

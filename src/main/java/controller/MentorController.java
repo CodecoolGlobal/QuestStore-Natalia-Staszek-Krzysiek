@@ -11,11 +11,11 @@ public class MentorController {
 
     private MentorView mentorView;
     private UserDAO userDAO;
-    private ClassController classController;
+    private GroupController groupController;
 
-    public MentorController(UserDAO userDAO, ClassController classController, MentorView mentorView) {
+    public MentorController(UserDAO userDAO, GroupController groupController, MentorView mentorView) {
         this.userDAO = userDAO;
-        this.classController = classController;
+        this.groupController = groupController;
         this.mentorView = mentorView;
     }
 
@@ -48,7 +48,7 @@ public class MentorController {
 
         if (mentor != null) {
             mentorView.displayMentorProfile(mentor);
-            classController.showMentorGroups(mentor.getId());
+            groupController.showMentorGroups(mentor.getId());
         } else {
             mentorView.displayNoMentorMessage();
         }

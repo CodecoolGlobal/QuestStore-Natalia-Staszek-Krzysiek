@@ -1,28 +1,27 @@
 package dao.SQL;
 
-import dao.ClassDAO;
+import dao.GroupDAO;
 import data.Database_Connection;
-import data.statements.ClassStatement;
-import model.Class;
+import data.statements.GroupStatement;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class SQLClassDao extends Database_Connection implements ClassDAO {
+public class SQLGroupDAO extends Database_Connection implements GroupDAO {
 
-    ClassStatement classStatement = new ClassStatement();
+    GroupStatement groupStatement = new GroupStatement();
 
     @Override
-    public List<Class> getAll() {
-        String sqlStatement = classStatement.selectAllClasses();
-        List<Class> classes = new ArrayList<>();
+    public List<model.Group> getAll() {
+        String sqlStatement = groupStatement.selectAllClasses();
+        List<model.Group> groups = new ArrayList<>();
         try {
             PreparedStatement statement = getPreparedStatement(sqlStatement);
             ResultSet resultSet = query(statement);
             while (resultSet.next())
-                classes.add(new Class(
+                groups.add(new model.Group(
                         resultSet.getInt("id"),
                         resultSet.getString("name")));
             resultSet.close();
@@ -32,29 +31,29 @@ public class SQLClassDao extends Database_Connection implements ClassDAO {
         } finally {
             disconnect();
         }
-        return classes;
+        return groups;
     }
 
     @Override
-    public Class getByName(String name) {
-        String sqlStatement = classStatement.selectTeamByName();
+    public model.Group getByName(String name) {
+        String sqlStatement = groupStatement.selectTeamByName();
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(name), sqlStatement);
         return getClass(statement);
     }
 
     @Override
-    public Class getById(int id) {
-        String sqlStatement = classStatement.selectGroupById();
+    public model.Group getById(int id) {
+        String sqlStatement = groupStatement.selectGroupById();
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(id), sqlStatement);
         return getClass(statement);
     }
 
-    private Class getClass(PreparedStatement statement) {
-        Class aClass = null;
+    private model.Group getClass(PreparedStatement statement) {
+        model.Group aGroup = null;
         try {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
-                aClass = new Class(
+                aGroup = new model.Group(
                         resultSet.getInt("id"),
                         resultSet.getString("name"));
             resultSet.close();
@@ -64,27 +63,27 @@ public class SQLClassDao extends Database_Connection implements ClassDAO {
         } finally {
             disconnect();
         }
-        return aClass;
+        return aGroup;
     }
 
     @Override
-    public boolean add(Class group) {
-        String sqlStatement = classStatement.insertGroupStatement();
+    public boolean add(model.Group group) {
+        String sqlStatement = groupStatement.insertGroupStatement();
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(group.getTeamName()),
                 sqlStatement);
         return update(statement);
     }
 
     @Override
-    public boolean delete(Class group) {
-        String sqlStatement = classStatement.deleteGroupStatement();
+    public boolean delete(model.Group group) {
+        String sqlStatement = groupStatement.deleteGroupStatement();
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(group.getId()), sqlStatement);
         return update(statement);
     }
 
     @Override
     public List<String> getGroupsNamesByMentorId(int mentorID) {
-        String sqlStatement = classStatement.selectGroupsNamesByMentorId();
+        String sqlStatement = groupStatement.selectGroupsNamesByMentorId();
         List<String> groupNames = new ArrayList<>();
         try {
             PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(mentorID), sqlStatement);
@@ -104,7 +103,7 @@ public class SQLClassDao extends Database_Connection implements ClassDAO {
 
     @Override
     public Map<Integer, Integer> getMentorAssignedToGroups() {
-        String sqlStatement = classStatement.selectMentorAssignedToGroups();
+        String sqlStatement = groupStatement.selectMentorAssignedToGroups();
         Map<Integer, Integer> groupMentor = new HashMap<>();
 
         try {

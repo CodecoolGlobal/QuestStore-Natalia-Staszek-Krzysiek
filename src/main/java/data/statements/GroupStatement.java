@@ -1,6 +1,6 @@
 package data.statements;
 
-public class ClassStatement {
+public class GroupStatement {
 
     public String selectAllClasses() {
         return "SELECT * FROM classes WHERE name != 'ANYTHING BUT THIS!';" ;

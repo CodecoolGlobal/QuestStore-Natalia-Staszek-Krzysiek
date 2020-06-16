@@ -1,6 +1,6 @@
 package view;
 
-public class ClassView extends View {
+public class GroupView extends View {
 
     public String getTeamNameInput() {
         System.out.println("Enter group name: ");

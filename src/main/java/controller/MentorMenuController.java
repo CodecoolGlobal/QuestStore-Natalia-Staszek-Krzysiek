@@ -11,24 +11,24 @@ public class MentorMenuController extends UserController{
 
     private MentorView mentorView;
     private TeamController teamController;
-    private ClassController classController;
+    private GroupController groupController;
     private QuestController questController;
     private StudentController studentController;
     private ItemController itemController;
 
     public MentorMenuController(UserDAO userDAO, UserView view, StudentDetailsDAO studentDetailsDAO, MentorView mentorView,
-                                TeamController teamController, ClassController classController, QuestController questController,
+                                TeamController teamController, GroupController groupController, QuestController questController,
                                 StudentController studentController, ItemController itemController) {
         super(userDAO, view, studentDetailsDAO);
         this.mentorView = mentorView;
         this.teamController = teamController;
-        this.classController = classController;
+        this.groupController = groupController;
         this.questController = questController;
         this.studentController = studentController;
         this.itemController = itemController;
     }
 
-    void start() {
+    void start(int mentorId) {
         int option;
         boolean isAppRunning = true;
 
@@ -42,10 +42,10 @@ public class MentorMenuController extends UserController{
                     promoteBlankUser();
                     break;
                 case 2:
-                    classController.addStudentToGroup();
+                    groupController.addStudentToGroup();
                     break;
                 case 3:
-                    questController.addNewQuest();
+                    questController.addNewQuest(mentorId);
                     break;
                 case 4:
                     itemController.addNewItem();

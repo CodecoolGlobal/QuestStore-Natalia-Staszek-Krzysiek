@@ -28,7 +28,7 @@ public class QuestController {
         this.questView = questView;
     }
 
-    void addNewQuest() {
+    void addNewQuest(int idMentor) {
         String questName = questView.getQuestNameInput();
         if (questDAO.getByName(questName) != null) {
             questView.displayQuestAlreadyExists();
@@ -36,8 +36,8 @@ public class QuestController {
             int points = questView.getQuestPointsInput();
             String description = questView.getQuestDescriptionInput();
             String categoryInput = questView.getQuestCategory();
-            String category = categoryInput.equals(BASIC_TASK) ? "basic" : "extra";
-            if (questDAO.add(new Quest(questName, points, description, category))) {
+            String category = categoryInput.equals(BASIC_TASK) ? "BASIC" : "EXTRA";
+            if (questDAO.add(new Quest(idMentor, questName, points, description, category))) {
                 questView.displayQuestSuccessfullyAdded();
             } else {
                 questView.displayErrorAddingQuest();

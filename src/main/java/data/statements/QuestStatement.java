@@ -11,7 +11,7 @@ public class QuestStatement {
     }
 
     public String insertTaskStatement() {
-        return "INSERT INTO quests (name,points,description,category) VALUES (?,?,?,?);";
+        return "INSERT INTO quests (id_mentor,name,points,description,category) VALUES (?,?,?,?,?);";
     }
 
     public String updateTaskStatement() {

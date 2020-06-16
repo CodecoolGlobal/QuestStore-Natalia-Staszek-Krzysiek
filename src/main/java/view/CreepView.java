@@ -12,7 +12,7 @@ public class CreepView extends View{
 
     public void prepareCreepMenu() {
         menu.put(1, "Create a mentor account");
-        menu.put(2, "Create a class");
+        menu.put(2, "Create a group");
         menu.put(3, "Assign mentor to group");
         menu.put(4, "Revoke mentor from group");
         menu.put(5, "Delete group and all its associations");

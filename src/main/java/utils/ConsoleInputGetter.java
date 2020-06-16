@@ -31,7 +31,7 @@ public class ConsoleInputGetter {
         while(!isCorrectInput) {
             System.out.print(data);
             input = getStringInput();
-            if (input.trim().length() > 0 && isInteger(data)) {
+            if (input.trim().length() > 0 && isInteger(input)) {
                 isCorrectInput = true;
             }
         }

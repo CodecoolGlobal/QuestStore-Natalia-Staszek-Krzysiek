@@ -26,12 +26,11 @@ public class SQLStudentDetailsDao extends Database_Connection implements Student
             ResultSet resultSet = query(statement);
             while (resultSet.next()) {
                 studentDetails = new StudentDetails(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("id_class"),
-                        resultSet.getString("team_name"),
-                        resultSet.getInt("level"),
+                        resultSet.getInt("id_user"),
                         resultSet.getInt("wallet"),
-                        resultSet.getInt("experience")
+                        resultSet.getInt("experience"),
+                        resultSet.getInt("id_class"),
+                        resultSet.getString("team_name")
                 );
             }
             resultSet.close();
@@ -54,12 +53,11 @@ public class SQLStudentDetailsDao extends Database_Connection implements Student
             ResultSet resultSet = query(statement);
             while (resultSet.next()) {
                 students.add(new StudentDetails(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("id_class"),
-                        resultSet.getString("team_name"),
-                        resultSet.getInt("level"),
+                        resultSet.getInt("id_user"),
                         resultSet.getInt("wallet"),
-                        resultSet.getInt("experience"))
+                        resultSet.getInt("experience"),
+                        resultSet.getInt("id_class"),
+                        resultSet.getString("team_name"))
                 );
             }
             resultSet.close();
@@ -82,12 +80,11 @@ public class SQLStudentDetailsDao extends Database_Connection implements Student
             ResultSet resultSet = query(statement);
             while (resultSet.next()) {
                 studentsTeam.add(new StudentDetails(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("id_class"),
-                        resultSet.getString("team_name"),
-                        resultSet.getInt("level"),
+                        resultSet.getInt("id_user"),
                         resultSet.getInt("wallet"),
-                        resultSet.getInt("experience"))
+                        resultSet.getInt("experience"),
+                        resultSet.getInt("id_class"),
+                        resultSet.getString("team_name"))
                 );
             }
             resultSet.close();
@@ -103,8 +100,8 @@ public class SQLStudentDetailsDao extends Database_Connection implements Student
     @Override
     public boolean add(StudentDetails student) {
         String sqlStatement = studentDetailsStatement.createStudentData();
-        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(student.getId(), student.getClass(),
-                student.getTeamName(),student.getLevel(), student.getWallet(), student.getExperience()), sqlStatement);
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(student.getId(), student.getGroupId(),
+                student.getWallet(), student.getExperience(),student.getTeamName()), sqlStatement);
         return update(statement);
     }
 
@@ -112,8 +109,7 @@ public class SQLStudentDetailsDao extends Database_Connection implements Student
     public boolean updateStudentData(StudentDetails student) {
         if (student != null) {
             String sqlStatement = studentDetailsStatement.updateStudentData();
-            PreparedStatement statement = getPreparedStatementBy(Arrays.asList(student.getGroupId(), student.getTeamName(),
-                    student.getLevel(), student.getWallet(), student.getExperience(), student.getId()), sqlStatement);
+            PreparedStatement statement = getPreparedStatementBy(Arrays.asList(student.getId(), student.getWallet(), student.getExperience(), student.getGroupId(), student.getTeamName()), sqlStatement);
             return update(statement);
 
         } else { return false; }

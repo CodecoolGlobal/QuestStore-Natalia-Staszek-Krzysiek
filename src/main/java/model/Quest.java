@@ -5,27 +5,23 @@ import java.util.Objects;
 public class Quest {
 
     private int id;
+    private int id_mentor;
     private String name;
     private int points;
     private String description;
     private String category;
 
-    public Quest() {
-    }
 
-    public Quest(String name, int points, String description, String category) {
+    public Quest(int id_mentor, String name, int points, String description, String category) {
+        this.id_mentor = id_mentor;
         this.name = name;
         this.points = points;
         this.description = description;
         this.category = category;
     }
 
-    public Quest(int id, String name, int points, String description, String category) {
-        this.id = id;
-        this.name = name;
-        this.points = points;
-        this.description = description;
-        this.category = category;
+    public int getId_mentor() {
+        return id_mentor;
     }
 
     public int getId() {

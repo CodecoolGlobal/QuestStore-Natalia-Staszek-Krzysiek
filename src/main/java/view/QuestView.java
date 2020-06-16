@@ -27,12 +27,12 @@ public class QuestView extends View {
     public String getQuestCategory() {
         final String[] CORRECT_OPTIONS = {"b","e"};
         String userInput = "";
-        boolean userInputInCorrectoptions = false;
+        boolean userInputInCorrectOptions = false;
 
-        while (!userInputInCorrectoptions) {
+        while (!userInputInCorrectOptions) {
             userInput = ConsoleInputGetter.getStringInputFromConsole("Enter 'b' to add basic quest or 'e' to add an extra one: ");
-            userInputInCorrectoptions = Arrays.asList(CORRECT_OPTIONS).contains(userInput.toLowerCase());
-            if(!userInputInCorrectoptions) {
+            userInputInCorrectOptions = Arrays.asList(CORRECT_OPTIONS).contains(userInput.toLowerCase());
+            if(!userInputInCorrectOptions) {
                 System.out.println("Wrong input!");
             }
         }

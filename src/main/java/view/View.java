@@ -17,7 +17,7 @@ abstract class View {
     }
 
     public void pressAnyKeyToContinue() {
-        System.out.print("\nPress any key to continue: ");
+        System.out.print("\nPress any key to continue: \n");
         scan.nextLine();
     }
 
