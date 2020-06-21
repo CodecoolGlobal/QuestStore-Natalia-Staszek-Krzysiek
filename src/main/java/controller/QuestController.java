@@ -30,7 +30,7 @@ public class QuestController {
 
     void addNewQuest(int idMentor) {
         String questName = questView.getQuestNameInput();
-        if (questDAO.getByName(questName) != null) {
+        if (questDAO.getQuestByName(questName) != null) {
             questView.displayQuestAlreadyExists();
         } else {
             int points = questView.getQuestPointsInput();
@@ -47,15 +47,15 @@ public class QuestController {
 
     void editQuest() {
 
-        List<Quest> quests = new ArrayList<>(questDAO.getAll());
+        List<Quest> quests = new ArrayList<>(questDAO.getAllQuests());
         questView.displayEntriesNoInput(quests);
         if (quests.isEmpty()) {
             questView.pressAnyKeyToContinue();
             return;
         }
         String taskName = questView.getQuestNameInput();
-        if (questDAO.getByName(taskName) != null) {
-            updateQuest(questDAO.getByName(taskName));
+        if (questDAO.getQuestByName(taskName) != null) {
+            updateQuest(questDAO.getQuestByName(taskName));
         } else {
             questView.displayThereIsNoTaskWithThisName();
         }
@@ -72,6 +72,7 @@ public class QuestController {
                 quest.setPoints(points);
                 showEditResultMessage(questDAO.update(quest));
                 break;
+                //questDAO.add(new Quest(idMentor, questName, points, description, category
             case UPDATE_DESCRIPTION:
                 String description = questView.askForDescriptionInput();
                 quest.setDescription(description);
@@ -114,21 +115,21 @@ public class QuestController {
 
     private void choseQuestToMark(String studentLogin) {
 
-        List<Quest> quests = new ArrayList<>(questDAO.getAll());
+        List<Quest> quests = new ArrayList<>(questDAO.getAllQuests());
         questView.displayEntriesNoInput(quests);
         if (quests.isEmpty()) {
             questView.pressAnyKeyToContinue();
             return;
         }
         String taskName = questView.getQuestNameInput();
-        if (questDAO.getByName(taskName) != null) {
-            Quest quest = questDAO.getByName(taskName);
+        if (questDAO.getQuestByName(taskName) != null) {
+            Quest quest = questDAO.getQuestByName(taskName);
             User student = userDAO.getByLogin(studentLogin);
             boolean isAdded = studentQuestDAO.add(student.getId(), quest.getId());
             if (isAdded) {
                 questView.displayQuestConnectionAdded();
                 studentController.updateStudentBalance(student.getId(), quest.getPoints());
-                studentController.updateStudentExperienceAndLevel(student.getId(), quest.getPoints());
+                studentController.updateStudentExperience(student.getId(), quest.getPoints());
             } else {
                 questView.displayErrorAddingQuestConnection();
             }

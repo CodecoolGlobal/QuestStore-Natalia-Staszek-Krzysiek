@@ -17,7 +17,7 @@ public class StudentController {
     private StudentView studentView;
     private StudentDetailsDAO studentDetailsDAO;
     private StudentItemDAO studentItemDAO;
-//    private ExpLevelsDAO expLevelsDAO;
+    //    private ExpLevelsDAO expLevelsDAO;
     private UserDAO userDAO;
     private ItemDAO itemDAO;
 
@@ -35,7 +35,7 @@ public class StudentController {
         studentDetails.setWallet(studentDetails.getWallet() + points);
     }
 
-    void updateStudentExperienceAndLevel(int studentId, int points) {
+    void updateStudentExperience(int studentId, int points) {
         StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(studentId);
         studentDetails.setExperience(studentDetails.getExperience() + points);
         studentDetailsDAO.updateStudentData(studentDetails);
@@ -61,7 +61,9 @@ public class StudentController {
                 }
             }
             studentView.pressAnyKeyToContinue();
-        } else { studentView.displayNoStudents(); }
+        } else {
+            studentView.displayNoStudents();
+        }
     }
 
     void showStudentBackPack(int studentId) {
@@ -82,8 +84,12 @@ public class StudentController {
                     StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(studentId);
                     updateStudentBalance(price, studentDetails);
 
-                } else { studentView.displayNoMoney(); }
-            } else { studentView.displayItemAlreadyContaining(); }
+                } else {
+                    studentView.displayNoMoney();
+                }
+            } else {
+                studentView.displayItemAlreadyContaining();
+            }
         }
     }
 
@@ -96,7 +102,10 @@ public class StudentController {
             if (checkIfIdItemInStore(itemId, items)) {
                 return itemDAO.getItemById(itemId);
 
-            } else { studentView.displayWrongId(); return null; }
+            } else {
+                studentView.displayWrongId();
+                return null;
+            }
         } else {
             studentView.operationFailed();
             return null;
@@ -105,7 +114,9 @@ public class StudentController {
 
     private boolean checkIfIdItemInStore(int itemId, List<Item> items) {
         for (Item item : items) {
-            if (itemId == item.getId()) { return true; }
+            if (itemId == item.getId()) {
+                return true;
+            }
         }
         return false;
     }
@@ -136,8 +147,12 @@ public class StudentController {
                         updateStudentBalance(priceForEachStudent, member);
                     }
 
-                } else { studentView.displayNoMoney(); }
-            } else { studentView.displayItemAlreadyContaining(); }
+                } else {
+                    studentView.displayNoMoney();
+                }
+            } else {
+                studentView.displayItemAlreadyContaining();
+            }
         }
     }
 
@@ -152,7 +167,7 @@ public class StudentController {
     }
 
     private void updateStudentBackpack(int studentId, Item item) {
-        if (studentItemDAO.add(studentId, item.getId(), 0)) {
+        if (studentItemDAO.add(item.getId(),studentId, true)) {
             studentView.operationSuccess();
         } else {
             studentView.operationFailed();

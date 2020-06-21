@@ -20,8 +20,17 @@ public class Quest {
         this.category = category;
     }
 
+    public Quest(int id, int id_mentor, String name, int points, String description, String category) {
+        this(id_mentor, name, points, description, category);
+        this.id = id;
+    }
+
     public int getId_mentor() {
         return id_mentor;
+    }
+
+    public void setId_mentor(int id_mentor) {
+        this.id_mentor = id_mentor;
     }
 
     public int getId() {

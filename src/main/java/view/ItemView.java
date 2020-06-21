@@ -15,12 +15,17 @@ public class ItemView extends View {
         System.out.println("Create new bonus menu");
     }
 
+    public void displayWrongOptionMessage() {
+        System.out.println("You have chosen wrong option!");
+        pressAnyKeyToContinue();
+    }
+
     public String displayGetName() {
         return ConsoleInputGetter.getStringInputFromConsole("Enter new name: ");
     }
 
     public int displayGetPrice() {
-        return ConsoleInputGetter.getIntegerFromConsole("Enter new price");
+        return ConsoleInputGetter.getIntegerFromConsole("Enter new price: ");
     }
 
     public String displayGetDescription() {
@@ -32,7 +37,7 @@ public class ItemView extends View {
     }
 
     public String askForItemCategory() throws InputMismatchException {
-        List<String> itemCategories = new ArrayList<>(Arrays.asList("Basic","Extra"));
+        List<String> itemCategories = new ArrayList<>(Arrays.asList("Basic", "Extra"));
 
         String userCategoryChoose = "";
 
@@ -44,22 +49,26 @@ public class ItemView extends View {
         return userCategoryChoose;
     }
 
+    public String getNameOfItem() {
+        return ConsoleInputGetter.getStringInputFromConsole("\nEnter name of item to edit: ");
+    }
+
     public int getIdOfItem() {
         return ConsoleInputGetter.getIntegerFromConsole("\nEnter id of item to edit: ");
     }
 
-    public int askForPropertyToEdit(Item item) {
+    public String askForPropertyToEdit(Item item) {
         clearConsole();
-        return ConsoleInputGetter.getIntegerFromConsole(item.toString() +
-                "\n\nWhat would you like to update?:" +
+        System.out.println("\nWhat would you like to update?:" +
                 "\n1. Name" +
-                "\n2. Price" +
-                "\n3. Category" +
-                "\n4. Description");
+                "\n2. Description" +
+                "\n3. Price" +
+                "\n4. Category\n");
+        return ConsoleInputGetter.getStringInputFromConsole("Enter option: ");
     }
 
     public void displayNoItems() {
-        System.out.println("There is no items!");
+        System.out.println("There are no items!");
         pressAnyKeyToContinue();
     }
 

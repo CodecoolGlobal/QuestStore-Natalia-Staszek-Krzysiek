@@ -5,13 +5,24 @@ import java.util.Objects;
 public class Item {
 
     private int id;
+    private int id_creator;
     private String name;
     private int price;
     private String description;
     private String category;
 
-    public Item(int id, String name, int price, String description, String category) {
+
+    public Item(int id, int id_creator, String name, int price, String description, String category) {
         this.id = id;
+        this.id_creator = id_creator;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+    }
+
+    public Item(int id_creator, String name, int price, String description, String category) {
+        this.id_creator = id_creator;
         this.name = name;
         this.price = price;
         this.description = description;
@@ -23,6 +34,14 @@ public class Item {
         this.price = price;
         this.description = description;
         this.category = category;
+    }
+
+    public int getId_creator() {
+        return id_creator;
+    }
+
+    public void setId_creator(int id_creator) {
+        this.id_creator = id_creator;
     }
 
     public String getName() {
@@ -68,11 +87,12 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", id_creator=" + id_creator +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 ", category='" + category + '\'' +
-                ", id=" + id +
                 '}';
     }
 

@@ -18,7 +18,8 @@ abstract class View {
 
     public void pressAnyKeyToContinue() {
         System.out.print("\nPress any key to continue: \n");
-        scan.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 
     public void clearConsole() {

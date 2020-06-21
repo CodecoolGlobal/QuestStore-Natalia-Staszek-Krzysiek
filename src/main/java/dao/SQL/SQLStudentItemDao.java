@@ -17,7 +17,7 @@ public class SQLStudentItemDao extends Database_Connection implements StudentIte
     private StudentItemStatement studentItemStatement = new StudentItemStatement();
 
     @Override
-    public boolean add(int studentId, int itemId, int isUsed) {
+    public boolean add(int studentId, int itemId, boolean isUsed) {
         String sqlStatement = studentItemStatement.addStudentItemConnection();
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(studentId, itemId, isUsed), sqlStatement);
         return update(statement);
@@ -40,7 +40,7 @@ public class SQLStudentItemDao extends Database_Connection implements StudentIte
             ResultSet resultSet = query(statement);
 
             while (resultSet.next()) {
-                studentsItems.add(resultSet.getInt("id"));
+                studentsItems.add(resultSet.getInt("id_item"));
             }
             resultSet.close();
             statement.close();

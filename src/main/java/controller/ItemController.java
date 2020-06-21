@@ -25,7 +25,7 @@ public class ItemController {
         this.itemView = itemView;
     }
 
-    void addNewItem() {
+    void addNewItem(int id_creator) {
         SQLItemDao sqlItemDao = new SQLItemDao();
 
         itemView.displayCreatingItem();
@@ -35,7 +35,7 @@ public class ItemController {
         String category = itemView.askForItemCategory();
         String description = itemView.displayGetDescription();
 
-        Item item = new Item(name, price, description, category);
+        Item item = new Item(id_creator, name, price, description, category);
 
         if (sqlItemDao.add(item)) {
             itemView.displayItemHasBeenAdded();
@@ -47,52 +47,46 @@ public class ItemController {
     void editItem() {
         itemView.clearConsole();
         List<Item> items = new ArrayList<>(itemDAO.getAllItems());
-
         itemView.displayEntriesNoInput(items);
         if (items.isEmpty()) {
             itemView.displayNoItems();
             return;
         }
 
-        int id = itemView.getIdOfItem();
-        Item item = itemDAO.getItemById(id);
+        int itemId = itemView.getIdOfItem();
 
-        if (item != null) {
-            int updateOption = itemView.askForPropertyToEdit(item);
-            handleUpdateBonus(updateOption, item);
+        if (itemDAO.getItemById(itemId) != null) {
+            updateItem(itemDAO.getItemById(itemId));
+        } else {
+            itemView.operationFailed();
         }
-        itemView.pressAnyKeyToContinue();
     }
 
-    private void handleUpdateBonus(int updateOption, Item item) {
-        int UPDATE_NAME = 1;
-        int UPDATE_PRICE = 2;
-        int UPDATE_CATEGORY = 3;
-        int UPDATE_DESCRIPTION = 4;
+    private void updateItem(Item item) {
+        final String UPDATE_NAME = "1";
+        final String UPDATE_DESCRIPTION = "2";
+        final String UPDATE_PRICE = "3";
+        final String UPDATE_CATEGORY = "4";
 
-        if (updateOption == UPDATE_NAME) {
-            item.setName(itemView.displayGetName());
-
-        } else if (updateOption == UPDATE_PRICE) {
-            item.setPrice(itemView.displayGetPrice());
-
-        } else if (updateOption == UPDATE_CATEGORY) {
-            item.setCategory(itemView.askForItemCategory());
-
-        } else if (updateOption == UPDATE_DESCRIPTION) {
-            item.setDescription(itemView.displayGetDescription());
-
-        } else {
-            itemView.operationFailed();
-            return;
-        }
-
-        boolean isUpdate = itemDAO.update(item);
-        if (isUpdate) {
-            itemView.displayItemHasBeenAdded();
-
-        } else {
-            itemView.operationFailed();
+        switch (itemView.askForPropertyToEdit(item)) {
+            case UPDATE_NAME:
+                item.setName(itemView.displayGetName());
+                itemDAO.update(item);
+                break;
+            case UPDATE_DESCRIPTION:
+                item.setDescription(itemView.displayGetDescription());
+                itemDAO.update(item);
+                break;
+            case UPDATE_PRICE:
+                item.setPrice(itemView.displayGetPrice());
+                itemDAO.update(item);
+                break;
+            case UPDATE_CATEGORY:
+                item.setCategory(itemView.askForItemCategory());
+                itemDAO.update(item);
+                break;
+            default:
+                itemView.displayWrongOptionMessage();
         }
     }
 

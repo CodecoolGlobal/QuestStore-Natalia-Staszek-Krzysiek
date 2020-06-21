@@ -15,7 +15,7 @@ public class QuestStatement {
     }
 
     public String updateTaskStatement() {
-        return "UPDATE quests SET name=?,points=?,description=?,category=? WHERE id=?;";
+        return "UPDATE quests SET points=?,description=?,category=? WHERE name=?;";
     }
 
     public String selectAllTasks() {

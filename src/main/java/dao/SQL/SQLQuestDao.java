@@ -25,7 +25,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
     }
 
     @Override
-    public List<Quest> getAll() {
+    public List<Quest> getAllQuests() {
         String sqlStatement = questStatement.selectAllTasks();
         PreparedStatement statement = getPreparedStatementBy(Collections.emptyList(), sqlStatement);
         return getTasks(statement);
@@ -37,6 +37,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
                 tasks.add(new Quest(
+                        resultSet.getInt("id"),
                         resultSet.getInt("id_mentor"),
                         resultSet.getString("name"),
                         resultSet.getInt("points"),
@@ -60,7 +61,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
     }
 
     @Override
-    public Quest getByName(String name) {
+    public Quest getQuestByName(String name) {
         String sqlStatement = questStatement.selectTaskByName();
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(name), sqlStatement);
         return getTask(statement);
@@ -72,6 +73,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
             ResultSet resultSet = query(statement);
             while (resultSet.next())
                 task = new Quest(
+                        resultSet.getInt("id"),
                         resultSet.getInt("id_mentor"),
                         resultSet.getString("name"),
                         resultSet.getInt("points"),
@@ -103,9 +105,8 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
 
     @Override
     public boolean update(Quest task) {
-        String sqlStatement = questStatement.updateTaskStatement();
-        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getId(), task.getName(),
-                task.getPoints(), task.getDescription(), task.getCategory(), task.getId()), sqlStatement);
+        String sqlStatement = questStatement.updateTaskStatement();//"UPDATE quests SET id_mentor=?,name=?,points=?,description=?,category=? WHERE id=?;"//
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getName(),task.getPoints(), task.getDescription(), task.getCategory()), sqlStatement);
         return update(statement);
     }
 

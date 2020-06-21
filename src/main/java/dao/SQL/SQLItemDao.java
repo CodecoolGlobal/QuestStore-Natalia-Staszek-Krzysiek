@@ -47,6 +47,7 @@ public class SQLItemDao extends Database_Connection implements ItemDAO {
             while (resultSet.next()) {
                 items.add(new Item (
                         resultSet.getInt("id"),
+                        resultSet.getInt("id_creator"),
                         resultSet.getString("name"),
                         resultSet.getInt("price"),
                         resultSet.getString("description"),
@@ -84,6 +85,7 @@ public class SQLItemDao extends Database_Connection implements ItemDAO {
             while (resultSet.next()) {
                 item = new Item (
                         resultSet.getInt("id"),
+                        resultSet.getInt("id_creator"),
                         resultSet.getString("name"),
                         resultSet.getInt("price"),
                         resultSet.getString("description"),
@@ -101,14 +103,14 @@ public class SQLItemDao extends Database_Connection implements ItemDAO {
 
     public boolean add(Item item) {
         String sqlStatement = itemStatement.addItemStatement();
-        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(item.getName(), item.getDescription(),
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(item.getId_creator(), item.getName(), item.getDescription(),
                 item.getPrice(), item.getCategory()), sqlStatement);
         return update(statement);
     }
 
     public boolean update(Item item) {
         String sqlStatement = itemStatement.updateQueryStatement();
-        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(item.getName(), item.getDescription(),
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(item.getId(),item.getName(), item.getDescription(),
                 item.getPrice(), item.getCategory(), item.getId()), sqlStatement);
         return update(statement);
     }

@@ -65,7 +65,7 @@ public class QuestView extends View {
                 "\n1. Points" +
                 "\n2. Description" +
                 "\n3. Category");
-        return ConsoleInputGetter.getStringInputFromConsole("Enter option");
+        return ConsoleInputGetter.getStringInputFromConsole("Enter option: ");
     }
 
     public int askForPointsInput() {

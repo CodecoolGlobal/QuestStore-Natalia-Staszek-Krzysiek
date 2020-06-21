@@ -27,10 +27,10 @@ public class ItemStatement {
     }
 
     public String addItemStatement() {
-        return "INSERT INTO items (name,description,price,category) VALUES (?,?,?,?);";
+        return "INSERT INTO items (id_creator,name,description,price,category) VALUES (?,?,?,?,?);";
     }
 
     public String updateQueryStatement() {
-        return "UPDATE items SET name=?,description=?,price=?,category=? WHERE id=?;";
+        return "UPDATE items SET id=?,name=?,description=?,price=?,category=? WHERE id=?;";
     }
 }

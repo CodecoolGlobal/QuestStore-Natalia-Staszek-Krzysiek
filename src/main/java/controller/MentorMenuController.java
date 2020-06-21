@@ -48,7 +48,7 @@ public class MentorMenuController extends UserController{
                     questController.addNewQuest(mentorId);
                     break;
                 case 4:
-                    itemController.addNewItem();
+                    itemController.addNewItem(mentorId);
                     break;
                 case 5:
                     questController.editQuest();
