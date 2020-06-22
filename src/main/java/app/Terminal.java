@@ -11,6 +11,8 @@ public class Terminal {
 
         //OGRANICZENIE ILOSCI INSTANCJI DO NAJPOTRZEBNIEJSZYCH
 
+        //jakis komentarz
+
         CreepView creepView = new CreepView();
         GroupView groupView = new GroupView();
         ItemView itemView = new ItemView();
