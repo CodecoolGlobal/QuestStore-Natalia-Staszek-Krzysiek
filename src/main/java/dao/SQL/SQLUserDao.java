@@ -1,10 +1,15 @@
 package dao.SQL;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 import dao.UserDAO;
 import data.Database_Connection;
 import data.statements.UserStatement;
 import model.User;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +18,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SQLUserDao extends Database_Connection implements UserDAO {
+public class SQLUserDao extends Database_Connection implements UserDAO, HttpHandler {
 
     private UserStatement userStatement = new UserStatement();
 
@@ -149,5 +154,23 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
         String sqlStatement = userStatement.deleteUserStatement();
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(user.getId()), sqlStatement);
         return update(statement);
+    }
+
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        String response = "";
+        try {
+            List<User> students = getAll();
+            ObjectMapper objectMapper = new ObjectMapper();
+            response = objectMapper.writeValueAsString(students);
+            exchange.getResponseHeaders().put("Content-Type", Collections.singletonList("application/json"));
+            exchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));
+            exchange.sendResponseHeaders(200, response.length());
+        } catch (Exception e) {
+            exchange.sendResponseHeaders(404, response.length());
+        }
+        OutputStream outputStream = exchange.getResponseBody();
+        outputStream.write(response.getBytes());
+        outputStream.close();
     }
 }
