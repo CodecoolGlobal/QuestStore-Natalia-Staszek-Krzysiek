@@ -1,6 +1,10 @@
 package controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 import dao.ItemDAO;
+import dao.SQL.SQLUserDao;
 import dao.StudentDetailsDAO;
 import dao.StudentItemDAO;
 import dao.UserDAO;
@@ -9,10 +13,13 @@ import model.StudentDetails;
 import model.User;
 import view.StudentView;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class StudentController {
+public class StudentController implements Controller<User>, HttpHandler {
 
     private StudentView studentView;
     private StudentDetailsDAO studentDetailsDAO;
@@ -20,25 +27,21 @@ public class StudentController {
     //    private ExpLevelsDAO expLevelsDAO;
     private UserDAO userDAO;
     private ItemDAO itemDAO;
+    private final SQLUserDao sqlUserDao = new SQLUserDao();
 
-    public StudentController(StudentDetailsDAO studentDetailsDAO, StudentItemDAO studentItemDAO,
-                             UserDAO userDAO, ItemDAO itemDAO, StudentView studentView) {
-        this.studentDetailsDAO = studentDetailsDAO;
-        this.studentItemDAO = studentItemDAO;
-        this.userDAO = userDAO;
-        this.itemDAO = itemDAO;
-        this.studentView = studentView;
+    public StudentController() {
+
     }
 
     void updateStudentBalance(int studentId, int points) {
-        StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(studentId);
-        studentDetails.setWallet(studentDetails.getWallet() + points);
+        StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
+        user.setWallet(user.getWallet() + points);
     }
 
     void updateStudentExperience(int studentId, int points) {
-        StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(studentId);
-        studentDetails.setExperience(studentDetails.getExperience() + points);
-        studentDetailsDAO.updateStudentData(studentDetails);
+        StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
+        user.setExperience(user.getExperience() + points);
+        studentDetailsDAO.updateStudentData(user);
     }
 
     void showStudentSummary() {
@@ -81,8 +84,8 @@ public class StudentController {
 
                 if (isStudentAffordToBuy(studentId, price)) {
                     updateStudentBackpack(studentId, item);
-                    StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(studentId);
-                    updateStudentBalance(price, studentDetails);
+                    StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
+                    updateStudentBalance(price, user);
 
                 } else {
                     studentView.displayNoMoney();
@@ -117,23 +120,28 @@ public class StudentController {
             if (itemId == item.getId()) {
                 return true;
             }
+            this.studentDetailsDAO = studentDetailsDAO;
+            this.studentItemDAO = studentItemDAO;
+            this.userDAO = userDAO;
+            this.itemDAO = itemDAO;
+            this.studentView = studentView;
         }
         return false;
     }
 
     private boolean isStudentAffordToBuy(int studentId, int price) {
-        StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(studentId);
-        int studentWallet = studentDetails.getWallet();
+        StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
+        int studentWallet = user.getWallet();
         return studentWallet > price;
     }
 
     void buyArtifactForTeam(int studentId) {
-        StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(studentId);
-        if (studentDetails.getTeamName().isEmpty()) {
+        StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
+        if (user.getTeamName().isEmpty()) {
             studentView.displayStudentHaveNoTeamAssignedMessage();
             return;
         }
-        List<StudentDetails> team = studentDetailsDAO.getStudentsDataByTeamName(studentDetails.getTeamName());
+        List<StudentDetails> team = studentDetailsDAO.getStudentsDataByTeamName(user.getTeamName());
         Item item = chooseItemToBuy("MULTIPLE");
 
         if (item != null && team != null) {
@@ -167,17 +175,17 @@ public class StudentController {
     }
 
     private void updateStudentBackpack(int studentId, Item item) {
-        if (studentItemDAO.add(item.getId(),studentId, true)) {
+        if (studentItemDAO.add(item.getId(), studentId, true)) {
             studentView.operationSuccess();
         } else {
             studentView.operationFailed();
         }
     }
 
-    private void updateStudentBalance(int price, StudentDetails studentDetails) {
-        int transactionBalance = studentDetails.getWallet() - price;
-        studentDetails.setWallet(transactionBalance);
-        studentDetailsDAO.updateStudentData(studentDetails);
+    private void updateStudentBalance(int price, StudentDetails user) {
+        int transactionBalance = user.getWallet() - price;
+        user.setWallet(transactionBalance);
+        studentDetailsDAO.updateStudentData(user);
     }
 
     private boolean isStudentContainItem(int studentId, int itemID) {
@@ -198,4 +206,56 @@ public class StudentController {
         }
         return false;
     }
+
+    @Override
+    public boolean create(User user) {
+        return sqlUserDao.add(user);
+    }
+
+    @Override
+    public List<User> readAll() {
+        return sqlUserDao.getAll();
+
+    }
+
+    @Override
+    public User read(int id) {
+        List<User> users = readAll();
+
+        for (User user: users) {
+            if (user.getId()==id) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean update(User user) {
+        return sqlUserDao.update(user);
+    }
+
+    @Override
+    public boolean delete(User user) {
+        return sqlUserDao.delete(user);
+    }
+
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        String response = "";
+        try {
+            List<User> students = readAll();
+            ObjectMapper objectMapper = new ObjectMapper();
+            response = objectMapper.writeValueAsString(students);
+            exchange.getResponseHeaders().put("Content-Type", Collections.singletonList("application/json"));
+            exchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));
+            exchange.sendResponseHeaders(200, response.length());
+        } catch (Exception e) {
+            exchange.sendResponseHeaders(404, response.length());
+        }
+        OutputStream outputStream = exchange.getResponseBody();
+        outputStream.write(response.getBytes());
+        outputStream.close();
+    }
+
 }

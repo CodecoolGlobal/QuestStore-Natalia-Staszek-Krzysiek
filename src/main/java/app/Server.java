@@ -13,7 +13,7 @@ public class Server {
         int port = 9000;
         HttpServer server = HttpServer.create(new InetSocketAddress(9000), 0);
 
-        server.createContext("/students", new SQLUserDao());
+        server.createContext("/students", new StudentController());
 
         server.setExecutor(null);
         server.start();

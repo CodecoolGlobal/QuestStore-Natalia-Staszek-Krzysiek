@@ -158,19 +158,6 @@ public class SQLUserDao extends Database_Connection implements UserDAO, HttpHand
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String response = "";
-        try {
-            List<User> students = getAll();
-            ObjectMapper objectMapper = new ObjectMapper();
-            response = objectMapper.writeValueAsString(students);
-            exchange.getResponseHeaders().put("Content-Type", Collections.singletonList("application/json"));
-            exchange.getResponseHeaders().put("Access-Control-Allow-Origin", Collections.singletonList("*"));
-            exchange.sendResponseHeaders(200, response.length());
-        } catch (Exception e) {
-            exchange.sendResponseHeaders(404, response.length());
-        }
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(response.getBytes());
-        outputStream.close();
+
     }
 }

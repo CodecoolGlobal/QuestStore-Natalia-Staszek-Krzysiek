@@ -35,18 +35,18 @@ public class Terminal {
                 mentorGroupDAO, studentDetailsDAO);
         ItemController itemController = new ItemController(itemDAO, userDAO, studentItemDAO, itemView);
         MentorController mentorController = new MentorController(userDAO, groupController, mentorView);
-        StudentController studentController = new StudentController(studentDetailsDAO, studentItemDAO, userDAO,
-                itemDAO, studentView);
-        QuestController questController = new QuestController(questDAO, userDAO, studentQuestDAO, studentController, questView);
-        TeamController teamController = new TeamController(studentDetailsDAO, studentItemDAO, userView);
-
-        CreepMenuController adminMenuController = new CreepMenuController(userDAO, userView, studentDetailsDAO, creepView,
-                groupController, mentorController);
-        MentorMenuController mentorMenuController = new MentorMenuController(userDAO, userView, studentDetailsDAO, mentorView,
-                teamController, groupController, questController, studentController, itemController);
-        StudentMenuController studentMenuController = new StudentMenuController(studentView, studentDetailsDAO, studentController);
-        RootController rootController = new RootController(userDAO, rootView, adminMenuController, studentMenuController,
-                mentorMenuController);
-        rootController.start();
+//        StudentController studentController = new StudentController(studentDetailsDAO, studentItemDAO, userDAO,
+//                itemDAO, studentView);
+//        QuestController questController = new QuestController(questDAO, userDAO, studentQuestDAO, studentController, questView);
+//        TeamController teamController = new TeamController(studentDetailsDAO, studentItemDAO, userView);
+//
+//        CreepMenuController adminMenuController = new CreepMenuController(userDAO, userView, studentDetailsDAO, creepView,
+//                groupController, mentorController);
+//        MentorMenuController mentorMenuController = new MentorMenuController(userDAO, userView, studentDetailsDAO, mentorView,
+//                teamController, groupController, questController, studentController, itemController);
+//        StudentMenuController studentMenuController = new StudentMenuController(studentView, studentDetailsDAO, studentController);
+//        RootController rootController = new RootController(userDAO, rootView, adminMenuController, studentMenuController,
+//                mentorMenuController);
+//        rootController.start();
     }
 }
