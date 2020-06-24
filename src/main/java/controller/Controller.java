@@ -9,5 +9,4 @@ public interface Controller<T> {
     T read(int id);
     boolean update(T t);
     boolean delete(T t);
-
 }
