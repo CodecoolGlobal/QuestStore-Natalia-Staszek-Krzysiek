@@ -15,9 +15,7 @@ import view.StudentView;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -106,7 +104,6 @@ public class StudentController implements Controller<User>, HttpHandler {
 
             if (checkIfIdItemInStore(itemId, items)) {
                 return itemDAO.getItemById(itemId);
-
             } else {
                 studentView.displayWrongId();
                 return null;
@@ -122,11 +119,6 @@ public class StudentController implements Controller<User>, HttpHandler {
             if (itemId == item.getId()) {
                 return true;
             }
-            this.studentDetailsDAO = studentDetailsDAO;
-            this.studentItemDAO = studentItemDAO;
-            this.userDAO = userDAO;
-            this.itemDAO = itemDAO;
-            this.studentView = studentView;
         }
         return false;
     }
@@ -217,7 +209,6 @@ public class StudentController implements Controller<User>, HttpHandler {
     @Override
     public List<User> readAll() {
         return sqlUserDao.getAll();
-
     }
 
     @Override
