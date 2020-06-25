@@ -12,7 +12,6 @@ import model.Item;
 import model.StudentDetails;
 import model.User;
 import view.StudentView;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ public class StudentController implements Controller<User>, HttpHandler {
     private final SQLUserDao sqlUserDao = new SQLUserDao();
 
     public StudentController() {
-
     }
 
     void updateStudentBalance(int studentId, int points) {
@@ -208,7 +206,7 @@ public class StudentController implements Controller<User>, HttpHandler {
 
     @Override
     public List<User> readAll() {
-        return sqlUserDao.getAll();
+        return sqlUserDao.getAllByRole(3);
     }
 
     @Override

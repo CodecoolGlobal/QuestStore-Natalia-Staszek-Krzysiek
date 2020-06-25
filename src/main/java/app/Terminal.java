@@ -34,7 +34,7 @@ public class Terminal {
         GroupController groupController = new GroupController(groupView, mentorView, groupDAO, userDAO,
                 mentorGroupDAO, studentDetailsDAO);
         ItemController itemController = new ItemController(itemDAO, userDAO, studentItemDAO, itemView);
-        MentorController mentorController = new MentorController(userDAO, groupController, mentorView);
+//        MentorController mentorController = new MentorController(userDAO, groupController, mentorView);
 //        StudentController studentController = new StudentController(studentDetailsDAO, studentItemDAO, userDAO,
 //                itemDAO, studentView);
 //        QuestController questController = new QuestController(questDAO, userDAO, studentQuestDAO, studentController, questView);
