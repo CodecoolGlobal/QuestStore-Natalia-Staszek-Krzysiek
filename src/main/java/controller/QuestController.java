@@ -128,8 +128,8 @@ public class QuestController {
             boolean isAdded = studentQuestDAO.add(student.getId(), quest.getId());
             if (isAdded) {
                 questView.displayQuestConnectionAdded();
-                studentController.updateStudentBalance(student.getId(), quest.getPoints());
-                studentController.updateStudentExperience(student.getId(), quest.getPoints());
+                studentController.updateStudentBalance(student, quest.getPoints());
+                studentController.updateStudentExperience(student, quest.getPoints());
             } else {
                 questView.displayErrorAddingQuestConnection();
             }

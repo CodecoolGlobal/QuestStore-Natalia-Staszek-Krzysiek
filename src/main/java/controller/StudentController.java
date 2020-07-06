@@ -15,9 +15,7 @@ import view.StudentView;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +24,6 @@ public class StudentController implements Controller<User>, HttpHandler {
     private StudentView studentView;
     private StudentDetailsDAO studentDetailsDAO;
     private StudentItemDAO studentItemDAO;
-    //    private ExpLevelsDAO expLevelsDAO;
     private UserDAO userDAO;
     private ItemDAO itemDAO;
     private final SQLUserDao sqlUserDao = new SQLUserDao();
@@ -35,15 +32,15 @@ public class StudentController implements Controller<User>, HttpHandler {
 
     }
 
-    void updateStudentBalance(int studentId, int points) {
-        StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
-        user.setWallet(user.getWallet() + points);
+    void updateStudentBalance(User user, int points) {
+        StudentDetails studentsDetails = studentDetailsDAO.getStudentDataByStudentId(user);
+        studentsDetails.setWallet(studentsDetails.getWallet() + points);
     }
 
-    void updateStudentExperience(int studentId, int points) {
-        StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
-        user.setExperience(user.getExperience() + points);
-        studentDetailsDAO.updateStudentData(user);
+    void updateStudentExperience(User user, int points) {
+        StudentDetails userDetails = studentDetailsDAO.getStudentDataByStudentId(user);
+        userDetails.addExperience(points);
+        studentDetailsDAO.updateStudentData(userDetails);
     }
 
     void showStudentSummary() {
@@ -55,11 +52,11 @@ public class StudentController implements Controller<User>, HttpHandler {
             for (User user : students) {
                 List<String> studentInfo = new ArrayList<>();
 
-                StudentDetails student = studentDetailsDAO.getStudentDataByStudentId(user.getId());
+                StudentDetails student = studentDetailsDAO.getStudentDataByStudentId(user);
                 studentInfo.add(user.getName());
                 studentInfo.add(student.getWallet().toString());
 
-                List<Item> studentItems = itemDAO.getItemsByStudentId(student.getId());
+                List<Item> studentItems = itemDAO.getItemsByStudentId(student.getUser().getId());
                 if (studentItems != null) {
                     studentView.displayStudentInfo(studentInfo, studentItems);
 
@@ -76,45 +73,41 @@ public class StudentController implements Controller<User>, HttpHandler {
         studentView.displayCodecoolerBackpack(backpack);
     }
 
-    void buyArtifact(int studentId) {
+    void buyArtifact(User user) throws Exception {
         Item item = chooseItemToBuy("SINGLE");
 
-        if (item != null) {
+        if (item == null) {
+            throw new Exception("Item cannot be null");
+        }
 
-            if (!isStudentContainItem(studentId, item.getId())) {
-                int price = item.getPrice();
+        if (!isStudentContainItem(user, item.getId())) {
+            int price = item.getPrice();
 
-                if (isStudentAffordToBuy(studentId, price)) {
-                    updateStudentBackpack(studentId, item);
-                    StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
-                    updateStudentBalance(price, user);
+            if (isStudentAffordToBuy(user, price)) {
+                updateStudentBackpack(user, item);
+                StudentDetails userDetails = studentDetailsDAO.getStudentDataByStudentId(user);
+                updateStudentBalance(price, userDetails);
 
-                } else {
-                    studentView.displayNoMoney();
-                }
             } else {
-                studentView.displayItemAlreadyContaining();
+                studentView.displayNoMoney();
             }
+        } else {
+            studentView.displayItemAlreadyContaining();
         }
     }
 
-    private Item chooseItemToBuy(String category) {
+    private Item chooseItemToBuy(String category) throws Exception {
         List<Item> items = itemDAO.getItemsByCategory(category);
 
-        if (items != null) {
-            int itemId = studentView.chooseItemFrom(items);
-
-            if (checkIfIdItemInStore(itemId, items)) {
-                return itemDAO.getItemById(itemId);
-
-            } else {
-                studentView.displayWrongId();
-                return null;
-            }
-        } else {
-            studentView.operationFailed();
-            return null;
+        if (items == null) {
+            throw new Exception("ITEM CANNOT BE NULL!");
         }
+        int itemId = studentView.chooseItemFrom(items);
+
+        if (checkIfIdItemInStore(itemId, items)) {
+            return itemDAO.getItemById(itemId);
+        }
+        throw new Exception("ITEM NOT FOUND");
     }
 
     private boolean checkIfIdItemInStore(int itemId, List<Item> items) {
@@ -122,19 +115,13 @@ public class StudentController implements Controller<User>, HttpHandler {
             if (itemId == item.getId()) {
                 return true;
             }
-            this.studentDetailsDAO = studentDetailsDAO;
-            this.studentItemDAO = studentItemDAO;
-            this.userDAO = userDAO;
-            this.itemDAO = itemDAO;
-            this.studentView = studentView;
         }
         return false;
     }
 
-    private boolean isStudentAffordToBuy(int studentId, int price) {
-        StudentDetails user = studentDetailsDAO.getStudentDataByStudentId(studentId);
-        int studentWallet = user.getWallet();
-        return studentWallet > price;
+    private boolean isStudentAffordToBuy(User user, int price) {
+        StudentDetails userDetails = studentDetailsDAO.getStudentDataByStudentId(user);
+        return userDetails.getWallet() > price;
     }
 
     void buyArtifactForTeam(int studentId) {
@@ -147,13 +134,14 @@ public class StudentController implements Controller<User>, HttpHandler {
         Item item = chooseItemToBuy("MULTIPLE");
 
         if (item != null && team != null) {
+            //todo revert condition, if team and item equal null then throw new exception
 
             if (!isTeamMemberContainItem(team, item.getId())) {
                 int priceForEachStudent = item.getPrice() / team.size();
 
                 if (isTeamAffordToBuy(priceForEachStudent, team)) {
                     for (StudentDetails member : team) {
-                        updateStudentBackpack(member.getId(), item);
+                        updateStudentBackpack(member, item);
                         updateStudentBalance(priceForEachStudent, member);
                     }
 
@@ -176,8 +164,9 @@ public class StudentController implements Controller<User>, HttpHandler {
         return true;
     }
 
-    private void updateStudentBackpack(int studentId, Item item) {
-        if (studentItemDAO.add(item.getId(), studentId, true)) {
+    private void updateStudentBackpack(User user, Item item) {
+        if (studentItemDAO.add(item.getId(), user, true)) {
+            //todo
             studentView.operationSuccess();
         } else {
             studentView.operationFailed();
@@ -190,8 +179,8 @@ public class StudentController implements Controller<User>, HttpHandler {
         studentDetailsDAO.updateStudentData(user);
     }
 
-    private boolean isStudentContainItem(int studentId, int itemID) {
-        List<Integer> studentsItems = studentItemDAO.getStudentItemsIdsBy(studentId);
+    private boolean isStudentContainItem(User user, int itemID) {
+        List<Integer> studentsItems = studentItemDAO.getStudentItemsIdsBy(user.getId());
         for (int studentItemID : studentsItems) {
             if (itemID == studentItemID) {
                 return true;
@@ -202,7 +191,7 @@ public class StudentController implements Controller<User>, HttpHandler {
 
     private boolean isTeamMemberContainItem(List<StudentDetails> team, int itemID) {
         for (StudentDetails member : team) {
-            if (isStudentContainItem(member.getId(), itemID)) {
+            if (isStudentContainItem(member.getUser().getId(), itemID)) {
                 return true;
             }
         }
@@ -216,16 +205,15 @@ public class StudentController implements Controller<User>, HttpHandler {
 
     @Override
     public List<User> readAll() {
-        return sqlUserDao.getAll();
-
+        return sqlUserDao.getAllByRole(2);
     }
 
     @Override
     public User read(int id) {
         List<User> users = readAll();
 
-        for (User user: users) {
-            if (user.getId()==id) {
+        for (User user : users) {
+            if (user.getId() == id) {
                 return user;
             }
         }
@@ -267,9 +255,7 @@ public class StudentController implements Controller<User>, HttpHandler {
             OutputStream outputStream = exchange.getResponseBody();
             outputStream.write(response.getBytes());
             outputStream.close();
-        }
-
-        else if (methods[2].matches(regex) ){
+        } else if (methods[2].matches(regex)) {
             String response = "";
             try {
                 User student = read(Integer.parseInt(methods[2]));

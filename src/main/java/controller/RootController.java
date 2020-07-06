@@ -76,7 +76,7 @@ public class RootController {
                         rootView.wrongInputMessage();
                         break;
                     case 3:
-                        studentMenuController.start(user.getId());
+                        studentMenuController.start(user);
                         break;
                     case 2:
                         mentorMenuController.start(user.getId());

@@ -2,7 +2,9 @@ package model;
 
 import java.util.List;
 
-public class StudentDetails extends User{
+public class StudentDetails {
+
+    private User user;
     private int groupId;
     private String teamName;
     private int level;
@@ -12,26 +14,13 @@ public class StudentDetails extends User{
     private List<Item> boughtItems;
     private List<Quest> completedQuests;
 
-    public StudentDetails(int id, String name, String login, String email, String password, String phoneNumber, int role, int groupId, String teamName, int level, int wallet, int experience, Group aGroup, List<Item> boughtItems, List<Quest> completedQuests) {
-        super(id, name, login, email, password, phoneNumber, role);
-        this.groupId = groupId;
-        this.teamName = teamName;
-        this.level = level;
-        this.wallet = wallet;
-        this.experience = experience;
-        this.aGroup = aGroup;
-        this.boughtItems = boughtItems;
-        this.completedQuests = completedQuests;
-    }
-
-    public StudentDetails(int id , int wallet, int experience,int groupId,String teamName) {
-        super(id);
+    public StudentDetails(User user, int wallet, int experience,int groupId,String teamName) {
+        this.user = user;
         this.wallet = wallet;
         this.experience = experience;
         this.groupId = groupId;
         this.teamName = teamName;
     }
-
 
     public StudentDetails(){
     }
@@ -76,6 +65,10 @@ public class StudentDetails extends User{
         this.experience = experience;
     }
 
+    public void addExperience(int experience) {
+        this.experience += experience;
+    }
+
     public Group getaGroup() {
         return aGroup;
     }
@@ -98,6 +91,14 @@ public class StudentDetails extends User{
 
     public void setCompletedQuests(List<Quest> completedQuests) {
         this.completedQuests = completedQuests;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

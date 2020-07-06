@@ -180,7 +180,7 @@ public class GroupController {
         if (groupDAO.getByName(groupName) != null) {
             model.Group aGroup = groupDAO.getByName(groupName);
             User student = userDAO.getByLogin(studentLogin);
-            StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(student.getId());
+            StudentDetails studentDetails = studentDetailsDAO.getStudentDataByStudentId(student);
             studentDetails.setGroupId(aGroup.getId());
             boolean isUpdated = studentDetailsDAO.updateStudentData(studentDetails);
             if (isUpdated) {

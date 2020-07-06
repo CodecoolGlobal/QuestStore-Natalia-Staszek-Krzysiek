@@ -1,8 +1,9 @@
 package app;
 
 import com.sun.net.httpserver.HttpServer;
+import controller.MentorController;
 import controller.StudentController;
-import dao.SQL.SQLUserDao;
+import controller.UserController;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -13,13 +14,16 @@ public class Server {
         int port = 9000;
         HttpServer server = HttpServer.create(new InetSocketAddress(9000), 0);
 
+        server.createContext("/allUsers", new UserController());
+
+        server.createContext("/mentors", new MentorController());
+
         server.createContext("/students", new StudentController());
 
         server.setExecutor(null);
         server.start();
 
         System.out.println("Server is running on port " + port);
-
 
     }
 }

@@ -2,6 +2,7 @@ package controller;
 
 import dao.StudentDetailsDAO;
 import model.StudentDetails;
+import model.User;
 import view.StudentView;
 
 import java.util.InputMismatchException;
@@ -18,8 +19,9 @@ public class StudentMenuController {
         this.studentController = studentController;
     }
 
-    void start(int studentId) {
-        StudentDetails student = getStudentDataBy(studentId);
+    void start(User user) {
+        StudentDetails student = studentDetailsDAO.getStudentDataByStudentId(user);
+
         boolean isLoopEnd = false;
         int option = 0;
 
@@ -35,21 +37,21 @@ public class StudentMenuController {
             }
             switch (option) {
                 case 1:
-                    studentController.showStudentBackPack(studentId);
+                    studentController.showStudentBackPack(user.getId());
                     break;
                 case 2:
-                    studentController.buyArtifact(studentId);
+                    try {
+                        studentController.buyArtifact(user);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 3:
-                    studentController.buyArtifactForTeam(studentId);
+                    studentController.buyArtifactForTeam(user.getId());
                     break;
                 case 4:
                     isLoopEnd = true;
             }
         }
-    }
-
-    private StudentDetails getStudentDataBy(int student_id) {
-        return studentDetailsDAO.getStudentDataByStudentId(student_id);
     }
 }
