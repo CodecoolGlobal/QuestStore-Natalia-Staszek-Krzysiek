@@ -1,4 +1,4 @@
-package controller;
+package handler;
 
 import dao.StudentDetailsDAO;
 import model.StudentDetails;

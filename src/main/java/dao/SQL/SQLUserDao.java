@@ -1,8 +1,6 @@
 package dao.SQL;
 
 import dao.UserDAO;
-import data.Database_Connection;
-import data.statements.UserStatement;
 import model.User;
 
 import java.sql.PreparedStatement;
@@ -15,7 +13,6 @@ import java.util.List;
 
 public class SQLUserDao extends Database_Connection implements UserDAO {
 
-    private UserStatement userStatement = new UserStatement();
 
     private User getUser(PreparedStatement statement) {
         User user = null;
@@ -65,72 +62,73 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
 
     @Override
     public List<User> getAll() {
-        String sqlStatement = userStatement.selectAllUsers();
+        String sqlStatement = "SELECT * FROM users";
         PreparedStatement statement = getPreparedStatementBy(new ArrayList<>(), sqlStatement);
         return getUsers(statement);
     }
 
     @Override
     public List<User> getAllByRole(int role) {
-        String sqlStatement = userStatement.selectAllUsersByRole();
+        String sqlStatement = "SELECT * FROM users WHERE id_role = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(role), sqlStatement);
         return getUsers(statement);
     }
 
     @Override
     public List<User> getStudentsByGroupId(int groupID) {
-        String sqlStatement = userStatement.selectAllStudentsByGroupId();
+        String sqlStatement = "SELECT name,login,email,password,phone_number,id_role FROM users JOIN students_details " +
+                "ON users.id = students_details.id_user WHERE students_details.id_class=?;";
+
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(groupID), sqlStatement);
         return getUsers(statement);
     }
 
     @Override
     public User getById(int id) {
-        String sqlStatement = userStatement.selectUserById();
+        String sqlStatement = "SELECT * FROM users WHERE id = ?";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(id), sqlStatement);
         return getUser(statement);
     }
 
 
-
     @Override
     public User getByLoginAndPassword(String login, String password) {
-        String sqlStatement = userStatement.selectUserByLoginAndPassword();
+        String sqlStatement = "SELECT * FROM users WHERE login = ? AND password = ?;";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(login, password), sqlStatement);
         return getUser(statement);
     }
 
     @Override
     public User getByLoginAndRole(String login, int role) {
-        String sqlStatement = userStatement.selectUserByLoginAndRole();
+        String sqlStatement = "SELECT * FROM users WHERE login = ? AND id_role = ?;";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(login, role), sqlStatement);
         return getUser(statement);
     }
 
     @Override
     public User getByLogin(String login) {
-        String sqlStatement = userStatement.selectUserByLogin();
+        String sqlStatement = "SELECT * FROM users WHERE login = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(login), sqlStatement);
         return getUser(statement);
     }
 
     @Override
     public User getByEmail(String email) {
-        String sqlStatement = userStatement.selectUserByEmail();
+        String sqlStatement = "SELECT * FROM users WHERE email = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(email), sqlStatement);
         return getUser(statement);
     }
 
     @Override
     public User getByPhoneNumber(String phoneNumber) {
-        String sqlStatement = userStatement.selectUserByPhoneNumber();
+        String sqlStatement = "SELECT * FROM users WHERE phone_number = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(phoneNumber), sqlStatement);
         return getUser(statement);
     }
 
     @Override
     public boolean add(User user) {
-        String sqlStatement = userStatement.insertUserStatement();
+        String sqlStatement = "INSERT INTO users (name,login,email,password,phone_number,id_role) VALUES (?,?,?,?,?,?);";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getName(), user.getLogin(),
                 user.getEmail(), user.getPassword(), user.getPhoneNumber(), user.getRole()), sqlStatement);
         return update(statement);
@@ -138,7 +136,7 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
 
     @Override
     public boolean update(User user) {
-        String sqlStatement = userStatement.updateUserStatement();//UPDATE users SET name=?,login=?,email=?,password=?,phone_number=?,id_role=?
+        String sqlStatement = "UPDATE users SET name=?,login=?,email=?,password=?,phone_number=?,id_role=? WHERE id=?;";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getName(), user.getLogin(),
                 user.getEmail(), user.getPassword(), user.getPhoneNumber(), user.getRole(), user.getId()), sqlStatement);
         return update(statement);
@@ -146,7 +144,7 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
 
     @Override
     public boolean delete(User user) {
-        String sqlStatement = userStatement.deleteUserStatement();
+        String sqlStatement = "DELETE FROM users WHERE id = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(user.getId()), sqlStatement);
         return update(statement);
     }

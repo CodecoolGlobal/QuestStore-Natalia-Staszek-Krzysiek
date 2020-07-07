@@ -1,10 +1,9 @@
 package app;
 
 import com.sun.net.httpserver.HttpServer;
-import controller.MentorController;
-import controller.StudentController;
-import dao.SQL.SQLUserDao;
-import utils.Register;
+import handler.MentorController;
+import handler.StudentController;
+import handler.RegistrationHandler;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -17,7 +16,7 @@ public class Server {
 
         server.createContext("/students", new StudentController());
         server.createContext("/mentors", new MentorController());
-        server.createContext("/register", new Register());
+        server.createContext("/register", new RegistrationHandler());
 
         server.setExecutor(null);
         server.start();

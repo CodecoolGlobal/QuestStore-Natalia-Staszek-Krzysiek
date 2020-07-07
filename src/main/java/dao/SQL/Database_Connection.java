@@ -1,4 +1,4 @@
-package data;
+package dao.SQL;
 
 import java.sql.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package utils;
+package handler;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -14,11 +14,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 
-public class Register implements HttpHandler {
+public class RegistrationHandler implements HttpHandler {
 
     private final SQLUserDao sqlUserDao;
 
-    public Register() {
+    public RegistrationHandler() {
         sqlUserDao = new SQLUserDao();
     }
 
@@ -43,11 +43,10 @@ public class Register implements HttpHandler {
             user.setEmail(data.get("email"));
             user.setPassword(data.get("password"));
             user.setPhoneNumber(data.get("phone_number"));
-            user.setRole(3);
+            user.setRole(4);
 
             sqlUserDao.add(user);
 
-            String password = data.get("password");
         }
         exchange.sendResponseHeaders(200, response.length());
         OutputStream outputStream = exchange.getResponseBody();

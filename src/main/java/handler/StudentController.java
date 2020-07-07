@@ -1,4 +1,4 @@
-package controller;
+package handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
@@ -28,7 +28,17 @@ public class StudentController implements Controller<User>, HttpHandler {
     private ItemDAO itemDAO;
     private final SQLUserDao sqlUserDao = new SQLUserDao();
 
-    public StudentController() {
+    public StudentController(){
+    }
+
+    public StudentController(StudentDetailsDAO studentDetailsDAO, StudentItemDAO studentItemDAO,
+                             UserDAO userDAO,
+                             ItemDAO itemDAO,StudentView studentView) {
+        this.studentDetailsDAO = studentDetailsDAO;
+        this.studentItemDAO = studentItemDAO;
+        this.userDAO = userDAO;
+        this.itemDAO = itemDAO;
+        this.studentView = studentView;
     }
 
     void updateStudentBalance(int studentId, int points) {

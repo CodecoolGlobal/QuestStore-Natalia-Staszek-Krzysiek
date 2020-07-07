@@ -1,11 +1,10 @@
-package controller;
+package handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.SQL.SQLUserDao;
 import dao.UserDAO;
-import model.Mentor;
 import model.User;
 import view.MentorView;
 
@@ -21,6 +20,15 @@ public class MentorController implements Controller<User>, HttpHandler {
     private UserDAO userDAO;
     private GroupController groupController;
     private final SQLUserDao sqlUserDao = new SQLUserDao();
+
+    public MentorController(){
+    }
+
+    public MentorController(UserDAO userDAO,GroupController groupController,MentorView mentorView) {
+        this.userDAO = userDAO;
+        this.groupController = groupController;
+        this.mentorView = mentorView;
+    }
 
     void deleteMentor() {
         List<User> mentors = new ArrayList<>(userDAO.getAllByRole(2));
