@@ -8,9 +8,9 @@ function subPages(){
     {
         location.href="creep.html";
     } else if ((username == "mentor@gmail.com" && password == "22222")) {
-        location.href="mentor.html";
+        location.href="creep.html";
     }else if ((username == "codecooler@gmail.com" && password == "33333")) {
-        location.href="codecooler.html";
+        location.href="creep.html";
     }
 }
 
@@ -57,4 +57,49 @@ function createNextLvlMin(thisLevel) {
 function createUpMinLevel(thisLevel) {
     const newLevelMin = parseInt(document.getElementById("level" + thisLevel + "_min").innerHTML);
     document.getElementById("level" + thisLevel + "_limit").min = newLevelMin + 1;
+}
+
+
+const form = document.querySelector("#login-form");
+
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const data = `email=${this.email.value}&password=${this.password.value}`;
+    getUser(data);
+});
+function clicking() {
+
+}
+
+function getUser(data) {
+    fetch(`${apiUrl}/login`,
+        {
+            // mode: 'no-cors',
+            method: "POST",
+            body: data
+        })
+        .then(function (response) {
+            let user = response.json();
+            return user;
+        })
+        .then(function (user) {
+            if (user.role == 'ADMIN') {
+                console.log('I am admin');
+                sessionStorage.setItem('id', user.id);
+                sessionStorage.setItem('role', user.role)
+                window.location.replace("creep.html");
+            } else if (user.role == 'MENTOR') {
+                console.log('I am mentor');
+                sessionStorage.setItem('id', user.id);
+                sessionStorage.setItem('role', user.role)
+                window.location.replace("creep.html");
+            } else if (user.role == 'STUDENT') {
+                console.log('I am student');
+                sessionStorage.setItem('id', user.id);
+                sessionStorage.setItem('role', user.role)
+                window.location.replace("creep.html");
+            } else {
+                console.log('I am noone!')
+            }
+        });
 }

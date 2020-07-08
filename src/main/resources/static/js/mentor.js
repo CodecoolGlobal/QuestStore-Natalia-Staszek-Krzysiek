@@ -1,7 +1,7 @@
 const container = document.querySelector(".mentors");
 
 function getMentors() {
-    fetch("http://localhost:9000/mentors")
+    fetch("http://localhost:8100/mentors")
         .then(function (response) {
             if (response.ok) {
                 return response.json();

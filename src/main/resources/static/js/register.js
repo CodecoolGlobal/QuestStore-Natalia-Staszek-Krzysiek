@@ -8,7 +8,7 @@ form.addEventListener('submit', function (e) {
 });
 
 function setStudent(data) {
-    fetch("http://localhost:9000/register",
+    fetch("http://localhost:8100/register",
         {
             mode: 'no-cors',
             method: "POST",
