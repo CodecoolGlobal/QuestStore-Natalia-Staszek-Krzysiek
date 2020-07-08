@@ -83,23 +83,23 @@ function getUser(data) {
             return user;
         })
         .then(function (user) {
-            if (user.role == 'ADMIN') {
-                console.log('I am admin');
+            if (user.role == 'CREEP') {
+                console.log('I am creep');
                 sessionStorage.setItem('id', user.id);
-                sessionStorage.setItem('role', user.role)
+                sessionStorage.setItem('role', user.role);
                 window.location.replace("creep.html");
             } else if (user.role == 'MENTOR') {
                 console.log('I am mentor');
                 sessionStorage.setItem('id', user.id);
-                sessionStorage.setItem('role', user.role)
+                sessionStorage.setItem('role', user.role);
                 window.location.replace("creep.html");
             } else if (user.role == 'STUDENT') {
                 console.log('I am student');
                 sessionStorage.setItem('id', user.id);
-                sessionStorage.setItem('role', user.role)
+                sessionStorage.setItem('role', user.role);
                 window.location.replace("creep.html");
             } else {
-                console.log('I am noone!')
+                console.log('blabla');
             }
         });
 }
