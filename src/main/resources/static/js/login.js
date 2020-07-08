@@ -1,7 +1,7 @@
 
 const birds = new Audio("resources/birds.mp3");
 
-function subPages(){
+/*function subPages(){
     const username = (document.getElementById("username").value);
     const password = (document.getElementById("password").value);
     if(username == "creep@gmail.com" && password == "11111")
@@ -12,7 +12,7 @@ function subPages(){
     }else if ((username == "codecooler@gmail.com" && password == "33333")) {
         location.href="creep.html";
     }
-}
+}*/
 
 //hamburger responsive
 function myFunction() {
@@ -60,11 +60,11 @@ function createUpMinLevel(thisLevel) {
 }
 
 
-const form = document.querySelector("#login-form");
+const form = document.querySelector("#confirm");
 
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    const data = `email=${this.email.value}&password=${this.password.value}`;
+    const data = `login=${this.login.value}&password=${this.password.value}`;
     getUser(data);
 });
 function clicking() {
