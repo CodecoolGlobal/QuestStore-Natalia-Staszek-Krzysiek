@@ -22,6 +22,7 @@ public class StudentController implements Controller<User>, HttpHandler {
     //    private ExpLevelsDAO expLevelsDAO;
     private UserDAO userDAO;
     private ItemDAO itemDAO;
+
     private final SQLUserDao sqlUserDao = new SQLUserDao();
 
     public StudentController(){
