@@ -47,13 +47,13 @@ public class LoginHandler implements HttpHandler {
             int userType = user.getRole();
 
             if (!user.equals(null) && userType == 3) {
-                nextUrl = "http://localhost:8100/student";
+                nextUrl = "http://localhost:8100/creep";
             }
             if (!user.equals(null) && userType == 2) {
-                nextUrl = "http://localhost:8100/mentor";
+                nextUrl = "http://localhost:8100/creep";
             }
             if (!user.equals(null) && userType == 1) {
-                nextUrl = "http://localhost:8100/creepy-guy";
+                nextUrl = "http://localhost:8100/creep";
             }
 
             httpExchange.getResponseHeaders().add("Location", nextUrl);

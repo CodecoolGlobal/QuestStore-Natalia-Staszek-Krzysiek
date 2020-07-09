@@ -17,13 +17,9 @@ public class Server {
         HttpServer server = HttpServer.create(new InetSocketAddress(8100), 0);
         server.createContext("/students", new StudentController());
         server.createContext("/mentors", new MentorController());
-
         server.createContext("/register", new RegistrationHandler());
         server.createContext("/login", new LoginHandler());
-
-        server.createContext("/register", new RegistrationHandler());
         server.createContext("/static", new Static());
-        server.createContext("/login", new LoginHandler());
 
 
 
