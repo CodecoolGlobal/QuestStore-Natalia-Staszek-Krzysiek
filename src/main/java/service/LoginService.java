@@ -1,10 +1,7 @@
 package service;
 
-<<<<<<< HEAD
 import dao.SQL.SQLUserDao;
-=======
 
->>>>>>> 9c77cb373b06ee0dbe17eb9f1ab6a93850922590
 import dao.UserDAO;
 import model.User;
 

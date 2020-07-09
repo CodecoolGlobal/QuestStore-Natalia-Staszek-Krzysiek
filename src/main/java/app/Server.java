@@ -5,13 +5,7 @@ import controller.Static;
 import handler.MentorController;
 import handler.RegistrationHandler;
 import handler.StudentController;
-import controller.LoginHandler;
-import handler.MentorController;
-import controller.Static;
-import handler.RegistrationHandler;
-import handler.StudentController;
-import dao.SQL.SQLUserDao;
-import handler.StudentController;
+import handler.LoginHandler;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -25,7 +19,7 @@ public class Server {
         server.createContext("/mentors", new MentorController());
 
         server.createContext("/register", new RegistrationHandler());
-        server.createContext("/login", new controller.LoginHandler());
+        server.createContext("/login", new LoginHandler());
 
         server.createContext("/register", new RegistrationHandler());
         server.createContext("/static", new Static());
