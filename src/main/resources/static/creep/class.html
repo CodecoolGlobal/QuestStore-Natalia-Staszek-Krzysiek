@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://cdn3.vectorstock.com/i/1000x1000/25/02/leaves-icons-leaf-icon-with-long-shadow-on-green-vector-21002502.jpg" type="image/x-icon">
+    <meta name="keywords" content="login, quest, store, cms, mentor, creep, play"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Quest Store</title>
+    <link rel="stylesheet" media="all" href="../css/style.css"/>
+    <script type="text/javascript" src="../js/login.js" defer></script>
+</head>
+<body>
+<div class="h-center main-container">
+    <header role="banner" class="header row">
+        <h1>Quest Store - Creep menu</h1>
+    </header>
+
+    <div class="flex-row w-100 topnav" id="myTopnav">
+        <a href="../login.html" class="active">BACK TO LOGIN PAGE</a>
+        <a href="class.html">Class</a>
+        <a href="mentorEdit.html">Mentor</a>
+        <a href="level.html">Level</a>
+        <a href="../creep.html">About us</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <!--            <img class="menu-bar-img" alt="bar" src="resources/images/bar.png">-->
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <main role="main" class="flex main">
+        <article class="article flex-col">
+
+            <h1>Classes</h1>
+            <h5>On this page you can add classes:</h5>
+            <hr>
+            <hr>
+            <table>
+                <th>CLASS</th>
+                <th>MENTOR</th>
+                </tr>
+                <td class="">basic</td>
+                <td>Marcin Izworski</td>
+                </tr>
+                <td>java</td>
+                <td>Adrian Widłak</td>
+                </tr>
+                <td>web</td>
+                <td>Adam Romanowski</td>
+                </tr>
+            </table>
+
+            <form action="#" onsubmit="addClass()">
+                <h2>Add new class:</h2>
+                <label for="name">Class name:</label>
+                <input type="text" name="class_name" id="class_name" required>
+                <hr>
+                <label for="mentor">Mentor:</label>
+
+                <select name="mentor" id="choose_mentor">
+                    <option value="Marcin Izworski">Marcin Izworski</option>
+                    <option value="Adrian Widłak">Adrian Widłak</option>
+                    <option value="Adam Romanowski">Adam Romanowski</option>
+                </select>
+                <hr>
+                <input type="submit" value="Add class">
+            </form>
+        </article>
+        <aside role="complimentary" class="aside">
+            <a class="aside-item h-center">Hi</a>
+            <a class="aside-item h-center">You're on your manager's page</a>
+            <a class="aside-item h-center">Let's have a fun <br>
+                <img id="bird" src="../resources/images/bird.png"></a>
+        </aside>
+    </main>
+</div>
+<div class="push"></div>
+</div>
+
+<footer class="footer">
+    <a>legal information </a>|
+    <a>all rights reserved &copy; Natalia Rajska, Stanisław Chynek, Krzysztof Niźnik 2020</a>
+</footer>
+
+</body>
+</html>
