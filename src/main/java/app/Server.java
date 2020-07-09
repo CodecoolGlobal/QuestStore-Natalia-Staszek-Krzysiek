@@ -1,9 +1,10 @@
 package app;
 
 import com.sun.net.httpserver.HttpServer;
+import handler.LoginHandler;
 import handler.MentorController;
-import handler.StudentController;
 import handler.RegistrationHandler;
+import handler.StudentController;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -17,6 +18,7 @@ public class Server {
         server.createContext("/students", new StudentController());
         server.createContext("/mentors", new MentorController());
         server.createContext("/register", new RegistrationHandler());
+        server.createContext("/login", new LoginHandler());
 
         server.setExecutor(null);
         server.start();

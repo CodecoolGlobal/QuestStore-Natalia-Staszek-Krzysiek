@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class LoginHandler implements HttpHandler {
@@ -31,10 +32,14 @@ public class LoginHandler implements HttpHandler {
 
         if (method.equals("POST")) {
 
-            InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+            InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
             String formData = br.readLine();
+            System.out.println(formData);
             Map<String, String> inputs = Parser.parseFormData(formData);
+
+            System.out.println(inputs.get("login"));
+            System.out.println(inputs.get("password"));
 
             String nextUrl = "";
 
