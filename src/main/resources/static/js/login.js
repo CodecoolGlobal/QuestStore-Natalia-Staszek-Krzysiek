@@ -26,27 +26,9 @@ console.log(2);
             body: data
         })
         .then(function (response) {
-            let user = response.json();
-            return user;
+
+            console.log(response);
+            window.location.href = response.url;
+
         })
-        .then(function (user) {
-            if (user.role == 'CREEP') {
-                console.log('I am creep');
-                sessionStorage.setItem('id', user.id);
-                sessionStorage.setItem('role', user.role);
-                window.location.replace("creep.html");
-            } else if (user.role == 'MENTOR') {
-                console.log('I am mentor');
-                sessionStorage.setItem('id', user.id);
-                sessionStorage.setItem('role', user.role);
-                window.location.replace("creep.html");
-            } else if (user.role == 'STUDENT') {
-                console.log('I am student');
-                sessionStorage.setItem('id', user.id);
-                sessionStorage.setItem('role', user.role);
-                window.location.replace("creep.html");
-            } else {
-                console.log('blabla');
-            }
-        });
 }
