@@ -18,10 +18,9 @@ public class Server {
         server.createContext("/students", new StudentController());
         server.createContext("/mentors", new MentorController());
         server.createContext("/register", new RegistrationHandler());
-        server.createContext("/login", new LoginHandler());
-        server.createContext("/static", new Static());
-
-
+        Static aStatic = new Static();
+        server.createContext("/static", aStatic);
+        server.createContext("/login", new LoginHandler(aStatic));
 
         server.setExecutor(null);
         server.start();

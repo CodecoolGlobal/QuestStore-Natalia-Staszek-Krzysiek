@@ -2,6 +2,7 @@ package handler;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import controller.Static;
 import helpers.Parser;
 import model.User;
 import service.LoginService;
@@ -15,12 +16,14 @@ import java.util.Map;
 
 public class LoginHandler implements HttpHandler {
 
+    private final Static aStatic;
     private LoginService login;
     private static final int STUDENT = 1;
     private static final int MENTOR = 2;
     private static final int CREEPUGUY = 3;
 
-    public LoginHandler() {
+    public LoginHandler(Static aStatic) {
+        this.aStatic = aStatic;
         login = new LoginService();
     }
 
@@ -59,6 +62,10 @@ public class LoginHandler implements HttpHandler {
             httpExchange.getResponseHeaders().add("Location", nextUrl);
             httpExchange.sendResponseHeaders(302, response.getBytes().length);
         }
+        else if(method.equals("GET")) {
+        aStatic.sendFileAsResponse(httpExchange,"./static/login.html");
+        }
+
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
