@@ -1,0 +1,101 @@
+html {
+    background: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/pdflowerset17-gloy-01a-l_1.jpg?bg=transparent&con=3&cs=srgb&dpr=1&fm=jpg&ixlib=php-3.1.0&q=65&usm=15&vib=3&w=800&s=b8e8bde0f246d66d14ed9d8da0789175) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    font-family: 'Quicksand', sans-serif;
+}
+
+h1 {
+    color: #497979;
+}
+
+label {
+    text-transform: uppercase;
+    text-shadow: 0.2em 0.2em 0.4em #000000;
+    animation: shine 2s infinite alternate;
+}
+
+@keyframes shine {
+    from {color: rgb(155, 191, 155);
+    }
+    to {color: rgb(114, 137, 114);
+    }
+}
+
+input:focus{
+    outline: none;
+}
+
+input[type=email], input[type=password], input[type=text] {
+    width: 100%;
+    padding: 0.75em 1.25em;
+    margin: 0.5em 0;
+    display: inline-block;
+    border: 0.06em solid rgb(132, 93, 101);
+    box-sizing: border-box;
+    border-radius: 1.25em;
+}
+
+/* Set a style for all buttons */
+button {
+    color: rgb(74, 115, 104);
+    font-weight: inherit;
+    padding: 0.31em 0.31em;
+    margin: 0.5em 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: large;
+    margin-top: 1.6em;
+    border-radius: 0.31em;
+    outline: none;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 1;
+    color: #725757;
+    outline: none;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+    width: auto;
+    background-color: rgb(250, 213, 202);
+    margin-left: 0.6em;
+    border-radius: 0.3em;
+}
+
+/* Add padding to containers */
+.container {
+
+    margin: 1.25em auto;
+    width: 285px;
+    padding: 0.9em;
+    padding-bottom: 1.25em;
+    border-radius: 1em 2em 1em 2em;
+    background-color: rgb(74, 115, 104);
+
+}
+
+.password {
+    color: rgb(250, 213, 202);
+    font-size: small;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: .2em;
+    opacity: .7;
+    font-size: x-small;
+    font-style: oblique;
+}

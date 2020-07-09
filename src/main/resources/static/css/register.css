@@ -1,0 +1,105 @@
+html {
+    background: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/pdflowerset17-gloy-01a-l_1.jpg?bg=transparent&con=3&cs=srgb&dpr=1&fm=jpg&ixlib=php-3.1.0&q=65&usm=15&vib=3&w=800&s=b8e8bde0f246d66d14ed9d8da0789175) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align: center;
+    font-weight: bold;
+    font-size: small;
+    font-family: 'Quicksand', sans-serif;
+    color: #fad5ca;
+}
+h1 {
+    color: #497979;
+}
+
+
+label {
+    text-transform: uppercase;
+    text-shadow: 0.2em 0.2em 0.4em #000000;
+    animation: shine 2s infinite alternate;
+}
+
+@keyframes shine {
+    from {color: rgb(165, 187, 165);
+    }
+    to {color: rgb(138, 156, 138);
+    }
+}
+
+input:focus {
+    outline: none;
+}
+
+input[type=text], input[type=email], input[type=password] {
+    width: 100%;
+    padding: 0.75em 1.25em;
+    margin: 0.5em 0;
+    display: inline-block;
+    border: solid rgb(114, 137, 114);
+    box-sizing: border-box;
+    border-radius: 1.25em;
+}
+
+/* Set a style for all buttons */
+button {
+    color: rgb(74, 115, 104);
+    font-weight: bold;
+    padding: 0.31em 0.31em;
+    border: none;
+    cursor: pointer;
+    font-size: large;
+    border-radius: 0.31em;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 1;
+    color: #725757;
+    outline: none;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+    width: auto;
+    background-color: rgb(250, 213, 202);
+    margin-left: 0.6em;
+    border-radius: 0.3em;
+    outline: none;
+}
+
+/* Add padding to containers */
+.container {
+    margin: 1em auto;
+    width: 50%;
+    padding: 1.5em;
+    padding-bottom: 1.25em;
+    border-radius: 1em 4em 1em 4em;
+    background-color: rgb(74, 115, 104);
+    max-width: 350px;
+}
+
+@media screen and (max-width: 375px){
+    .container {
+         margin: 0.5em auto;
+         width: auto;}
+}
+
+.password {
+    color: rgb(250, 213, 202);
+    font-size: small;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: .2em;
+    opacity: .7;
+    font-size: small;
+    font-style: oblique;
+    color: #011515;
+}
