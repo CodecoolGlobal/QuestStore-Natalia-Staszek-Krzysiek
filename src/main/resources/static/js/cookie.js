@@ -10,10 +10,10 @@ function getCookie(cname) {
   const ca = document.cookie.split(';');
   for(let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while (c.charAt(0) == ' ') {
+    while (c.charAt(0) === ' ') {
       c = c.substring(1);
     }
-    if (c.indexOf(name) == 0) {
+    if (c.indexOf(name) === 0) {
       return c.substring(cookienum.length, c.length);
     }
   }
@@ -22,11 +22,11 @@ function getCookie(cname) {
 
 function checkCookie() {
   let cookienum = getCookie("username");
-  if (cookienum != "") {
+  if (cookienum !== "") {
     alert("Welcome again " + cookienum);
   } else {
     cookienum = Math.floor(Math.random() * 112222222220);
-    if (cookienum != "" && cookienum != null) {
+    if (cookienum !== "" && cookienum != null) {
       setCookie("username", cookienum, 365);
     }
   }
