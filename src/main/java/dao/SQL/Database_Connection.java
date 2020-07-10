@@ -12,10 +12,10 @@ public class Database_Connection {
     protected String databaseURL;
 
     public Database_Connection(){
-        this.login = "fbznochzdwosyl";
-        this.password = "95a8e2f8c07cf64b80500a788f87ec46f1d2eaf6b2b542034f25f4e0311b0e2f";
-        this.database = "d3nuc8s3988iho";
-        this.databaseURL = "jdbc:postgresql://ec2-54-75-246-118.eu-west-1.compute.amazonaws.com/";
+        this.login = "oocsahevsxdcvi";
+        this.password = "69f61ddc12ee0f09faf874f3da714d72f73dc24361245701e74f662a87272146";
+        this.database = "dapdcgql52bu1b";
+        this.databaseURL = "jdbc:postgresql://ec2-54-75-225-52.eu-west-1.compute.amazonaws.com/";
     }
 
     public void connect() {
