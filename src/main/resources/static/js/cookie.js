@@ -21,7 +21,7 @@ function getCookie(cname) {
 }
 
 function checkCookie() {
-  const cookienum = getCookie("username");
+  let cookienum = getCookie("username");
   if (cookienum != "") {
     alert("Welcome again " + cookienum);
   } else {
