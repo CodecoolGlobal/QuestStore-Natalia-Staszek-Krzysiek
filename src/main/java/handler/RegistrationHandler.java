@@ -43,7 +43,7 @@ public class RegistrationHandler implements HttpHandler {
             user.setEmail(data.get("email"));
             user.setPassword(data.get("password"));
             user.setPhoneNumber(data.get("phone_number"));
-            user.setRole(4);
+            user.setRole(3);
 
             sqlUserDao.add(user);
 
