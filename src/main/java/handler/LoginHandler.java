@@ -49,21 +49,20 @@ public class LoginHandler implements HttpHandler {
             User user = login.getUser(inputs.get("login"), inputs.get("password"));
             int userType = user.getRole();
 
-            if (!user.equals(null) && userType == 3) {
+            if (userType == 3) {
                 nextUrl = "http://localhost:8100/static/creep.html";
             }
-            if (!user.equals(null) && userType == 2) {
+            if ((userType == 2)) {
                 nextUrl = "http://localhost:8100/static/creep.html";
             }
-            if (!user.equals(null) && userType == 1) {
+            if (userType == 1) {
                 nextUrl = "http://localhost:8100/static/creep.html";
             }
 
             httpExchange.getResponseHeaders().add("Location", nextUrl);
             httpExchange.sendResponseHeaders(302, response.getBytes().length);
-        }
-        else if(method.equals("GET")) {
-        aStatic.sendFileAsResponse(httpExchange,"./static/login.html");
+        } else if (method.equals("GET")) {
+            aStatic.sendFileAsResponse(httpExchange, "./static/login.html");
         }
 
         OutputStream os = httpExchange.getResponseBody();
