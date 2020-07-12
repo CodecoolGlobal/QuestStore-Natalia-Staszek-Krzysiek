@@ -1,12 +1,13 @@
 package service;
 
+import dao.SQL.SQLUserDao;
 
 import dao.UserDAO;
 import model.User;
 
 public class LoginService {
 
-    UserDAO userDAO;
+    UserDAO userDAO = new SQLUserDao();
 
     public User getUser(String login, String password) {
         try {

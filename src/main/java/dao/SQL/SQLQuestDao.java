@@ -1,8 +1,6 @@
 package dao.SQL;
 
 import dao.QuestDAO;
-import data.Database_Connection;
-import data.statements.QuestStatement;
 import model.Quest;
 
 import java.sql.PreparedStatement;
@@ -15,18 +13,18 @@ import java.util.List;
 
 public class SQLQuestDao extends Database_Connection implements QuestDAO {
 
-    private QuestStatement questStatement = new QuestStatement();
 
     @Override
     public List<Quest> getTasksByStudentId(int id) {
-        String sqlStatement = questStatement.selectTasksByStudentId();
+        String sqlStatement = "SELECT name,points,description,category FROM quests JOIN quests " +
+                "ON quests.id=students_quests.id_quest WHERE students_quests.id_user;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(id), sqlStatement);
         return getTasks(statement);
     }
 
     @Override
     public List<Quest> getAllQuests() {
-        String sqlStatement = questStatement.selectAllTasks();
+        String sqlStatement = "SELECT * FROM quests;";
         PreparedStatement statement = getPreparedStatementBy(Collections.emptyList(), sqlStatement);
         return getTasks(statement);
     }
@@ -55,14 +53,14 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
 
     @Override
     public Quest getById(int id) {
-        String sqlStatement = questStatement.selectTaskById();
+        String sqlStatement = "SELECT * FROM quests WHERE id = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(id), sqlStatement);
         return getTask(statement);
     }
 
     @Override
     public Quest getQuestByName(String name) {
-        String sqlStatement = questStatement.selectTaskByName();
+        String sqlStatement = "SELECT * FROM quests WHERE name = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(name), sqlStatement);
         return getTask(statement);
     }
@@ -97,7 +95,7 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
 
     @Override
     public boolean add(Quest task) {
-        String sqlStatement = questStatement.insertTaskStatement();//INSERT INTO quests (id_mentor,name,points,description,category) VALUES (?,?,?,?,?);
+        String sqlStatement = "INSERT INTO quests (id_mentor,name,points,description,category) VALUES (?,?,?,?,?);";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getId_mentor(), task.getName(), task.getPoints(),
                 task.getDescription(), task.getCategory()), sqlStatement);
         return update(statement);
@@ -105,14 +103,14 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
 
     @Override
     public boolean update(Quest task) {
-        String sqlStatement = questStatement.updateTaskStatement();//"UPDATE quests SET id_mentor=?,name=?,points=?,description=?,category=? WHERE id=?;"//
+        String sqlStatement = "UPDATE quests SET points=?,description=?,category=? WHERE name=?;";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getName(),task.getPoints(), task.getDescription(), task.getCategory()), sqlStatement);
         return update(statement);
     }
 
     @Override
     public boolean delete(Quest task) {
-        String sqlStatement = questStatement.deleteTaskStatement();
+        String sqlStatement = "DELETE FROM quests WHERE quests.id=?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(task.getId()), sqlStatement);
         return update(statement);
     }

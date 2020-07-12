@@ -1,8 +1,6 @@
 package dao.SQL;
 
 import dao.ItemDAO;
-import data.Database_Connection;
-import data.statements.ItemStatement;
 import model.Item;
 
 import java.sql.PreparedStatement;
@@ -15,25 +13,25 @@ import java.util.List;
 
 public class SQLItemDao extends Database_Connection implements ItemDAO {
 
-    private ItemStatement itemStatement = new ItemStatement();
 
     @Override
     public List<Item> getItemsByStudentId(int studentId) {
-        String sqlStatement = itemStatement.getItemsByStudentId();
+        String sqlStatement = "SELECT name,description,price,category FROM items JOIN students_items " +
+                "ON items.id = students_items.id_item WHERE students_items.id_student_details=?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(studentId), sqlStatement);
         return getItemsBy(statement);
     }
 
     @Override
     public List<Item> getItemsByCategory(String category) {
-        String sqlStatement = itemStatement.getItemsByCategory();
+        String sqlStatement = "SELECT * FROM items WHERE category=?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(category), sqlStatement);
         return getItemsBy(statement);
     }
 
     @Override
     public List<Item> getAllItems() {
-        String sqlStatement = itemStatement.getAllItems();
+        String sqlStatement = "SELECT * FROM items;";
         PreparedStatement statement = getPreparedStatementBy(Collections.emptyList(), sqlStatement);
         return getItemsBy(statement);
     }
@@ -65,14 +63,14 @@ public class SQLItemDao extends Database_Connection implements ItemDAO {
 
     @Override
     public Item getItemById(int id) {
-        String sqlStatement = itemStatement.getItemById();
+        String sqlStatement = "SELECT * FROM items WHERE id = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(id), sqlStatement);
         return getItemFromStore(statement);
     }
 
     @Override
     public Item getItemByName(String itemName) {
-        String sqlStatement = itemStatement.getItemByName();
+        String sqlStatement = "SELECT * FROM items WHERE name=?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(itemName), sqlStatement);
         return getItemFromStore(statement);
     }
@@ -102,14 +100,14 @@ public class SQLItemDao extends Database_Connection implements ItemDAO {
     }
 
     public boolean add(Item item) {
-        String sqlStatement = itemStatement.addItemStatement();
+        String sqlStatement = "INSERT INTO items (id_creator,name,description,price,category) VALUES (?,?,?,?,?);";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(item.getId_creator(), item.getName(), item.getDescription(),
                 item.getPrice(), item.getCategory()), sqlStatement);
         return update(statement);
     }
 
     public boolean update(Item item) {
-        String sqlStatement = itemStatement.updateQueryStatement();
+        String sqlStatement = "UPDATE items SET id=?,name=?,description=?,price=?,category=? WHERE id=?;";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(item.getId(),item.getName(), item.getDescription(),
                 item.getPrice(), item.getCategory(), item.getId()), sqlStatement);
         return update(statement);
@@ -117,7 +115,7 @@ public class SQLItemDao extends Database_Connection implements ItemDAO {
 
     @Override
     public boolean delete(Item item) {
-        String sqlStatement = itemStatement.deleteItemStatement();
+        String sqlStatement = "DELETE FROM items WHERE id=?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(item.getId()), sqlStatement);
         return update(statement);
     }

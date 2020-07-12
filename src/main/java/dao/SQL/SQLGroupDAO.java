@@ -1,8 +1,6 @@
 package dao.SQL;
 
 import dao.GroupDAO;
-import data.Database_Connection;
-import data.statements.GroupStatement;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,11 +9,10 @@ import java.util.*;
 
 public class SQLGroupDAO extends Database_Connection implements GroupDAO {
 
-    GroupStatement groupStatement = new GroupStatement();
 
     @Override
     public List<model.Group> getAll() {
-        String sqlStatement = groupStatement.selectAllClasses();
+        String sqlStatement = "SELECT * FROM classes WHERE name != 'ANYTHING BUT THIS!';" ;
         List<model.Group> groups = new ArrayList<>();
         try {
             PreparedStatement statement = getPreparedStatement(sqlStatement);
@@ -36,14 +33,14 @@ public class SQLGroupDAO extends Database_Connection implements GroupDAO {
 
     @Override
     public model.Group getByName(String name) {
-        String sqlStatement = groupStatement.selectTeamByName();
+        String sqlStatement = "SELECT * FROM classes WHERE name = ?;" ;
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(name), sqlStatement);
         return getClass(statement);
     }
 
     @Override
     public model.Group getById(int id) {
-        String sqlStatement = groupStatement.selectGroupById();
+        String sqlStatement = "SELECT * FROM classes WHERE id = ?;" ;
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(id), sqlStatement);
         return getClass(statement);
     }
@@ -68,7 +65,7 @@ public class SQLGroupDAO extends Database_Connection implements GroupDAO {
 
     @Override
     public boolean add(model.Group group) {
-        String sqlStatement = groupStatement.insertGroupStatement();
+        String sqlStatement = "INSERT INTO classes (name) VALUES (?);" ;
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(group.getTeamName()),
                 sqlStatement);
         return update(statement);
@@ -76,14 +73,15 @@ public class SQLGroupDAO extends Database_Connection implements GroupDAO {
 
     @Override
     public boolean delete(model.Group group) {
-        String sqlStatement = groupStatement.deleteGroupStatement();
+        String sqlStatement = "DELETE FROM classes WHERE id=?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(group.getId()), sqlStatement);
         return update(statement);
     }
 
     @Override
     public List<String> getGroupsNamesByMentorId(int mentorID) {
-        String sqlStatement = groupStatement.selectGroupsNamesByMentorId();
+        String sqlStatement = "SELECT * FROM classes JOIN users_classes ON classes.id = users_classes.id_class " +
+                "WHERE users_classes.id_user = ?;";
         List<String> groupNames = new ArrayList<>();
         try {
             PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(mentorID), sqlStatement);
@@ -103,7 +101,7 @@ public class SQLGroupDAO extends Database_Connection implements GroupDAO {
 
     @Override
     public Map<Integer, Integer> getMentorAssignedToGroups() {
-        String sqlStatement = groupStatement.selectMentorAssignedToGroups();
+        String sqlStatement = "SELECT * FROM users_classes;";
         Map<Integer, Integer> groupMentor = new HashMap<>();
 
         try {
