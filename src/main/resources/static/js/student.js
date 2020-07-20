@@ -14,7 +14,7 @@ function getStudents() {
 
 
 function innerStudents(students) {
-    const table = document.querySelector(".tbody")
+    const table = document.querySelector(".tbody");
     students.forEach(student => {
         let row = document.createElement("tr");
 
