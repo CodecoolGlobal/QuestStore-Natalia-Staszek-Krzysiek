@@ -64,7 +64,7 @@ public class SQLGroupDAO extends Database_Connection implements GroupDAO {
     }
 
     @Override
-    public boolean add(model.Group group) {
+    public boolean add(model.Group group) throws SQLException {
         String sqlStatement = "INSERT INTO classes (name) VALUES (?);" ;
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(group.getTeamName()),
                 sqlStatement);

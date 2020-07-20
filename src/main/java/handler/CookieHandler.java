@@ -42,7 +42,6 @@ public class CookieHandler implements HttpHandler {
 
         String response = "\n isNewSession: " + isNewSession;
         response += "\n session id: " + cookie.get().getValue();
-
         sendResponse(httpExchange, response);
     }
 

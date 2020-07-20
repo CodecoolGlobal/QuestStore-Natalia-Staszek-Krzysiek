@@ -47,19 +47,14 @@ public class Database_Connection {
         return statement.executeQuery();
     }
 
-    public boolean update(PreparedStatement statement) {
+    public boolean update(PreparedStatement statement) throws SQLException {
 
-        try {
             connect();
             statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } finally {
             disconnect();
+            return true;
         }
-        return false;
-    }
+
 
     protected PreparedStatement getPreparedStatement(String sqlStatement) throws SQLException {
         connect();
