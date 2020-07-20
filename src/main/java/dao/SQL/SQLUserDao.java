@@ -128,8 +128,8 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
 
     @Override
     public boolean add(User user) {
-        String sqlStatement = "INSERT INTO users (name,login,email,password,phone_number,id_role) VALUES (?,?,?,?,?,?);";
-        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getName(), user.getLogin(),
+        String sqlStatement = "INSERT INTO users (id,name,login,email,password,phone_number,id_role) VALUES (?,?,?,?,?,?,?);";
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getId(),user.getName(), user.getLogin(),
                 user.getEmail(), user.getPassword(), user.getPhoneNumber(), user.getRole()), sqlStatement);
         return update(statement);
     }

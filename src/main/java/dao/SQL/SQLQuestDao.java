@@ -95,23 +95,23 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
 
     @Override
     public boolean add(Quest task) {
-        String sqlStatement = "INSERT INTO quests (id_mentor,name,points,description,category) VALUES (?,?,?,?,?);";
-        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getId_mentor(), task.getName(), task.getPoints(),
+        String sqlStatement = "INSERT INTO quests (id,id_mentor,name,points,description,category) VALUES (?,?,?,?,?,?);";
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getId(),task.getId_mentor(), task.getName(), task.getPoints(),
                 task.getDescription(), task.getCategory()), sqlStatement);
         return update(statement);
     }
 
     @Override
     public boolean update(Quest task) {
-        String sqlStatement = "UPDATE quests SET points=?,description=?,category=? WHERE name=?;";
-        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getName(),task.getPoints(), task.getDescription(), task.getCategory()), sqlStatement);
+        String sqlStatement = "UPDATE quests SET points=?,description=?,category=? WHERE id=?;";
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(task.getPoints(), task.getDescription(), task.getCategory(),task.getId()), sqlStatement);
         return update(statement);
     }
 
     @Override
     public boolean delete(Quest task) {
-        String sqlStatement = "DELETE FROM quests WHERE quests.id=?;";
-        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(task.getId()), sqlStatement);
+        String sqlStatement = "DELETE FROM quests WHERE quests.name=?;";
+        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(task.getName()), sqlStatement);
         return update(statement);
     }
 }

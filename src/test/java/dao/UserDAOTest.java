@@ -26,45 +26,60 @@ class UserDAOTest {
         userDAO = new SQLUserDao();
 
         user1 = new User(
-                1,
-                "Andrzej",
-                "Dulda",
-                "andrzej.dulda@pis.pl",
+                3,
+                "Marek",
+                "Czarek",
+                "czarek@gmail.com",
                 "123456",
-                "501-501-501",
-                1
+                "401-501-501",
+                2
         );
 
         user2 = new User(
-                2,
-                "Franek",
-                "Dolas",
-                "dolas.gmail.com",
+                4,
+                "Dorota",
+                "Psota",
+                "psota@gmail.com",
                 "123456",
-                "604-604-604",
-                2
-        );
-        user3 = new User(
-                29,
-                "Rysiu",
-                "Rysiu",
-                "ryszard@gmail.com",
-                "123456",
-                "123-123-123",
+                "604-204-604",
                 2
         );
     }
 
     @Test
     void checkIfUserExistsInDatabase() {
-        User result = userDAO.getByLogin("Dulda");
+        userDAO.add(user1);
+        User result = userDAO.getByLogin(user1.getLogin());
         assertEquals(user1, result);
+        userDAO.delete(user1);
+    }
+
+    @Test
+    void updateUserInDbTest() {
+        userDAO.add(user1);
+        User expected = userDAO.getByLogin(user1.getLogin());
+        expected.setName("ChangeForTest");
+        userDAO.update(expected);
+        User result = userDAO.getByLogin(expected.getLogin());
+        assertEquals(expected, result);
+        userDAO.delete(user1);
+    }
+
+    @Test
+    void deleteUserFromDbTest() {
+        userDAO.add(user1);
+        User userFromDB = userDAO.getByLogin(user1.getLogin());
+        userDAO.delete(userFromDB);
+        User result = userDAO.getByLogin(user1.getLogin());
+        assertEquals(null, result);
     }
 
     @Test
     void getByIdTest() {
-        User result = userDAO.getById(1);
-        assertEquals("Andrzej", result.getName());
+        userDAO.add(user1);
+        User result = userDAO.getById(3);
+        assertEquals("Marek", result.getName());
+        userDAO.delete(user1);
     }
 
     @Test
@@ -78,10 +93,11 @@ class UserDAOTest {
 
     @Test
     void getByLoginAndRoleTest() {
+        userDAO.add(user1);
         User result = userDAO.getByLoginAndRole(user1.getLogin(), user1.getRole());
-
-        assertEquals("Dulda", result.getLogin());
-        assertEquals(1, result.getRole());
+        assertEquals("Czarek", result.getLogin());
+        assertEquals(2, result.getRole());
+        userDAO.delete(user1);
     }
 
     @Test
@@ -94,34 +110,52 @@ class UserDAOTest {
 
     @Test
     void getByEmailTest() {
+        userDAO.add(user1);
         User result = userDAO.getByEmail(user1.getEmail());
 
-        assertEquals("andrzej.dulda@pis.pl", result.getEmail());
-        assertEquals("Andrzej", result.getName());
+        assertEquals("czarek@gmail.com", result.getEmail());
+        assertEquals("Marek", result.getName());
+        userDAO.delete(user1);
     }
 
     @Test
     void getByPhoneNumberTest() {
+        userDAO.add(user1);
         User result = userDAO.getByPhoneNumber(user1.getPhoneNumber());
 
-        assertEquals("501-501-501", result.getPhoneNumber());
-        assertEquals("Dulda", result.getLogin());
+        assertEquals("401-501-501", result.getPhoneNumber());
+        assertEquals("Czarek", result.getLogin());
+
+        userDAO.delete(user1);
     }
 
     @Test
     void getAllByRoleTest() {
-        List<User> result = userDAO.getAll();
 
-        assertEquals(user3, result.get(0));
-        assertEquals(user2, result.get(1));
+        userDAO.add(user1);
+        userDAO.add(user2);
+
+        List<User> result = userDAO.getAllByRole(2);
+
+        assertEquals(user1, result.get(2));
+        assertEquals(user2, result.get(3));
+
+        userDAO.delete(user1);
+        userDAO.delete(user2);
 
     }
 
     @Test
     void getAllTest() {
+        userDAO.add(user1);
+        userDAO.add(user2);
 
         List<User> result = userDAO.getAll();
 
-        assertEquals(user3, result.get(1));
+        assertEquals(user1, result.get(19));
+        assertEquals(user2, result.get(20));
+
+        userDAO.delete(user1);
+        userDAO.delete(user2);
     }
 }
