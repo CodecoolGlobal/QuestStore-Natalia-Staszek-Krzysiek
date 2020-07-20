@@ -1,3 +1,4 @@
+/*
 package dao.SQL;
 
 import dao.UserClassDAO;
@@ -31,3 +32,4 @@ public class SQLUserGroupDao extends Database_Connection implements UserClassDAO
         return update(statement);
     }
 }
+*/

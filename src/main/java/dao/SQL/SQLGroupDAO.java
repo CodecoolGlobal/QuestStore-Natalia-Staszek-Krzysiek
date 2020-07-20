@@ -75,7 +75,12 @@ public class SQLGroupDAO extends Database_Connection implements GroupDAO {
     public boolean delete(model.Group group) {
         String sqlStatement = "DELETE FROM classes WHERE id=?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(group.getId()), sqlStatement);
-        return update(statement);
+        try {
+            return update(statement);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
     @Override

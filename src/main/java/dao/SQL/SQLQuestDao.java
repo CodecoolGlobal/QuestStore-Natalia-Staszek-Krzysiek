@@ -1,3 +1,4 @@
+/*
 package dao.SQL;
 
 import dao.QuestDAO;
@@ -87,11 +88,13 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
         return task;
     }
 
-    /*
+    */
+/*
     * PRZYGTOWANE DANE - NIEKONIECZNIE WYSLANE, KWERENDA NIEUZUPELNIONA (CZESTY BLAD)
     * WKLEJANIE KOMENTARZU KODU WSKAZANE
     *
-    * */
+    * *//*
+
 
     @Override
     public boolean add(Quest task) {
@@ -115,3 +118,4 @@ public class SQLQuestDao extends Database_Connection implements QuestDAO {
         return update(statement);
     }
 }
+*/

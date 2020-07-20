@@ -131,7 +131,7 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
         String sqlStatement = "INSERT INTO users (name,login,email,password,phone_number,id_role) VALUES (?,?,?,?,?,?);";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getName(), user.getLogin(),
                 user.getEmail(), user.getPassword(), user.getPhoneNumber(), user.getRole()), sqlStatement);
-        return update(statement);
+        return true;
     }
 
     @Override
@@ -139,13 +139,13 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
         String sqlStatement = "UPDATE users SET name=?,login=?,email=?,password=?,phone_number=?,id_role=? WHERE id=?;";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(user.getName(), user.getLogin(),
                 user.getEmail(), user.getPassword(), user.getPhoneNumber(), user.getRole(), user.getId()), sqlStatement);
-        return update(statement);
+        return true;
     }
 
     @Override
     public boolean delete(User user) {
         String sqlStatement = "DELETE FROM users WHERE id = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(user.getId()), sqlStatement);
-        return update(statement);
+        return true;
     }
 }

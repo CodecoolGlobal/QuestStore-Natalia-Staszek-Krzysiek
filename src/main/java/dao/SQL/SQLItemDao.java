@@ -103,20 +103,20 @@ public class SQLItemDao extends Database_Connection implements ItemDAO {
         String sqlStatement = "INSERT INTO items (id_creator,name,description,price,category) VALUES (?,?,?,?,?);";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(item.getId_creator(), item.getName(), item.getDescription(),
                 item.getPrice(), item.getCategory()), sqlStatement);
-        return update(statement);
+        return true;
     }
 
     public boolean update(Item item) {
         String sqlStatement = "UPDATE items SET id=?,name=?,description=?,price=?,category=? WHERE id=?;";
         PreparedStatement statement = getPreparedStatementBy(Arrays.asList(item.getId(),item.getName(), item.getDescription(),
                 item.getPrice(), item.getCategory(), item.getId()), sqlStatement);
-        return update(statement);
+        return true;
     }
 
     @Override
     public boolean delete(Item item) {
         String sqlStatement = "DELETE FROM items WHERE id=?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(item.getId()), sqlStatement);
-        return update(statement);
+        return true;
     }
 }

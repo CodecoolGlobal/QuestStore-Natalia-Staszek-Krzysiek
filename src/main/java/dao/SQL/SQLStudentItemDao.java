@@ -1,3 +1,4 @@
+/*
 package dao.SQL;
 
 import dao.StudentItemDAO;
@@ -56,4 +57,4 @@ public class SQLStudentItemDao extends Database_Connection implements StudentIte
         PreparedStatement statement = getPreparedStatementBy(Collections.emptyList(), sqlStatement);
         return update(statement);
     }
-}
+}*/
