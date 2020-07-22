@@ -6,6 +6,8 @@ import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,14 +17,12 @@ class UserDAOTest {
     private UserDAO userDAO;
     private User user1;
     private User user2;
-    private User user3;
-    private static final String DATABASE_PATH = "testDb.db";
 
     @BeforeEach
     void setUp() {
         Database_Connection database_connection = new Database_Connection();
         database_connection.connect();
-
+        database_connection.disconnect();
         userDAO = new SQLUserDao();
 
         user1 = new User(
@@ -44,6 +44,7 @@ class UserDAOTest {
                 "604-204-604",
                 2
         );
+
     }
 
     @Test
@@ -84,11 +85,11 @@ class UserDAOTest {
 
     @Test
     void getByLoginAndPasswordTest() {
-
+        userDAO.add(user1);
         User result = userDAO.getByLoginAndPassword(user1.getLogin(), user1.getPassword());
-
-        assertEquals("Dulda", result.getLogin());
+        assertEquals("Czarek", result.getLogin());
         assertEquals("123456", result.getPassword());
+        userDAO.delete(user1);
     }
 
     @Test
@@ -102,10 +103,12 @@ class UserDAOTest {
 
     @Test
     void getByLoginTest() {
+        userDAO.add(user1);
         User result = userDAO.getByLogin(user1.getLogin());
 
-        assertEquals("Dulda", result.getLogin());
-        assertEquals("Andrzej", result.getName());
+        assertEquals("Czarek", result.getLogin());
+        assertEquals("Marek", result.getName());
+        userDAO.delete(user1);
     }
 
     @Test
@@ -135,10 +138,12 @@ class UserDAOTest {
         userDAO.add(user1);
         userDAO.add(user2);
 
-        List<User> result = userDAO.getAllByRole(2);
+        List<User> results = userDAO.getAllByRole(2);
 
-        assertEquals(user1, result.get(2));
-        assertEquals(user2, result.get(3));
+        Collections.sort(results, Comparator.comparingLong(User::getId));
+
+        assertEquals(user1, results.get(1));
+        assertEquals(user2, results.get(2));
 
         userDAO.delete(user1);
         userDAO.delete(user2);
@@ -150,12 +155,15 @@ class UserDAOTest {
         userDAO.add(user1);
         userDAO.add(user2);
 
-        List<User> result = userDAO.getAll();
+        List<User> results = userDAO.getAll();
 
-        assertEquals(user1, result.get(19));
-        assertEquals(user2, result.get(20));
+        Collections.sort(results, Comparator.comparingLong(User::getId));
+
+        assertEquals(user1, results.get(2));
+        assertEquals(user2, results.get(3));
 
         userDAO.delete(user1);
         userDAO.delete(user2);
     }
+
 }

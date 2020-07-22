@@ -65,8 +65,8 @@ public class SQLGroupDAO extends Database_Connection implements GroupDAO {
 
     @Override
     public boolean add(model.Group group) {
-        String sqlStatement = "INSERT INTO classes (name) VALUES (?);" ;
-        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(group.getTeamName()),
+        String sqlStatement = "INSERT INTO classes (id,name) VALUES (?,?);" ;
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(group.getId(), group.getTeamName()),
                 sqlStatement);
         return update(statement);
     }
@@ -74,7 +74,8 @@ public class SQLGroupDAO extends Database_Connection implements GroupDAO {
     @Override
     public boolean delete(model.Group group) {
         String sqlStatement = "DELETE FROM classes WHERE id=?;";
-        PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(group.getId()), sqlStatement);
+        PreparedStatement statement = getPreparedStatementBy(Arrays.asList(group.getId(), group.getTeamName()),
+                sqlStatement);
         return update(statement);
     }
 
