@@ -15,7 +15,8 @@ import java.util.List;
 
 public class MentorController implements Controller<User>, HttpHandler {
 
-    public String response = "";
+    private String response = "";
+
     private final SQLUserDao sqlUserDao = new SQLUserDao();
 
     @Override
@@ -96,4 +97,7 @@ public class MentorController implements Controller<User>, HttpHandler {
         outputStream.close();
     }
 
+    public String getResponse() {
+        return response;
+    }
 }
