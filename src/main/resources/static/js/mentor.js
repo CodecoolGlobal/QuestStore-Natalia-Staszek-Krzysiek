@@ -6,6 +6,7 @@ function getMentors() {
             if (response.ok) {
                 return response.json();
             }
+            alert(response.text())
         })
         .then(function (mentors) {
             innerMentors(mentors);

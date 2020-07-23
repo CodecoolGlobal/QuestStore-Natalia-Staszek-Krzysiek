@@ -1,14 +1,15 @@
 package dao;
 
+import Exceptions.DatabaseException;
 import model.User;
 
 import java.util.List;
 
 public interface UserDAO {
 
-    List<User> getAll();
-    List<User> getAllByRole(int role);
-    List<User> getStudentsByGroupId(int id);
+    List<User> getAll() throws DatabaseException;
+    List<User> getAllByRole(int role) throws DatabaseException;
+    List<User> getStudentsByGroupId(int id) throws DatabaseException;
     User getById(int id);
     User getByLoginAndPassword(String login, String password);
     User getByLoginAndRole(String login, int role);

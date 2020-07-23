@@ -1,5 +1,6 @@
 package handler;
 
+import Exceptions.DatabaseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -212,12 +213,12 @@ public class StudentController implements Controller<User>, HttpHandler {
     }
 
     @Override
-    public List<User> readAll() {
+    public List<User> readAll() throws DatabaseException {
         return sqlUserDao.getAllByRole(3);
     }
 
     @Override
-    public User read(int id) {
+    public User read(int id) throws DatabaseException {
         List<User> users = readAll();
 
         for (User user: users) {
@@ -259,6 +260,8 @@ public class StudentController implements Controller<User>, HttpHandler {
                 exchange.sendResponseHeaders(200, response.length());
             } catch (Exception e) {
                 exchange.sendResponseHeaders(404, response.length());
+            } catch (DatabaseException e) {
+                e.printStackTrace();
             }
             OutputStream outputStream = exchange.getResponseBody();
             outputStream.write(response.getBytes());
@@ -276,6 +279,8 @@ public class StudentController implements Controller<User>, HttpHandler {
                 exchange.sendResponseHeaders(200, response.length());
             } catch (Exception e) {
                 exchange.sendResponseHeaders(404, response.length());
+            } catch (DatabaseException e) {
+                e.printStackTrace();
             }
             OutputStream outputStream = exchange.getResponseBody();
             outputStream.write(response.getBytes());

@@ -16,12 +16,13 @@ class CookieHandlerTest {
 
         // Arrange
         HttpExchange mock = Mockito.mock(HttpExchange.class);
-        Mockito.when(mock.getRequestHeaders().getFirst("Cookie")).thenReturn("");
+        Mockito.when(mock.getRequestHeaders().getFirst("Cookie")).thenReturn(null);
 
         //Act
         cookieHandler.handle(mock);
+
         // Assert
-        String cookie = Mockito.verify(mock.getRequestHeaders().getFirst("Cookie"), Mockito.times(1));
-        System.out.println(cookie);
+        String cookie = Mockito.verify(mock.getRequestHeaders()
+                .getFirst("Cookie"), Mockito.times(1));
     }
 }

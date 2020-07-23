@@ -1,5 +1,6 @@
 package dao.SQL;
 
+import Exceptions.DatabaseException;
 import dao.UserDAO;
 import model.User;
 
@@ -38,7 +39,7 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
     }
 
 
-    private List<User> getUsers(PreparedStatement statement) {
+    private List<User> getUsers(PreparedStatement statement) throws DatabaseException {
         List<User> users = new ArrayList<>();
         try {
             ResultSet resultSet = query(statement);
@@ -51,31 +52,33 @@ public class SQLUserDao extends Database_Connection implements UserDAO {
                         resultSet.getString("password"),
                         resultSet.getString("phone_number"),
                         resultSet.getInt("id_role")));
-                statement.close();
+            statement.close();
+            return users;
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             disconnect();
         }
-        return users;
+        throw new DatabaseException("User not found");
+
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAll() throws DatabaseException {
         String sqlStatement = "SELECT * FROM users";
         PreparedStatement statement = getPreparedStatementBy(new ArrayList<>(), sqlStatement);
         return getUsers(statement);
     }
 
     @Override
-    public List<User> getAllByRole(int role) {
+    public List<User> getAllByRole(int role) throws DatabaseException {
         String sqlStatement = "SELECT * FROM users WHERE id_role = ?;";
         PreparedStatement statement = getPreparedStatementBy(Collections.singletonList(role), sqlStatement);
         return getUsers(statement);
     }
 
     @Override
-    public List<User> getStudentsByGroupId(int groupID) {
+    public List<User> getStudentsByGroupId(int groupID) throws DatabaseException {
         String sqlStatement = "SELECT name,login,email,password,phone_number,id_role FROM users JOIN students_details " +
                 "ON users.id = students_details.id_user WHERE students_details.id_class=?;";
 
