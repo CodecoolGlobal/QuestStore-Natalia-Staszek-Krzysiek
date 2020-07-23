@@ -16,6 +16,7 @@ import java.util.Map;
 
 public class LoginHandler implements HttpHandler {
 
+
     private final Static aStatic;
     private LoginService login;
     private static final int STUDENT = 1;
@@ -25,6 +26,11 @@ public class LoginHandler implements HttpHandler {
     public LoginHandler(Static aStatic) {
         this.aStatic = aStatic;
         login = new LoginService();
+    }
+
+    public LoginHandler(LoginService login, Static mockStatic) {
+        this.login = login;
+        this.aStatic = mockStatic;
     }
 
     @Override
