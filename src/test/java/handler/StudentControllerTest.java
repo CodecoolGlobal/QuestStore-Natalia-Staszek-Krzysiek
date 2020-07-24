@@ -19,7 +19,7 @@ class StudentControllerTest {
     User user1 = new User();
     User user2 = new User();
     User user3 = new User();
-    List<User> users = new ArrayList<User>();
+    List<User> users = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -44,6 +44,6 @@ class StudentControllerTest {
 
         SQLUserDao sqlUserDao = mock(SQLUserDao.class);
         when(sqlUserDao.getAllByRole(3)).thenReturn(null);
-        assertNull(studentController.read(666));
+        assertNull(studentController.read(40));
     }
 }

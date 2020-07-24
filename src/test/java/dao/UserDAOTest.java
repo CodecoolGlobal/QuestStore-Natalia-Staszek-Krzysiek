@@ -10,8 +10,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class UserDAOTest {
 
@@ -52,15 +50,15 @@ class UserDAOTest {
         userDAO.delete(user2);
 
     }
-
-    @Test
-    void mockTests(){
-        UserDAO mockUserDAO = mock(UserDAO.class);
-        when(mockUserDAO.getByLogin("GetThis")).thenReturn(user1);
-//        assertTrue(mockUserDAO.getByLogin("Mocker")==user3);
-        assertTrue((mockUserDAO.getByLogin("GetThis"))==user1);
-
-    }
+//
+//    @Test
+//    void mockTests(){
+//        UserDAO mockUserDAO = mock(UserDAO.class);
+//        when(mockUserDAO.getByLogin("GetThis")).thenReturn(user1);
+////        assertTrue(mockUserDAO.getByLogin("Mocker")==user3);
+//        assertTrue((mockUserDAO.getByLogin("GetThis"))==user1);
+//
+//    }
 
     @Test
     void checkIfUserExistsInDatabase() {
