@@ -4,41 +4,27 @@ import dao.SQL.Database_Connection;
 import dao.SQL.SQLUserDao;
 import model.User;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import Exceptions.DatabaseException;
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpExchange;
-import dao.SQL.SQLUserDao;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URI;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserDAOTest {
     private UserDAO userDAO;
     private User user1;
     private User user2;
 
-@Mock
-    Database_Connection mockDatabaseConnection;
+//@Mock
+  //  Database_Connection mockDatabaseConnection;
 
 
     @BeforeAll
     void setUp() {
-        Database_Connection database_connection = Mockito.mock(Database_Connection.class);
-
-        Mockito.when(database_connection.getPreparedStatementBy("SELECT * FROM users WHERE id_role = ?;";);
+        //Database_Connection database_connection = Mockito.mock(Database_Connection.class);
+    Database_Connection database_connection = new Database_Connection();
+    database_connection.connect();
+        userDAO = new SQLUserDao();
 
 
 
