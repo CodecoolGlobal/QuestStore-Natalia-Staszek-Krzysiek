@@ -21,25 +21,25 @@ class CookieHelperTest {
         expectedCookies.add(new HttpCookie("cookieName1","cookieValue1"));
         expectedCookies.add(new HttpCookie("cookieName2","cookieValue2"));
 
-        List<HttpCookie> actualal = cookieHelper.parseCookies("cookieName=cookieValue;cookieName1=cookieValue1;cookieName2=cookieValue2;");
+        List<HttpCookie> actual = cookieHelper.parseCookies("cookieName=cookieValue;cookieName1=cookieValue1;cookieName2=cookieValue2;");
 
-        assertEquals(expectedCookies,actualal);
+        assertEquals(expectedCookies,actual);
     }
 
     @Test
     void cookieStringIsNull(){
         List<HttpCookie> expectedCookies = new ArrayList<>();
-        List<HttpCookie> actualal = cookieHelper.parseCookies(null);
+        List<HttpCookie> actual = cookieHelper.parseCookies(null);
 
-        assertEquals(expectedCookies,actualal);
+        assertEquals(expectedCookies,actual);
     }
 
     @Test
     void cookieStringIsEmpty() {
         List<HttpCookie> expectedCookies = new ArrayList<>();
-        List<HttpCookie> actualal = cookieHelper.parseCookies("");
+        List<HttpCookie> actual = cookieHelper.parseCookies("");
 
-        assertEquals(expectedCookies,actualal);
+        assertEquals(expectedCookies,actual);
     }
 
     @Test
@@ -47,9 +47,9 @@ class CookieHelperTest {
         List<HttpCookie> expectedCookies = new ArrayList<>();
         expectedCookies.add(new HttpCookie("cookieName","cookieValue"));
 
-        List<HttpCookie> actualal = cookieHelper.parseCookies("cookieName=cookieValue");
+        List<HttpCookie> actual = cookieHelper.parseCookies("cookieName=cookieValue");
 
-        assertEquals(expectedCookies,actualal);
+        assertEquals(expectedCookies,actual);
     }
 
 
